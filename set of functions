@@ -1,0 +1,19 @@
+Reset(); // interrupt{called by key}. - > 8051. -> the function will restart the whole system.
+Reset();// interrupt -> ARM -> reset all.
+Init();//8051,ARM -> initialization
+LCD_Init();8051,ARM
+KEYPAD_INIT();//8051
+make_ships(int [][] ships, int ships_size);//ARM -> an RND function wich makes ships.
+ships = a[ship num][position num 1~3]//ARM-> a "ship" is presented by an array.
+hit();//interrput{called by key}. -> 8051. -> send the ARM
+write_hit(int[3] ship);//8051 -> writes "X" on the ship.
+check_hit();//ARM-> check if there was a hit and return feedback to the 8051.
+send_time();//ARM->send the time to the 8051.
+send_miss();//ARM->send the "miss" to the 8051.
+send_hit_feedback();//ARM -> feedback to hit() function of 8051.
+Game_Over();//ARM-> send the 8051 that he lost/won.
+Game_Over();//{interrupt} 8051 -> go to GameOver/winning Screen.
+show_screen(int screen_num);//8051,ARM -> show screen number "screen_num".
+main_loop();8051,ARM->the main loop of the flow.
+show_data(int time, int mistakes);8051,ARM-> show time and mistakes left on the "data screen" of 8051/ARM.
+valid_position(x,y,z,t,size);//ARM-> checks of the inserted position is ok for the ship size.(z,t) is the next point[insert zero if the ship is one char size].
