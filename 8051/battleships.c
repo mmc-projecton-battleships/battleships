@@ -27,5 +27,15 @@
 
 void Reset_isr() interrupt 0
 {
-	
+	LCD_BF(); // wait untill the LCD is no longer busy
+	LCD_INIT();// initialize the LCD to 8 bit mode
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_CMD(0x06); // curser moves from left to right
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_CLRS(); // clears the display
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_CMD(0x02);// move the cursor home
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_MSG("T: ");
+	LCD_BF();// wait untill the LCD is no longer busy
 }

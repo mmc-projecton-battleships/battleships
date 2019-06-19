@@ -1,7 +1,12 @@
 #include <C8051F020.h>                  // Include register definition file.
 
-void Init_Device(void);	//init
-void Reset_isr() interrupt 0;			//initialize to new game
+
+sbit SW1 = P0^4;
+sbit SW2 = P0^5;
+
+
+void Init_Device(void);					//init
+void Reset_isr() interrupt 0;			//initialize new game
 void Hit() interrupt 2;					//take the current location of the cursor and send it to the arm
 void Write_hit();						//print on the lcd "X" in the hit location
 void Write_miss();						//print on the lcd "O" in the miss location
