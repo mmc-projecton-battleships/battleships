@@ -15,7 +15,6 @@ void Reset_Sources_Init()
 
 void Timer_Init()
 {
-    CKCON     = 0x08;
     TCON      = 0x10;
     TMOD      = 0x01;
 }

@@ -27,16 +27,15 @@
 
 void delay(int secs)
 {
-	int pu = secs/
-	
-	TL0=0x0E6;
-	TH0=0x0BC;	//48358 IN DECIMAL
+	int pu = secs/(6*10^(-6))
+	int t0 = 0xFFFF-pu;
+	TL0=0x(t0%(0xFF));
+	TH0=0x(t0/(0xFF));
 	TR0 = 1;	//START COUNTING
 	while(!TF0);	//DELAY UNTIL OF
 }
 
-
-void Reset_isr() interrupt 0
+void Init_LCD()
 {
 	LCD_BF(); // wait untill the LCD is no longer busy
 	LCD_INIT();// initialize the LCD to 8 bit mode
@@ -47,9 +46,76 @@ void Reset_isr() interrupt 0
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_CMD(0x02);// move the cursor home
 	LCD_BF();// wait untill the LCD is no longer busy
+	
+}
+
+void start_screen()
+{
+	LCD_CLRS(); // clears the display
+	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_MSG("BattleShips!");
 	LCD_BF();// wait untill the LCD is no longer busy
+	delay(2);
+	LCD_CLRS(); // clears the display
+	LCD_BF();// wait untill the LCD is no longer busy
+}
+
+
+int switch_difficulty()
+{
+	char key;
+	LCD_CMD(0x02);// move the cursor home
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_MSG("Switch difficulty level: ");
+	LCD_BF();// wait untill the LCD is no longer busy
+	PRESSED_KEY();	//wait until pressing
+	key = GET_KEY();	//save the key pressed
+	KEY_RELEASE();		//wait until releasing
+	LCD_DAT(key);
+	LCD_BF();// wait untill the LCD is no longer busy
+	delay(2);
+}
+
+void counting_screen()
+{
+	LCD_CLRS(); // clears the display
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_MSG("3");
+	LCD_BF();// wait untill the LCD is no longer busy
+	delay(1);
+	LCD_CLRS(); // clears the display
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_MSG("2");
+	LCD_BF();// wait untill the LCD is no longer busy
+	delay(1);
+	LCD_CLRS(); // clears the display
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_MSG("1");
+	LCD_BF();// wait untill the LCD is no longer busy
+	delay(1);
+	LCD_CLRS(); // clears the display
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_MSG("GO!");
+	LCD_BF();// wait untill the LCD is no longer busy
+	delay(1);
+	LCD_CLRS(); // clears the display
+	LCD_BF();// wait untill the LCD is no longer busy
+}
+
+void Reset_isr() interrupt 0
+{
+	/*
+
+		init - In the near future (to be continued)
+
+	*/
 	
-
-
+	TI0 = 0;
+	SBUF0='R';
+	Init_LCD();
+	KEPAD_INIT();	// initialize the keypad
+	start_screen();
+	switch_difficulty();
+	counting_screen();
+	Main_loop();
 }

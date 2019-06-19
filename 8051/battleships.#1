@@ -5,6 +5,7 @@ sbit SW1 = P0^4;
 sbit SW2 = P0^5;
 
 
+
 void Init_Device(void);					//init
 void Reset_isr() interrupt 0;			//initialize new game
 void Hit() interrupt 2;					//take the current location of the cursor and send it to the arm
@@ -17,3 +18,5 @@ void Win();								//print on the lcd win announce
 void Show_screen(int screen_num);		//print on the lcd "screen_num"-th screen
 void Main_loop();
 void update_data();						//updateing current time and num of mistakes.
+void delay(int secs);
+

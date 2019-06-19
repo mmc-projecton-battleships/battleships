@@ -7,6 +7,10 @@ sbit SW2 = P0^5;
 
 
 void Init_Device(void);					//init
+void Init_LCD();
+void start_screen();
+int switch_difficulty();
+void counting_screen();
 void Reset_isr() interrupt 0;			//initialize new game
 void Hit() interrupt 2;					//take the current location of the cursor and send it to the arm
 void Write_hit();						//print on the lcd "X" in the hit location
