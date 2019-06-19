@@ -13,14 +13,21 @@ void Reset_Sources_Init()
     WDTCN     = 0xAD;
 }
 
+void Timer_Init()
+{
+    CKCON     = 0x08;
+    TCON      = 0x10;
+    TMOD      = 0x01;
+}
+
 void Port_IO_Init()
 {
     // P0.0  -  TX0 (UART0), Push-Pull,  Digital
     // P0.1  -  RX0 (UART0), Open-Drain, Digital
-    // P0.2  -  Unassigned,  Open-Drain, Digital
-    // P0.3  -  Unassigned,  Open-Drain, Digital
-    // P0.4  -  Unassigned,  Open-Drain, Digital
-    // P0.5  -  Unassigned,  Open-Drain, Digital
+    // P0.2  -  SDA (SMBus), Open-Drain, Digital
+    // P0.3  -  SCL (SMBus), Open-Drain, Digital
+    // P0.4  -  INT0 (Tmr0), Open-Drain, Digital
+    // P0.5  -  INT1 (Tmr1), Open-Drain, Digital
     // P0.6  -  Unassigned,  Open-Drain, Digital
     // P0.7  -  Unassigned,  Open-Drain, Digital
 
@@ -54,7 +61,8 @@ void Port_IO_Init()
     P0MDOUT   = 0x01;
     P1MDOUT   = 0x07;
     P3MDOUT   = 0xF0;
-    XBR0      = 0x04;
+    XBR0      = 0x05;
+    XBR1      = 0x14;
     XBR2      = 0x40;
 }
 
@@ -66,11 +74,18 @@ void Oscillator_Init()
     while ((OSCXCN & 0x80) == 0);
 }
 
+void Interrupts_Init()
+{
+    IE        = 0x97;
+}
+
 // Initialization function for device,
 // Call Init_Device() from your main program
 void Init_Device(void)
 {
     Reset_Sources_Init();
+    Timer_Init();
     Port_IO_Init();
     Oscillator_Init();
+    Interrupts_Init();
 }

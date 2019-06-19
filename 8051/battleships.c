@@ -25,6 +25,17 @@
 #include "battleships.h"
 //----------------------------- related Functions --------------------------------
 
+void delay(int secs)
+{
+	int pu = secs/
+	
+	TL0=0x0E6;
+	TH0=0x0BC;	//48358 IN DECIMAL
+	TR0 = 1;	//START COUNTING
+	while(!TF0);	//DELAY UNTIL OF
+}
+
+
 void Reset_isr() interrupt 0
 {
 	LCD_BF(); // wait untill the LCD is no longer busy
@@ -36,6 +47,9 @@ void Reset_isr() interrupt 0
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_CMD(0x02);// move the cursor home
 	LCD_BF();// wait untill the LCD is no longer busy
-	LCD_MSG("T: ");
+	LCD_MSG("BattleShips!");
 	LCD_BF();// wait untill the LCD is no longer busy
+	
+
+
 }
