@@ -22,16 +22,18 @@
 //-----------------------------------------------------------------------------
 
 //#include "C8051F020.h"                  // Include register definition file.
+#include "User_Interface_def.h"
 #include "battleships.h"
 //----------------------------- related Functions --------------------------------
-
+char* game_timer ="00:00";
+int	miss_cnt = 0;
 
 void delay(int secs)
 {
-	int pu = secs/(6*10^(-6))
+	int pu = secs/(6*10^(-6));
 	int t0 = 0xFFFF-pu;
-	TL0=0x(t0%(0xFF));
-	TH0=0x(t0/(0xFF));
+	TL0=(t0%(0xFF));
+	TH0=(t0/(0xFF));
 	TR0 = 1;	//START COUNTING
 	while(!TF0);	//DELAY UNTIL OF
 }
@@ -67,7 +69,11 @@ void switch_difficulty()
 	char key;
 	LCD_CMD(0x02);// move the cursor home
 	LCD_BF();// wait untill the LCD is no longer busy
-	LCD_MSG("Switch difficulty level: ");
+	LCD_MSG("Please choose");
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_GOTO(0x40);
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_MSG("difficulty:");
 	LCD_BF();// wait untill the LCD is no longer busy
 	PRESSED_KEY();	//wait until pressing
 	key = GET_KEY();	//save the key pressed
@@ -82,22 +88,22 @@ void set_difficulty(char difficulty)
 {
 	switch (difficulty)
 	  {
-	  case "1": 
+	  case '1': 
 	  	{
 			game_timer ="03:00";
-			miss_cnt = 25
+			miss_cnt = 25;
 			break;
 		}
-	  case "2":
+	  case '2':
 	  	{
 			game_timer = "02:00";
-			miss_cnt = 20
+			miss_cnt = 20;
 			break;
 		}
-	  case "3":
+	  case '3':
 	  	{
 			game_timer = "01:00";
-			miss_cnt = 15
+			miss_cnt = 15;
 			break;
 		}
 	  }

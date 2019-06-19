@@ -15,8 +15,17 @@ void Reset_Sources_Init()
 
 void Timer_Init()
 {
+    CKCON     = 0x20;
     TCON      = 0x10;
     TMOD      = 0x01;
+    T2CON     = 0x34;
+    RCAP2L    = 0xFA;
+    RCAP2H    = 0xFF;
+}
+
+void UART_Init()
+{
+    SCON0     = 0x50;
 }
 
 void Port_IO_Init()
@@ -68,9 +77,10 @@ void Port_IO_Init()
 void Oscillator_Init()
 {
     int i = 0;
-    OSCXCN    = 0x66;
+    OSCXCN    = 0x67;
     for (i = 0; i < 3000; i++);  // Wait 1ms for initialization
     while ((OSCXCN & 0x80) == 0);
+    OSCICN    = 0x08;
 }
 
 void Interrupts_Init()
@@ -84,6 +94,7 @@ void Init_Device(void)
 {
     Reset_Sources_Init();
     Timer_Init();
+    UART_Init();
     Port_IO_Init();
     Oscillator_Init();
     Interrupts_Init();

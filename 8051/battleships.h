@@ -1,4 +1,4 @@
-#include <C8051F020.h>                  // Include register definition file.
+//#include <C8051F020.h>                  // Include register definition file.
 
 
 sbit SW1 = P0^4;
@@ -13,8 +13,8 @@ void start_screen();					//presenting primary game screen
 void switch_difficulty();				//asking the player for difficulty level and set it.
 void set_difficulty(char difficulty);	//set global vars according to the difficulty
 void counting_screen();					//counting back from 3 to 1 and game starts!
-void Reset_isr() interrupt 0;			//main function - initialization of a new game
-void Hit() interrupt 2;					//take the current location of the cursor and send it to the arm
+void Reset_isr(void);			//main function - initialization of a new game
+void Hit(void);					//take the current location of the cursor and send it to the arm
 void Write_hit();						//print on the lcd "X" in the hit location
 void Write_miss();						//print on the lcd "O" in the miss location
 char* Get_time();						//returning string of the current time left.
