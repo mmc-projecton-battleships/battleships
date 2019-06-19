@@ -131,11 +131,8 @@ void counting_screen()
 
 void Reset_isr() interrupt 0
 {
-	/*
-
-		init - In the near future (to be continued)
-
-	*/
+	game_timer = "00:00";
+	miss_cnt=0;
 	TI0 = 0;
 	SBUF0='R';
 	Init_LCD();

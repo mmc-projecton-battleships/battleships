@@ -75,7 +75,32 @@ void switch_difficulty()
 	LCD_DAT(ASCII_CONV(key));
 	LCD_BF();// wait untill the LCD is no longer busy
 	delay(2);
-	set_difficulty();
+	set_difficulty(key);
+}
+
+void set_difficulty(char difficulty)
+{
+	switch (difficulty)
+	  {
+	  case "1": 
+	  	{
+			game_timer ="03:00";
+			miss_cnt = 25
+			break;
+		}
+	  case "2":
+	  	{
+			game_timer = "02:00";
+			miss_cnt = 20
+			break;
+		}
+	  case "3":
+	  	{
+			game_timer = "01:00";
+			miss_cnt = 15
+			break;
+		}
+	  }
 }
 
 void counting_screen()
