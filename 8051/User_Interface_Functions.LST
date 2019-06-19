@@ -1,0 +1,371 @@
+C51 COMPILER V9.55   USER_INTERFACE_FUNCTIONS                                              06/20/2019 01:31:26 PAGE 1   
+
+
+C51 COMPILER V9.55, COMPILATION OF MODULE USER_INTERFACE_FUNCTIONS
+OBJECT MODULE PLACED IN User_Interface_Functions.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.exe User_Interface_Functions.c DB OE BR INCDIR(C:\SiLabs\MCU\Inc)
+
+line level    source
+
+   1          //-----------------------------------------------------------------------------//
+   2          //User_Interface_Functions.c
+   3          //----------------------------------------------------------------------------
+   4          //  Copyright (C) 2016 BRAUDE COLLEGE  
+   5          //  Electronics & Elictrical Engineering Department
+   6          //  All rights reserved.
+   7          //  Owner               :  Dr. Fadil Tareef
+   8          //  FILE NAME   :  User_Interface_Functions.c 
+   9          //  DATE         :  23 DEC 2016
+  10          //  TARGET MCU   :  C8051F020
+  11          //  DESCRIPTION  :  This file contains LCD and KEPAD Interface Functions Implementation.
+  12          //                                      P1 is used for the control signals, P1.0 = E, P1.1 = RW, P1.2 = RS, output only
+  13          //                                      P2 is used for data: P2.7 is read to get the status of the LCD (BF)
+  14          //                                      P2 must be configured as bidirectional (open-drain) 
+  15          //                                      and set to FF (or at least 80) before reading the status of P2.7
+  16          //                                      P3 is used for KEPAD interface.
+  17          //                                      P3.0-P3.3 connected to the COLUMNS of the KEPAD, input pins.
+  18          //                                      P3.4-P3.7 connected to the ROWS of the KEPAD, output pins.
+  19          //                                
+  20          //      NOTES: This file used in the LCD.c file.
+  21          //                 This file updated for Keil C compiler and C8051F020.
+  22          //-----------------------------------------------------------------------------
+  23          
+  24          //#include "C8051F020.h"                  // Include register definition file.
+  25          #include "User_Interface_def.h"
+  26          //----------------------------- LCD related Functions --------------------------------
+  27          
+  28          //------------------------------------------------------------------------------------
+  29          // LCD_INIT FUNCTION
+  30          //------------------------------------------------------------------------------------
+  31          //
+  32          void LCD_INIT(void)
+  33          {
+  34   1              LCD_CTRL_PORT = LCD_CTRL_PORT & ~RS_MASK; // RS = 0
+  35   1              LCD_CTRL_PORT = LCD_CTRL_PORT & ~RW_MASK; // RW = 0
+  36   1              LCD_CTRL_PORT = LCD_CTRL_PORT & ~E_MASK; // E = 0
+  37   1              large_delay(200);               // 16ms delay
+  38   1              LCD_DAT_PORT = 0x38;    // set 8-bit mode
+  39   1              small_delay(1);                 //RPK
+  40   1              pulse_E();
+  41   1              large_delay(50);                // 4.1ms delay [50]
+  42   1              LCD_DAT_PORT = 0x38;    // set 8-bit mode
+  43   1              small_delay(1);                 //RPK
+  44   1              pulse_E();
+  45   1              large_delay(3);                 // 1.5ms delay [2]
+  46   1              LCD_DAT_PORT = 0x38;    // set 8-bit mode
+  47   1              small_delay(1);                         //RPK
+  48   1              pulse_E();
+  49   1              large_delay(3);                 // 1.5ms delay [2]
+  50   1              LCD_CMD(0x06);                  // curser moves right
+  51   1              LCD_CLRS();
+  52   1              LCD_CMD(0x0E);                  // display and curser on
+  53   1      }
+  54          
+  55          //------------------------------------------------------------------------------------
+C51 COMPILER V9.55   USER_INTERFACE_FUNCTIONS                                              06/20/2019 01:31:26 PAGE 2   
+
+  56          // LCD_BF FUNCTION
+  57          //------------------------------------------------------------------------------------
+  58          // wait for the busy bit to drop
+  59          void LCD_BF(void)
+  60          {
+  61   1              LCD_DAT_PORT = 0xFF;    // Set to FF to enable input on P6
+  62   1              LCD_CTRL_PORT = LCD_CTRL_PORT & ~RS_MASK; // RS = 0
+  63   1              LCD_CTRL_PORT = LCD_CTRL_PORT | RW_MASK; // RW = 1
+  64   1              small_delay(3);                 // [1 was original delay value]
+  65   1              LCD_CTRL_PORT = LCD_CTRL_PORT | E_MASK; // E = 1
+  66   1              do
+  67   1              {                                               // wait for busy flag to drop
+  68   2                      small_delay(2);         // [1 was original delay value]
+  69   2              } while ((LCD_DAT_PORT & 0x80) != 0);
+  70   1      }
+  71          
+  72          //------------------------------------------------------------------------------------
+  73          // LCD_DATA FUNCTION
+  74          //------------------------------------------------------------------------------------
+  75          // write a character to the LCD screen
+  76          void LCD_DAT(char LCDDATA)
+  77          {
+  78   1              LCD_BF();
+  79   1              LCD_CTRL_PORT = LCD_CTRL_PORT | RS_MASK; // RS = 1
+  80   1              LCD_CTRL_PORT = LCD_CTRL_PORT & ~RW_MASK; // RW = 0
+  81   1              LCD_DAT_PORT = LCDDATA;
+  82   1              small_delay(1); //RPK
+  83   1              pulse_E();
+  84   1      }
+  85          
+  86          //------------------------------------------------------------------------------------
+  87          // LCD_MSG FUNCTION
+  88          //------------------------------------------------------------------------------------
+  89          // write a string to the LCD screen
+  90          void LCD_MSG(char MSG[])
+  91          {
+  92   1              int i;
+  93   1              i=0;
+  94   1              while(MSG[i])
+  95   1              {
+  96   2                      LCD_DAT(MSG[i]);
+  97   2                      i++;
+  98   2              }
+  99   1      }
+ 100          
+ 101          //------------------------------------------------------------------------------------
+ 102          // LCD_CMD FUNCTION
+ 103          //------------------------------------------------------------------------------------
+ 104          // write a command to the LCD controller
+ 105          void LCD_CMD(char CMD)
+ 106          {
+ 107   1              LCD_BF();
+ 108   1              LCD_CTRL_PORT = LCD_CTRL_PORT & ~RS_MASK; // RS = 0
+ 109   1              LCD_CTRL_PORT = LCD_CTRL_PORT & ~RW_MASK; // RW = 0
+ 110   1              LCD_DAT_PORT = CMD;
+ 111   1              small_delay(1); //RPK
+ 112   1              pulse_E();
+ 113   1      }
+ 114          
+ 115          //------------------------------------------------------------------------------------
+ 116          // LCD_CLRS FUNCTION
+ 117          //------------------------------------------------------------------------------------
+C51 COMPILER V9.55   USER_INTERFACE_FUNCTIONS                                              06/20/2019 01:31:26 PAGE 3   
+
+ 118          void LCD_CLRS(void)
+ 119          {
+ 120   1              LCD_CMD(0x01); //-- clear LCD display
+ 121   1              LCD_CMD(0x80); //-- cursor go to 0x00
+ 122   1      }
+ 123          
+ 124          //------------------------------------------------------------------------------------
+ 125          // LCD_GOTO FUNCTION
+ 126          //------------------------------------------------------------------------------------
+ 127          void LCD_GOTO(char ADDR)
+ 128          {
+ 129   1              LCD_CMD(ADDR | 0x80);
+ 130   1      }
+ 131          
+ 132          //------------------------------------------------------------------------------------
+ 133          // LCD_CURS FUNCTION
+ 134          //------------------------------------------------------------------------------------
+ 135          /*void LCD_CURS(__bit on) // 1 displays cursor, 0 hides it
+ 136          {
+ 137                  if (on)
+ 138                          LCD_CMD(0x0E);
+ 139                  else
+ 140                          LCD_CMD(0x0C);
+ 141          }
+ 142          */
+ 143          //----------------------------- KEPAD related Functions --------------------------------
+ 144          
+ 145          //------------------------------------------------------------------------------------
+ 146          // KEPAD_INIT FUNCTION
+ 147          //------------------------------------------------------------------------------------
+ 148          //
+ 149          void KEPAD_INIT(void)
+ 150          {
+ 151   1              KEPAD_PORT = 0xFF;              //define P3.0-P3.3 as input
+ 152   1      }
+ 153          
+ 154          //------------------------------------------------------------------------------------
+ 155          // KEY_RELEASE FUNCTION
+ 156          //------------------------------------------------------------------------------------
+ 157          //
+ 158          void KEY_RELEASE(void)
+ 159          {
+ 160   1              unsigned char col; 
+ 161   1              R1=0; R2=0; R3=0; R4=0;                 //ground all rows 
+ 162   1              do
+ 163   1              {
+ 164   2                      col = KEPAD_PORT & 0x0F;        //read the columns
+ 165   2              }       while(col!=0x0F);                       //check until all keys released
+ 166   1      }
+ 167          
+ 168          //------------------------------------------------------------------------------------
+ 169          // PRESSED_KEY FUNCTION
+ 170          //------------------------------------------------------------------------------------
+ 171          //
+ 172          void PRESSED_KEY(void)
+ 173          {
+ 174   1              unsigned char col; 
+ 175   1              //KEPAD_PORT = KEPAD_PORT & 0x0F;       //ground all rows at once
+ 176   1              R1=0; R2=0; R3=0; R4=0;
+ 177   1              do
+ 178   1              {
+ 179   2                      do
+C51 COMPILER V9.55   USER_INTERFACE_FUNCTIONS                                              06/20/2019 01:31:26 PAGE 4   
+
+ 180   2                      {
+ 181   3                              small_delay(200);               //call delay
+ 182   3                              col = KEPAD_PORT&0x0F;  //read the columns
+ 183   3                      }       while(col==0x0F);       //check until a key pressed
+ 184   2                      small_delay(50);                //call delay
+ 185   2                      col = KEPAD_PORT&0x0F;  //read the columns
+ 186   2              }       while(col==0x0F);       //check until a key pressed
+ 187   1      }
+ 188          
+ 189          //------------------------------------------------------------------------------------
+ 190          // GET_KEY FUNCTION
+ 191          //------------------------------------------------------------------------------------
+ 192          //
+ 193          char GET_KEY(void)
+ 194          {
+ 195   1              unsigned char col; 
+ 196   1              
+ 197   1              //KEPAD_PORT &= 0xEF;           //ground row 0 only
+ 198   1              R1=0; R2=1; R3=1; R4=1;
+ 199   1              if(C1==0)       //'1' is pressed
+ 200   1              {
+ 201   2                      small_delay(50);                //call delay
+ 202   2                      while(C1==0);
+ 203   2                      return 0;
+ 204   2              }
+ 205   1              if(C2==0)       //'2' is pressed
+ 206   1              {
+ 207   2                      small_delay(50);                //call delay
+ 208   2                      while(C2==0);
+ 209   2                      return 1;
+ 210   2              }
+ 211   1              if(C3==0)       //'3' is pressed
+ 212   1              {
+ 213   2                      small_delay(50);                //call delay
+ 214   2                      while(C3==0);
+ 215   2                      return 2;
+ 216   2              }
+ 217   1                      if(C4==0)       //'A' is pressed
+ 218   1              {
+ 219   2                      small_delay(50);                //call delay
+ 220   2                      while(C4==0);
+ 221   2                      return 3;
+ 222   2              }
+ 223   1                      
+ 224   1                      
+ 225   1              //KEPAD_PORT &= 0xDF;           //ground row 1 only
+ 226   1              R1=1; R2=0; R3=1; R4=1;
+ 227   1              if(C1==0)       //'4' is pressed
+ 228   1              {
+ 229   2                      small_delay(50);                //call delay
+ 230   2                      while(C1==0);
+ 231   2                      return 4;
+ 232   2              }
+ 233   1              if(C2==0)       //'5' is pressed
+ 234   1              {
+ 235   2                      small_delay(50);                //call delay
+ 236   2                      while(C2==0);
+ 237   2                      return 5;
+ 238   2              }
+ 239   1              if(C3==0)       //'6' is pressed
+ 240   1              {
+ 241   2                      small_delay(50);                //call delay
+C51 COMPILER V9.55   USER_INTERFACE_FUNCTIONS                                              06/20/2019 01:31:26 PAGE 5   
+
+ 242   2                      while(C3==0);
+ 243   2                      return 6;
+ 244   2              }
+ 245   1                      if(C4==0)       //'B' is pressed
+ 246   1              {
+ 247   2                      small_delay(50);                //call delay
+ 248   2                      while(C4==0);
+ 249   2                      return 7;
+ 250   2              }
+ 251   1              
+ 252   1              //KEPAD_PORT &= 0xBF;           //ground row 0 only
+ 253   1              R1=1; R2=1; R3=0; R4=1;
+ 254   1              if(C1==0)       //'7' is pressed
+ 255   1              {
+ 256   2                      small_delay(50);                //call delay
+ 257   2                      while(C1==0);
+ 258   2                      return 8;
+ 259   2              }
+ 260   1              if(C2==0)       //'8' is pressed
+ 261   1              {
+ 262   2                      small_delay(50);                //call delay
+ 263   2                      while(C2==0);
+ 264   2                      return 9;
+ 265   2              }
+ 266   1              if(C3==0)       //'9' is pressed
+ 267   1              {
+ 268   2                      small_delay(50);                //call delay
+ 269   2                      while(C3==0);
+ 270   2                      return 10;
+ 271   2              }
+ 272   1                      if(C4==0)       //'C' is pressed
+ 273   1              {
+ 274   2                      small_delay(50);                //call delay
+ 275   2                      while(C4==0);
+ 276   2                      return 11;
+ 277   2              }
+ 278   1              
+ 279   1              //KEPAD_PORT &= 0x7F;           //ground row 0 only
+ 280   1              R1=1; R2=1; R3=1; R4=0;
+ 281   1              if(C1==0)       //'*' is pressed
+ 282   1              {
+ 283   2                      small_delay(50);                //call delay
+ 284   2                      while(C1==0);
+ 285   2                      return 12;
+ 286   2              }
+ 287   1              if(C2==0)       //'0' is pressed
+ 288   1              {
+ 289   2                      small_delay(50);                //call delay
+ 290   2                      while(C2==0);
+ 291   2                      return 13;
+ 292   2              }
+ 293   1              if(C3==0)       //'#' is pressed
+ 294   1              {
+ 295   2                      small_delay(50);                //call delay
+ 296   2                      while(C3==0);
+ 297   2                      return 14;
+ 298   2              }
+ 299   1              if(C4==0)       //'D' is pressed
+ 300   1              {
+ 301   2                      small_delay(50);                //call delay
+ 302   2                      while(C4==0);
+ 303   2                      return 15;
+C51 COMPILER V9.55   USER_INTERFACE_FUNCTIONS                                              06/20/2019 01:31:26 PAGE 6   
+
+ 304   2              }
+ 305   1              return 0;
+ 306   1      }
+*** WARNING C280 IN LINE 195 OF User_Interface_Functions.c: 'col': unreferenced local variable
+ 307          //------------------------------------------------------------------------------------
+ 308          // ASCII Conversion
+ 309          //------------------------------------------------------------------------------------
+ 310          
+ 311          char ASCII_CONV(char d)
+ 312          {
+ 313   1              char ASCII_Table[]="123A456B789C*0#D";
+ 314   1              return ASCII_Table[d];
+ 315   1      }
+ 316          
+ 317          //------------------------------------------------------------------------------------
+ 318          // delay routines
+ 319          //------------------------------------------------------------------------------------
+ 320          // delay using spin wait
+ 321          void small_delay(char d)
+ 322          {
+ 323   1      
+ 324   1              while (d--);
+ 325   1      }
+ 326          
+ 327          void large_delay(char d)
+ 328          {
+ 329   1              while (d--)
+ 330   1              small_delay(255);
+ 331   1      }
+ 332          
+ 333          void huge_delay(char d)
+ 334          {
+ 335   1              while (d--)
+ 336   1              large_delay(255);
+ 337   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    639    ----
+   CONSTANT SIZE    =     17    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----      26
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  1 WARNING(S),  0 ERROR(S)

@@ -25,9 +25,49 @@
 #include "User_Interface_def.h"
 #include "battleships.h"
 //----------------------------- related Functions --------------------------------
-char* game_timer ="00:00";
-int	miss_cnt = 0;
+char recieved_note=0;
 
+void main()
+{
+	char key=0;
+	Init_Device();
+	Init_LCD();
+	while(1)
+	{
+		PRESSED_KEY();
+		key = GET_KEY();	//save the key pressed
+		KEY_RELEASE();
+		LCD_BF();		//wait until releasing
+		if(key!=0) send_char(key);
+		key=0;
+		check_input();
+		if (recieved_note)
+		{
+			LCD_DAT(recieved_note);
+		}
+		recieved_note=0;
+	}
+	
+
+}
+
+void check_input()
+{
+	if (!RI0)
+		return;
+	recieved_note = SBUF0;
+	LCD_BF();		//wait until releasing
+	LCD_DAT(recieved_note);
+	LCD_BF();
+	RI0=0;
+}
+void send_char(char c)
+{
+	TI0 = 0;
+	SBUF0=	c;
+	while(!TI0);
+	TI0= 0;
+}
 void delay(int secs)
 {
 	int pu = secs/(6*10^(-6));
@@ -148,3 +188,18 @@ void Reset_isr() interrupt 0
 	counting_screen();
 	Main_loop();
 }
+
+/*
+void UART0_ISR(void) interrupt 4
+{
+	if (RI0==1)
+	{
+		char note;
+		note = SBUF0;
+		LCD_BF();		//wait until releasing
+		LCD_DAT(note);
+		LCD_BF();
+		RI0=0;
+	}
+	
+}*/

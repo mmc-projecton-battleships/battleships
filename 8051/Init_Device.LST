@@ -1,0 +1,128 @@
+C51 COMPILER V9.55   INIT_DEVICE                                                           06/20/2019 01:31:26 PAGE 1   
+
+
+C51 COMPILER V9.55, COMPILATION OF MODULE INIT_DEVICE
+OBJECT MODULE PLACED IN Init_Device.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.exe Init_Device.c DB OE BR INCDIR(C:\SiLabs\MCU\Inc)
+
+line level    source
+
+   1          /////////////////////////////////////
+   2          //  Generated Initialization File  //
+   3          /////////////////////////////////////
+   4          
+   5          #include "compiler_defs.h"
+   6          #include "C8051F020_defs.h"
+   7          
+   8          // Peripheral specific initialization functions,
+   9          // Called from the Init_Device() function
+  10          void Reset_Sources_Init()
+  11          {
+  12   1          WDTCN     = 0xDE;
+  13   1          WDTCN     = 0xAD;
+  14   1      }
+  15          
+  16          void Timer_Init()
+  17          {
+  18   1          CKCON     = 0x20;
+  19   1          TCON      = 0x10;
+  20   1          TMOD      = 0x01;
+  21   1          T2CON     = 0x34;
+  22   1          RCAP2L    = 0xFA;
+  23   1          RCAP2H    = 0xFF;
+  24   1      }
+  25          
+  26          void UART_Init()
+  27          {
+  28   1          PCON      = 0x80;
+  29   1          SCON0     = 0x50;
+  30   1      }
+  31          
+  32          void Port_IO_Init()
+  33          {
+  34   1          // P0.0  -  TX0 (UART0), Push-Pull,  Digital
+  35   1          // P0.1  -  RX0 (UART0), Open-Drain, Digital
+  36   1          // P0.2  -  SDA (SMBus), Open-Drain, Digital
+  37   1          // P0.3  -  SCL (SMBus), Open-Drain, Digital
+  38   1          // P0.4  -  INT0 (Tmr0), Open-Drain, Digital
+  39   1          // P0.5  -  INT1 (Tmr1), Open-Drain, Digital
+  40   1          // P0.6  -  Unassigned,  Open-Drain, Digital
+  41   1          // P0.7  -  Unassigned,  Open-Drain, Digital
+  42   1      
+  43   1          // P1.0  -  Unassigned,  Push-Pull,  Digital
+  44   1          // P1.1  -  Unassigned,  Push-Pull,  Digital
+  45   1          // P1.2  -  Unassigned,  Push-Pull,  Digital
+  46   1          // P1.3  -  Unassigned,  Open-Drain, Digital
+  47   1          // P1.4  -  Unassigned,  Open-Drain, Digital
+  48   1          // P1.5  -  Unassigned,  Open-Drain, Digital
+  49   1          // P1.6  -  Unassigned,  Open-Drain, Digital
+  50   1          // P1.7  -  Unassigned,  Open-Drain, Digital
+  51   1      
+  52   1          // P2.0  -  Unassigned,  Push-Pull,  Digital
+  53   1          // P2.1  -  Unassigned,  Push-Pull,  Digital
+  54   1          // P2.2  -  Unassigned,  Push-Pull,  Digital
+  55   1          // P2.3  -  Unassigned,  Push-Pull,  Digital
+C51 COMPILER V9.55   INIT_DEVICE                                                           06/20/2019 01:31:26 PAGE 2   
+
+  56   1          // P2.4  -  Unassigned,  Open-Drain, Digital
+  57   1          // P2.5  -  Unassigned,  Open-Drain, Digital
+  58   1          // P2.6  -  Unassigned,  Open-Drain, Digital
+  59   1          // P2.7  -  Unassigned,  Open-Drain, Digital
+  60   1      
+  61   1          // P3.0  -  Unassigned,  Open-Drain, Digital
+  62   1          // P3.1  -  Unassigned,  Open-Drain, Digital
+  63   1          // P3.2  -  Unassigned,  Open-Drain, Digital
+  64   1          // P3.3  -  Unassigned,  Open-Drain, Digital
+  65   1          // P3.4  -  Unassigned,  Push-Pull,  Digital
+  66   1          // P3.5  -  Unassigned,  Push-Pull,  Digital
+  67   1          // P3.6  -  Unassigned,  Push-Pull,  Digital
+  68   1          // P3.7  -  Unassigned,  Push-Pull,  Digital
+  69   1      
+  70   1          P0MDOUT   = 0x01;
+  71   1          P1MDOUT   = 0x07;
+  72   1          P2MDOUT   = 0x0F;
+  73   1          P3MDOUT   = 0xF0;
+  74   1          XBR0      = 0x05;
+  75   1          XBR1      = 0x14;
+  76   1          XBR2      = 0x40;
+  77   1      }
+  78          
+  79          void Oscillator_Init()
+  80          {
+  81   1          int i = 0;
+  82   1          OSCXCN    = 0x67;
+  83   1          for (i = 0; i < 3000; i++);  // Wait 1ms for initialization
+  84   1          while ((OSCXCN & 0x80) == 0);
+  85   1          OSCICN    = 0x08;
+  86   1      }
+  87          
+  88          void Interrupts_Init()
+  89          {
+  90   1          IE        = 0x97;
+  91   1      }
+  92          
+  93          // Initialization function for device,
+  94          // Call Init_Device() from your main program
+  95          void Init_Device(void)
+  96          {
+  97   1          Reset_Sources_Init();
+  98   1          Timer_Init();
+  99   1          UART_Init();
+ 100   1          Port_IO_Init();
+ 101   1          Oscillator_Init();
+ 102   1          Interrupts_Init();
+ 103   1      }
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =    103    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

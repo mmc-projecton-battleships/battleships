@@ -25,4 +25,5 @@ void Show_screen(int screen_num);		//print on the lcd "screen_num"-th screen
 void Main_loop();
 void update_data();						//updateing current time and num of mistakes.
 void delay(int secs);
-
+void check_input();						// check if there is input from the ARM
+void send_char(char c);						//send char 'c' to ARM

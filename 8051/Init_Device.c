@@ -25,6 +25,7 @@ void Timer_Init()
 
 void UART_Init()
 {
+    PCON      = 0x80;
     SCON0     = 0x50;
 }
 
@@ -48,10 +49,10 @@ void Port_IO_Init()
     // P1.6  -  Unassigned,  Open-Drain, Digital
     // P1.7  -  Unassigned,  Open-Drain, Digital
 
-    // P2.0  -  Unassigned,  Open-Drain, Digital
-    // P2.1  -  Unassigned,  Open-Drain, Digital
-    // P2.2  -  Unassigned,  Open-Drain, Digital
-    // P2.3  -  Unassigned,  Open-Drain, Digital
+    // P2.0  -  Unassigned,  Push-Pull,  Digital
+    // P2.1  -  Unassigned,  Push-Pull,  Digital
+    // P2.2  -  Unassigned,  Push-Pull,  Digital
+    // P2.3  -  Unassigned,  Push-Pull,  Digital
     // P2.4  -  Unassigned,  Open-Drain, Digital
     // P2.5  -  Unassigned,  Open-Drain, Digital
     // P2.6  -  Unassigned,  Open-Drain, Digital
@@ -68,6 +69,7 @@ void Port_IO_Init()
 
     P0MDOUT   = 0x01;
     P1MDOUT   = 0x07;
+    P2MDOUT   = 0x0F;
     P3MDOUT   = 0xF0;
     XBR0      = 0x05;
     XBR1      = 0x14;
