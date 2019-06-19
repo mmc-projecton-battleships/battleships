@@ -25,6 +25,7 @@
 #include "battleships.h"
 //----------------------------- related Functions --------------------------------
 
+
 void delay(int secs)
 {
 	int pu = secs/(6*10^(-6))
@@ -61,7 +62,7 @@ void start_screen()
 }
 
 
-int switch_difficulty()
+void switch_difficulty()
 {
 	char key;
 	LCD_CMD(0x02);// move the cursor home
@@ -71,9 +72,35 @@ int switch_difficulty()
 	PRESSED_KEY();	//wait until pressing
 	key = GET_KEY();	//save the key pressed
 	KEY_RELEASE();		//wait until releasing
-	LCD_DAT(key);
+	LCD_DAT(ASCII_CONV(key));
 	LCD_BF();// wait untill the LCD is no longer busy
 	delay(2);
+	set_difficulty(key);
+}
+
+void set_difficulty(char difficulty)
+{
+	switch (difficulty)
+	  {
+	  case "1": 
+	  	{
+			game_timer ="03:00";
+			miss_cnt = 25
+			break;
+		}
+	  case "2":
+	  	{
+			game_timer = "02:00";
+			miss_cnt = 20
+			break;
+		}
+	  case "3":
+	  	{
+			game_timer = "01:00";
+			miss_cnt = 15
+			break;
+		}
+	  }
 }
 
 void counting_screen()
@@ -109,7 +136,6 @@ void Reset_isr() interrupt 0
 		init - In the near future (to be continued)
 
 	*/
-	
 	TI0 = 0;
 	SBUF0='R';
 	Init_LCD();

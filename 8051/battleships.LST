@@ -1,0 +1,151 @@
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/19/2019 13:57:46 PAGE 1   
+
+
+C51 COMPILER V9.55, COMPILATION OF MODULE BATTLESHIPS
+OBJECT MODULE PLACED IN battleships.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.exe battleships.c DB OE BR INCDIR(C:\SiLabs\MCU\Inc)
+
+line level    source
+
+   1          //-----------------------------------------------------------------------------//
+   2          //User_Interface_Functions.c
+   3          //----------------------------------------------------------------------------
+   4          //  Copyright (C) 2016 BRAUDE COLLEGE  
+   5          //  Electronics & Elictrical Engineering Department
+   6          //  All rights reserved.
+   7          //  Owner               :  Dr. Fadil Tareef
+   8          //  FILE NAME   :  User_Interface_Functions.c 
+   9          //  DATE         :  23 DEC 2016
+  10          //  TARGET MCU   :  C8051F020
+  11          //  DESCRIPTION  :  This file contains LCD and KEPAD Interface Functions Implementation.
+  12          //                                      P1 is used for the control signals, P1.0 = E, P1.1 = RW, P1.2 = RS, output only
+  13          //                                      P2 is used for data: P2.7 is read to get the status of the LCD (BF)
+  14          //                                      P2 must be configured as bidirectional (open-drain) 
+  15          //                                      and set to FF (or at least 80) before reading the status of P2.7
+  16          //                                      P3 is used for KEPAD interface.
+  17          //                                      P3.0-P3.3 connected to the COLUMNS of the KEPAD, input pins.
+  18          //                                      P3.4-P3.7 connected to the ROWS of the KEPAD, output pins.
+  19          //                                
+  20          //      NOTES: This file used in the LCD.c file.
+  21          //                 This file updated for Keil C compiler and C8051F020.
+  22          //-----------------------------------------------------------------------------
+  23          
+  24          //#include "C8051F020.h"                  // Include register definition file.
+  25          #include "battleships.h"
+*** ERROR C141 IN LINE 15 OF battleships.h: syntax error near ';'
+*** ERROR C141 IN LINE 16 OF battleships.h: syntax error near ';'
+  26          //----------------------------- related Functions --------------------------------
+  27          
+  28          char* game_timer;
+  29          int miss_cnt;
+  30          int difficulty;
+  31          
+  32          
+  33          
+  34          void delay(int secs)
+  35          {
+  36   1              int pu = secs/(6*10^(-6))
+  37   1              int t0 = 0xFFFF-pu;
+*** ERROR C141 IN LINE 37 OF battleships.c: syntax error near 'int'
+  38   1              TL0=0x(t0%(0xFF));
+*** ERROR C281 IN LINE 38 OF battleships.c: illegal hex constant
+*** ERROR C211 IN LINE 38 OF battleships.c: call not to a function
+*** ERROR C208 IN LINE 38 OF battleships.c: 'function': too many actual parameters
+  39   1              TH0=0x(t0/(0xFF));
+*** ERROR C281 IN LINE 39 OF battleships.c: illegal hex constant
+*** ERROR C211 IN LINE 39 OF battleships.c: call not to a function
+*** ERROR C208 IN LINE 39 OF battleships.c: 'function': too many actual parameters
+  40   1              TR0 = 1;        //START COUNTING
+  41   1              while(!TF0);    //DELAY UNTIL OF
+  42   1      }
+  43          
+  44          void Init_LCD()
+  45          {
+  46   1              LCD_BF(); // wait untill the LCD is no longer busy
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/19/2019 13:57:46 PAGE 2   
+
+  47   1              LCD_INIT();// initialize the LCD to 8 bit mode
+  48   1              LCD_BF();// wait untill the LCD is no longer busy
+  49   1              LCD_CMD(0x06); // curser moves from left to right
+  50   1              LCD_BF();// wait untill the LCD is no longer busy
+  51   1              LCD_CLRS(); // clears the display
+  52   1              LCD_BF();// wait untill the LCD is no longer busy
+  53   1              LCD_CMD(0x02);// move the cursor home
+  54   1              LCD_BF();// wait untill the LCD is no longer busy
+  55   1              
+  56   1      }
+  57          
+  58          void start_screen()
+  59          {
+  60   1              LCD_CLRS(); // clears the display
+  61   1              LCD_BF();// wait untill the LCD is no longer busy
+  62   1              LCD_MSG("BattleShips!");
+  63   1              LCD_BF();// wait untill the LCD is no longer busy
+  64   1              delay(2);
+  65   1              LCD_CLRS(); // clears the display
+  66   1              LCD_BF();// wait untill the LCD is no longer busy
+  67   1      }
+  68          
+  69          
+  70          void switch_difficulty()
+  71          {
+  72   1              char key;
+  73   1              LCD_CMD(0x02);// move the cursor home
+  74   1              LCD_BF();// wait untill the LCD is no longer busy
+  75   1              LCD_MSG("Switch difficulty level: ");
+  76   1              LCD_BF();// wait untill the LCD is no longer busy
+  77   1              PRESSED_KEY();  //wait until pressing
+  78   1              key = GET_KEY();        //save the key pressed
+  79   1              KEY_RELEASE();          //wait until releasing
+  80   1              LCD_DAT(ASCII_CONV(key));
+  81   1              LCD_BF();// wait untill the LCD is no longer busy
+  82   1              delay(2);
+  83   1              set_difficulty();
+  84   1      }
+  85          
+  86          void counting_screen()
+  87          {
+  88   1              LCD_CLRS(); // clears the display
+  89   1              LCD_BF();// wait untill the LCD is no longer busy
+  90   1              LCD_MSG("3");
+  91   1              LCD_BF();// wait untill the LCD is no longer busy
+  92   1              delay(1);
+  93   1              LCD_CLRS(); // clears the display
+  94   1              LCD_BF();// wait untill the LCD is no longer busy
+  95   1              LCD_MSG("2");
+  96   1              LCD_BF();// wait untill the LCD is no longer busy
+  97   1              delay(1);
+  98   1              LCD_CLRS(); // clears the display
+  99   1              LCD_BF();// wait untill the LCD is no longer busy
+ 100   1              LCD_MSG("1");
+ 101   1              LCD_BF();// wait untill the LCD is no longer busy
+ 102   1              delay(1);
+ 103   1              LCD_CLRS(); // clears the display
+ 104   1              LCD_BF();// wait untill the LCD is no longer busy
+ 105   1              LCD_MSG("GO!");
+ 106   1              LCD_BF();// wait untill the LCD is no longer busy
+ 107   1              delay(1);
+ 108   1              LCD_CLRS(); // clears the display
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/19/2019 13:57:46 PAGE 3   
+
+ 109   1              LCD_BF();// wait untill the LCD is no longer busy
+ 110   1      }
+ 111          
+ 112          void Reset_isr() interrupt 0
+ 113          {
+ 114   1              /*
+ 115   1      
+ 116   1                      init - In the near future (to be continued)
+ 117   1      
+ 118   1              */
+ 119   1              TI0 = 0;
+ 120   1              SBUF0='R';
+ 121   1              Init_LCD();
+ 122   1              KEPAD_INIT();   // initialize the keypad
+ 123   1              start_screen();
+ 124   1              switch_difficulty();
+ 125   1              counting_screen();
+ 126   1              Main_loop();
+ 127   1      }
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  9 ERROR(S)

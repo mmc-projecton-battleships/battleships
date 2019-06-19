@@ -4,14 +4,16 @@
 sbit SW1 = P0^4;
 sbit SW2 = P0^5;
 
+char* game_timer;
+int miss_cnt;
 
-
-void Init_Device(void);					//init
-void Init_LCD();
-void start_screen();
-int switch_difficulty();
-void counting_screen();
-void Reset_isr() interrupt 0;			//initialize new game
+void Init_Device(void);					//divice initialization (config wizzard)
+void Init_LCD();						//initialize the lcd for a new game
+void start_screen();					//presenting primary game screen
+void switch_difficulty();				//asking the player for difficulty level and set it.
+void set_difficulty(char difficulty);	//set global vars according to the difficulty
+void counting_screen();					//counting back from 3 to 1 and game starts!
+void Reset_isr() interrupt 0;			//main function - initialization of a new game
 void Hit() interrupt 2;					//take the current location of the cursor and send it to the arm
 void Write_hit();						//print on the lcd "X" in the hit location
 void Write_miss();						//print on the lcd "O" in the miss location

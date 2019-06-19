@@ -1,0 +1,14 @@
+
+C51 COMPILER V9.55 - SN: Eval Version
+COPYRIGHT Copyright (C) 2012 - 2016 ARM Ltd and ARM Germany GmbH. All rights reserved.
+*** ERROR C141 IN LINE 15 OF battleships.h: syntax error near ';'
+*** ERROR C141 IN LINE 16 OF battleships.h: syntax error near ';'
+*** ERROR C141 IN LINE 37 OF battleships.c: syntax error near 'int'
+*** ERROR C281 IN LINE 38 OF battleships.c: illegal hex constant
+*** ERROR C211 IN LINE 38 OF battleships.c: call not to a function
+*** ERROR C208 IN LINE 38 OF battleships.c: 'function': too many actual parameters
+*** ERROR C281 IN LINE 39 OF battleships.c: illegal hex constant
+*** ERROR C211 IN LINE 39 OF battleships.c: call not to a function
+*** ERROR C208 IN LINE 39 OF battleships.c: 'function': too many actual parameters
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  9 ERROR(S)
