@@ -1,43 +1,5 @@
 
-BL51 BANKED LINKER/LOCATER V6.22.2.0 - SN: Eval Version
-COPYRIGHT ARM Germany GmbH 1987 - 2017
-"C:\Users\matan\Documents\GitHub\battleships\8051\battleships.obj",
-"C:\Users\matan\Documents\GitHub\battleships\8051\User_Interface_Functions.obj",
-"C:\Users\matan\Documents\GitHub\battleships\8051\Init_Device.obj"  TO "C:\Users\matan\Documents\GitHub\battleships\8051\battleships" RS(256) PL(68) PW(78) 
+C51 COMPILER V9.59.0.0 - SN: Eval Version
+COPYRIGHT Copyright (C) 2012 - 2018 ARM Ltd and ARM Germany GmbH. All rights reserved.
 
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?CHECK_INPUT_UART0?BATTLESHIPS
-
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_HUGE_DELAY?USER_INTERFACE_FUNCTIONS
-
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?_LCD_CMD?USER_INTERFACE_FUNCTIONS
-    CALLER1: ?PR?RESET_ISR?BATTLESHIPS
-    CALLER2: ?C_C51STARTUP
-
-*** WARNING L15: MULTIPLE CALL TO SEGMENT
-    SEGMENT: ?PR?_LCD_DAT?USER_INTERFACE_FUNCTIONS
-    CALLER1: ?PR?RESET_ISR?BATTLESHIPS
-    CALLER2: ?C_C51STARTUP
-
-*** WARNING L1: UNRESOLVED EXTERNAL SYMBOL
-    SYMBOL:  MAIN_LOOP
-    MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\battleships.obj (BATTLESHIPS)
-
->> 
-*** WARNING L2: REFERENCE MADE TO UNRESOLVED EXTERNAL
-    SYMBOL:  MAIN_LOOP
-    MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\battleships.obj (BATTLESHIPS)
-
->>     ADDRESS: 0C6BH
-
-******************************************************************************
-* RESTRICTED VERSION WITH 0800H BYTE CODE SIZE LIMIT; USED: 05E6H BYTE (73%) *
-******************************************************************************
-
->> 
->> 
->> 
-Program Size: data=103.0 xdata=0 code=2084
-LINK/LOCATE RUN COMPLETE.  6 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)

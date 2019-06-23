@@ -27,7 +27,7 @@
 //----------------------------- related Functions --------------------------------
 char recieved_note=0; // revieced note from UART.
 char map[4][16]; // blank map of ships. updated by ARM.
-int screen_num=0;// represent no. of screen.
+int screen_num=0;// represent no. of screen. no=0 => start screen
 void main()
 {
 	//char key=0;
@@ -39,7 +39,14 @@ void main()
 		
 		switch(screen_num)
 		{
-			case 0:
+			case 0:start_screen();
+				break;
+			case 1:switch_difficulty();
+				break;
+			case 2:counting_screen();
+				break;
+			default://bug - > print that there is a problem. ask the player to reset the game. "Error screen".
+				break;
 			//add all other screens
 		}
 
@@ -53,7 +60,7 @@ void main()
 }
 
 
-
+//check if there is avaible data.
 void check_input_uart()
 {
 	if (!RI0)
@@ -61,12 +68,14 @@ void check_input_uart()
 	recieved_note = SBUF0;
 	RI0=0;
 }
+//wait for data.
 void wait_for_input()
 {
 	while(!RI0);
 	recieved_note = SBUF0;
 	RI0=0;
 }
+//send data to ARM.
 void send_char(char c)
 {
 	TI0 = 0;
@@ -74,6 +83,7 @@ void send_char(char c)
 	while(!TI0);
 	TI0= 0;
 }
+//wait for "secs" seconds.
 void delay(int secs)
 {
 	int pu = secs/(6*10^(-6));
@@ -107,6 +117,7 @@ void start_screen()
 	delay(2);
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
+	screen_num=1;//switch to "choose difficulty screen".
 }
 
 
@@ -126,12 +137,23 @@ void switch_difficulty()
 	KEY_RELEASE();		//wait until releasing
 	LCD_DAT(ASCII_CONV(key));
 	LCD_BF();// wait untill the LCD is no longer busy
-	delay(2);
 	set_difficulty(key);
+	delay(2);
+	screen_num=2;
 }
 
 void set_difficulty(char difficulty)
 {
+	// check if difficulty is legit. if not, ask the player to re-enter difficulty level
+	send_char(difficulty);//let the arm decide what difficulty parameters should be.
+
+	/*
+	copy this to the ARM
+	there should be implemented a function like "Init_Data" or something.
+	there the ARM should wait for difficulty.
+	after that he will create it's difficulty parameters.
+	in "screen_data" we will ask the ARM to send us the time and mistakes left.
+	
 	switch (difficulty)
 	  {
 	  case '1': 
@@ -152,7 +174,7 @@ void set_difficulty(char difficulty)
 			miss_cnt = 15;
 			break;
 		}
-	  }
+	  }*/
 }
 
 void counting_screen()
@@ -179,6 +201,7 @@ void counting_screen()
 	delay(1);
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
+	send_char('s');//indicate the ARM the game starts now.
 }
 
 void Reset_isr() interrupt 0
@@ -213,6 +236,7 @@ void UART0_ISR(void) interrupt 4
 
 void screen_map_one()
 {
+	char key=0; //used to read unput from the user keyboard.
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
@@ -221,21 +245,29 @@ void screen_map_one()
 	print_map(3);
 	while(1) // kind of a main loop
 	{
+		key = GET_KEY();
 		LCD_BF();		//wait until releasing
 		if(key!=0) 
 		{
-			switch(key):
+			switch(key)
+			{
 			case 2://move cursor upwards. may change screen.
+				break;
 			case 4://move cursor left.
+				break;
 			case 5://move cursor down. may change screen.
+				break;
 			case 6://move cursor right.
+				break;
+			}
+			
 		}
 		key=0;
 	}
 	
 
 }
-
+//fill map with blank boxes.
 void Init_map()
 {
 	int i=0;
@@ -249,7 +281,9 @@ void Init_map()
 	}	
 	
 }
-
+//print the map by the right screen. 
+//screen 3 = upper half. 
+//sceren 4 = bottom half.
 void print_map(int screen)
 {
 	int i;
