@@ -6,7 +6,7 @@ sbit SW2 = P0^5;
 
 char* game_timer;
 int miss_cnt;
-
+void Init_map();						//initialize the "map" array.
 void Init_Device(void);					//divice initialization (config wizzard)
 void Init_LCD();						//initialize the lcd for a new game
 void start_screen();					//presenting primary game screen
@@ -25,5 +25,8 @@ void Show_screen(int screen_num);		//print on the lcd "screen_num"-th screen
 void Main_loop();
 void update_data();						//updateing current time and num of mistakes.
 void delay(int secs);
-void check_input();						// check if there is input from the ARM
+void check_input_uart();						// check if there is input from the ARM
 void send_char(char c);						//send char 'c' to ARM
+void print_map(int screen);					//print map relevent to screen
+void screen_map_one();						//screen map upper half.
+void wait_for_input();						//wait for input in uart0.

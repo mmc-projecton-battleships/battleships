@@ -25,22 +25,28 @@
 #include "User_Interface_def.h"
 #include "battleships.h"
 //----------------------------- related Functions --------------------------------
-char recieved_note=0;
-
+char recieved_note=0; // revieced note from UART.
+char map[4][16]; // blank map of ships. updated by ARM.
+int screen=0;// represent no. of screen.
 void main()
 {
-	char key=0;
+	//char key=0;
 	Init_Device();
 	Init_LCD();
+	Init_map();
 	while(1)
 	{
-		PRESSED_KEY();
-		key = GET_KEY();	//save the key pressed
-		KEY_RELEASE();
-		LCD_BF();		//wait until releasing
-		if(key!=0) send_char(key);
+		
+
+
+
+
+
+	/*	key = GET_KEY();	//save the key pressed
+		
+		if(key!=0) send_char(ASCII_CONV(key));
 		key=0;
-	/*	check_input();
+		check_input_uart();
 		if (recieved_note)
 		{
 			LCD_DAT(recieved_note);
@@ -51,14 +57,19 @@ void main()
 
 }
 
-void check_input()
+
+
+void check_input_uart()
 {
 	if (!RI0)
 		return;
 	recieved_note = SBUF0;
-	LCD_BF();		//wait until releasing
-	LCD_DAT(recieved_note);
-	LCD_BF();
+	RI0=0;
+}
+void wait_for_input()
+{
+	while(!RI0);
+	recieved_note = SBUF0;
 	RI0=0;
 }
 void send_char(char c)
@@ -180,7 +191,7 @@ void Reset_isr() interrupt 0
 	game_timer = "00:00";
 	miss_cnt=0;
 	TI0 = 0;
-	SBUF0='R';
+	send_char('r'); //sending "Reset" to ARM.
 	Init_LCD();
 	KEPAD_INIT();	// initialize the keypad
 	start_screen();
@@ -203,3 +214,68 @@ void UART0_ISR(void) interrupt 4
 	}
 	
 }*/
+
+
+void screen_map_one()
+{
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_CLRS(); // clears the display
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_CMD(0x02);// move the cursor home
+	LCD_BF();// wait untill the LCD is no longer busy
+	print_map(3);
+	while(1) // kind of a main loop
+	{
+		LCD_BF();		//wait until releasing
+		if(key!=0) 
+		{
+			switch(key):
+			case 2://move cursor upwards. may change screen.
+			case 4://move cursor left.
+			case 5://move cursor down. may change screen.
+			case 6://move cursor right.
+		}
+		key=0;
+	}
+	
+
+}
+
+void Init_map()
+{
+	int i=0;
+	int j=0;
+	for(j=0;j<4;j++)
+	{
+		for(i=0;i<16;i++)
+		{
+			map[j][i]= 219;//219 represent unchecked box
+		}
+	}	
+	
+}
+
+void print_map(int screen)
+{
+	int i;
+	if (screen==3 || screen==4)
+	{
+		
+			for (i=0;i<16;i++)
+			{
+				LCD_BF();
+				LCD_DAT(map[(0+(screen/4))][i]);
+				LCD_BF();
+			}
+			LCD_GOTO(0x40);
+			for (i=0;i<16;i++)
+			{
+				LCD_BF();
+				LCD_DAT(map[1+(screen/4)][i]);
+				LCD_BF();
+			}
+	}
+	
+	
+			
+}
