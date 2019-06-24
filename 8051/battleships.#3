@@ -25,19 +25,22 @@
 #include "User_Interface_def.h"
 #include "battleships.h"
 //----------------------------- related Functions --------------------------------
-char recieved_note=0; // revieced note from UART.
-char map[4][16]; // blank map of ships. updated by ARM.
-int screen_num=0;// represent no. of screen. no=0 => start screen
-int cursor =0;	//position of the cursor in game time.
+
 void main()
 {
 	//char key=0;
 	Init_Device();
 	Init_LCD();
 	Init_map();
-	while(1)
+	Main_loop();
+	}
+	
+
+}
+void Main_loop()
+{
+while(1)
 	{
-		
 		switch(screen_num)
 		{
 			case 0:
@@ -56,13 +59,9 @@ void main()
 				break;
 			default://bug - > print that there is a problem. ask the player to reset the game. "Error screen".
 				break;
-			//add all other screens
 		}
 	}
-	
-
 }
-
 
 //check if there is avaible data.
 void check_input_uart()
@@ -88,6 +87,7 @@ void send_char(char c)
 	TI0= 0;
 }
 //wait for "secs" seconds.
+//#devnote: need to be fixed. there is a new oscilator frequency.
 void delay(int secs)
 {
 	int pu = secs/(6*10^(-6));
@@ -146,37 +146,8 @@ void switch_difficulty()
 
 void set_difficulty(char difficulty)
 {
-	// check if difficulty is legit. if not, ask the player to re-enter difficulty level
+	//#devnote: add :check if difficulty is legit. if not, ask the player to re-enter difficulty level
 	send_char(difficulty);//let the arm decide what difficulty parameters should be.
-
-	/*
-	copy this to the ARM
-	there should be implemented a function like "Init_Data" or something.
-	there the ARM should wait for difficulty.
-	after that he will create it's difficulty parameters.
-	in "screen_data" we will ask the ARM to send us the time and mistakes left.
-	
-	switch (difficulty)
-	  {
-	  case '1': 
-	  	{
-			game_timer ="03:00";
-			miss_cnt = 25;
-			break;
-		}
-	  case '2':
-	  	{
-			game_timer = "02:00";
-			miss_cnt = 20;
-			break;
-		}
-	  case '3':
-	  	{
-			game_timer = "01:00";
-			miss_cnt = 15;
-			break;
-		}
-	  }*/
 }
 
 void counting_screen()
@@ -219,12 +190,12 @@ void Reset_isr() interrupt 1
 	recieved_note=0;
 	cursor =0;
 	Init_map();
-	Main_loop();
+	Main_loop();//#devnote: when will the interrupt end ? there is a bug !.
 }
 
 void screen_map_one()
 {
-	char key=0; //used to read unput from the user keyboard.
+	char key=0; //used to read input from the user keyboard.
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
@@ -307,7 +278,7 @@ void screen_map_one()
 			else if(recieved_note == 'p')
 			{
 				recieved_note=0;
-				//get 2 more locations and print the fallen ship
+				//#devnote:get 2 more locations and print the fallen ship
 			}
 		}
 	}
@@ -329,8 +300,8 @@ void Init_map()
 	
 }
 //print the map by the right screen. 
-//screen 3 = upper half. 
-//sceren 4 = bottom half.
+//screen 2 = upper half. 
+//sceren 3 = bottom half.
 void print_map(int screen)
 {
 	int i;
@@ -362,5 +333,18 @@ void end() interrupt 0
 
 void screen_end(char win)
 {
-	
+	if (win=='w')
+	{
+		//#devnote:ending winner screen.
+		//#devnote:request the player to hit "reset".
+	}
+	else if(win=='l')
+	{
+		//#devnote:ending winner screen.
+		//#devnote:request the player to hit "reset".
+	}
+	else
+	{
+		//#devnote: not sure. we can call screen_end again or raise screen_error and ask for a 'reset'.
+	}
 }
