@@ -28,6 +28,7 @@
 char recieved_note=0; // revieced note from UART.
 char map[4][16]; // blank map of ships. updated by ARM.
 int screen_num=0;// represent no. of screen. no=0 => start screen
+int cursor =0;	//position of the cursor in game time.
 void main()
 {
 	//char key=0;
@@ -39,21 +40,24 @@ void main()
 		
 		switch(screen_num)
 		{
-			case 0:start_screen();
+			case 0:
+				start_screen();
+				switch_difficulty();
+				counting_screen();
 				break;
-			case 1:switch_difficulty();
+			case 1:
+				screen_data();
 				break;
-			case 2:counting_screen();
+			case 2:
+				screen_map_one();
+				break;
+			case 3:
+				screen_map_two();
 				break;
 			default://bug - > print that there is a problem. ask the player to reset the game. "Error screen".
 				break;
 			//add all other screens
 		}
-
-
-
-
-	
 	}
 	
 
@@ -117,7 +121,6 @@ void start_screen()
 	delay(2);
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
-	screen_num=1;//switch to "choose difficulty screen".
 }
 
 
@@ -139,7 +142,6 @@ void switch_difficulty()
 	LCD_BF();// wait untill the LCD is no longer busy
 	set_difficulty(key);
 	delay(2);
-	screen_num=2;
 }
 
 void set_difficulty(char difficulty)
@@ -202,9 +204,10 @@ void counting_screen()
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
 	send_char('s');//indicate the ARM the game starts now.
+	screen_num=1;//change to screen_data.
 }
 
-void Reset_isr() interrupt 0
+void Reset_isr() interrupt 1
 {
 	game_timer = "00:00";
 	miss_cnt=0;
@@ -212,27 +215,12 @@ void Reset_isr() interrupt 0
 	send_char('r'); //sending "Reset" to ARM.
 	Init_LCD();
 	KEPAD_INIT();	// initialize the keypad
-	start_screen();
-	switch_difficulty();
-	counting_screen();
+	screen_num=0;
+	recieved_note=0;
+	cursor =0;
+	Init_map();
 	Main_loop();
 }
-
-/*
-void UART0_ISR(void) interrupt 4
-{
-	if (RI0==1)
-	{
-		char note;
-		note = SBUF0;
-		LCD_BF();		//wait until releasing
-		LCD_DAT(note);
-		LCD_BF();
-		RI0=0;
-	}
-	
-}*/
-
 
 void screen_map_one()
 {
@@ -240,9 +228,13 @@ void screen_map_one()
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
-	LCD_CMD(0x02);// move the cursor home
+	//---------> move cursor to right place
+	if(cursor>15)
+		LCD_GOTO(cursor + 0x30);
+	else
+		LCD_GOTO(cursor);
 	LCD_BF();// wait untill the LCD is no longer busy
-	print_map(3);
+	print_map(2);
 	while(1) // kind of a main loop
 	{
 		key = GET_KEY();
@@ -251,23 +243,78 @@ void screen_map_one()
 		{
 			switch(key)
 			{
-			case 2://move cursor upwards. may change screen.
+			case 1://move cursor up. may chagnge the screen.
+				if (cursor<=15)
+				{
+					screen_num=1;//change to screen_data.
+					return;
+				}
+				cursor-=16;//go to upper line
+				LCD_GOTO(cursor);
 				break;
 			case 4://move cursor left.
+				if (cursor==0 || cursor==16)//can't go behind the screeen.
+					break;
+				cursor--;
+				LCD_BF();
+				//------------>move left
+				if(cursor>15)
+					LCD_GOTO(cursor + 0x30);
+				else
+					LCD_GOTO(cursor);
 				break;
 			case 5://move cursor down. may change screen.
+				if (cursor>=16)
+				{
+					cursor-=16;
+					screen_num=3;//go to bottom half of the map.
+					return;
+				}
+				cursor+=16;
+				LCD_BF();
+				LCD_GOTO(cursor + 0x30);
 				break;
 			case 6://move cursor right.
+				if (cursor==15 || cursor==31)//can't go behind the screeen.
+					break;
+				cursor++;
+				LCD_BF();
+				//------------>move right
+				if(cursor>15)
+					LCD_GOTO(cursor + 0x30);
+				else
+					LCD_GOTO(cursor);
 				break;
 			}
-			
 		}
 		key=0;
+		if(SW4 == 0)//if switch is pressed
+		{
+			send_char((char)cursor);//send to ARM the hit location.
+			wait_for_input();//wait for ARM to respond.
+			if(recieved_note == 'h')//if hit
+			{
+				recieved_note=0;
+				map[cursor/16][cursor%16] = 'X';
+				//print 'X'
+			}
+			else if(recieved_note == 'm')//if miss
+			{
+				recieved_note=0;
+				map[cursor/16][cursor%16] = 'O';
+				//print 'O'
+			}
+			else if(recieved_note == 'p')
+			{
+				recieved_note=0;
+				//get 2 more locations and print the fallen ship
+			}
+		}
 	}
 	
 
 }
-
+//fill map with blank boxes.
 void Init_map()
 {
 	int i=0;
@@ -281,28 +328,39 @@ void Init_map()
 	}	
 	
 }
-//print the map by the right screen.
+//print the map by the right screen. 
+//screen 3 = upper half. 
+//sceren 4 = bottom half.
 void print_map(int screen)
 {
 	int i;
-	if (screen==3 || screen==4)
+	if (screen==2 || screen==3)
 	{
 		
 			for (i=0;i<16;i++)
 			{
 				LCD_BF();
-				LCD_DAT(map[(0+(screen/4))][i]);
+				LCD_DAT(map[(0+2*(screen/3))][i]);
 				LCD_BF();
 			}
 			LCD_GOTO(0x40);
 			for (i=0;i<16;i++)
 			{
 				LCD_BF();
-				LCD_DAT(map[1+(screen/4)][i]);
+				LCD_DAT(map[1+2*(screen/3)][i]);
 				LCD_BF();
 			}
 	}
+}
+
+
+void end() interrupt 0
+{
+	wait_for_input();
+	screen_end(recieved_note);
+}
+
+void screen_end(char win)
+{
 	
-	
-			
 }

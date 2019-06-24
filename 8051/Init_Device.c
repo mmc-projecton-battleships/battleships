@@ -16,7 +16,7 @@ void Reset_Sources_Init()
 void Timer_Init()
 {
     CKCON     = 0x20;
-    TCON      = 0x10;
+    TCON      = 0x14;
     TMOD      = 0x01;
     T2CON     = 0x34;
     RCAP2L    = 0xFA;
@@ -33,10 +33,10 @@ void Port_IO_Init()
 {
     // P0.0  -  TX0 (UART0), Push-Pull,  Digital
     // P0.1  -  RX0 (UART0), Open-Drain, Digital
-    // P0.2  -  SDA (SMBus), Open-Drain, Digital
-    // P0.3  -  SCL (SMBus), Open-Drain, Digital
-    // P0.4  -  INT0 (Tmr0), Open-Drain, Digital
-    // P0.5  -  INT1 (Tmr1), Open-Drain, Digital
+    // P0.2  -  CP0 (Cmpr0), Open-Drain, Digital
+    // P0.3  -  INT0 (Tmr0), Open-Drain, Digital
+    // P0.4  -  INT1 (Tmr1), Open-Drain, Digital
+    // P0.5  -  Unassigned,  Open-Drain, Digital
     // P0.6  -  Unassigned,  Open-Drain, Digital
     // P0.7  -  Unassigned,  Open-Drain, Digital
 
@@ -71,7 +71,7 @@ void Port_IO_Init()
     P1MDOUT   = 0x07;
     P2MDOUT   = 0x0F;
     P3MDOUT   = 0xF0;
-    XBR0      = 0x05;
+    XBR0      = 0x84;
     XBR1      = 0x14;
     XBR2      = 0x40;
 }
@@ -87,7 +87,7 @@ void Oscillator_Init()
 
 void Interrupts_Init()
 {
-    IE        = 0x97;
+    IE        = 0x87;
 }
 
 // Initialization function for device,
