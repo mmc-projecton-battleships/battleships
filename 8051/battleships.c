@@ -65,37 +65,61 @@ void Main_loop()
 
 void screen_data()
 {
-	get_data();
-	print_current_status();
-	key=GET_KEY();
-	if(key==5)
+	char key=0;
+	while(1)
 	{
-		screen_num=2;
-	}
-	
+		//get_data();
+		print_current_status();
+		key=GET_KEY();
+		if(key==5)
+		{
+			screen_num=2;
+			return;
+		}
+	}	
 }
 
 void print_current_status()
 {
+	char miss;
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_CMD(0x02);// move the cursor home
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_MSG("Time left: ");
 	LCD_BF();// wait untill the LCD is no longer busy
-	LCD_MSG(*game_timer);
+	LCD_MSG(game_timer);
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_GOTO(0x40);
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_MSG("Misses left: ");
 	LCD_BF();// wait untill the LCD is no longer busy
-	LCD_MSG(char(miss_cnt));
+	miss=miss_cnt/10;
+	LCD_DAT(miss+'0');
+	LCD_BF();
+	miss=miss_cnt%10;
+	LCD_DAT(miss+'0');
 	LCD_BF();// wait untill the LCD is no longer busy
 }
 
 void get_data()
 {
+	char s[3];
+	int i;
 	//send 'd', wait for input 4 times
+	send_char('d');
+	for(i=0;i<3;i++)
+	{
+		wait_for_input();
+		s[i]=recieved_note;
+	}
+	recieved_note=0;
+	game_timer[0]=(s[0]/10) + '0';
+	game_timer[1]=(s[0]%10) + '0';
+	game_timer[2]=':';
+	game_timer[3]=(s[1]/10) + '0';
+	game_timer[4]=(s[1]%10) + '0';
+	miss_cnt = (s[2]/10)*10 + (s[2]%10);
 }
 
 //check if there is avaible data.
@@ -217,7 +241,10 @@ void counting_screen()
 
 void Reset_isr() interrupt 1
 {
-	game_timer = "00:00";
+	game_timer[0]='0';
+	game_timer[1]='0';
+	game_timer[3]='0';
+	game_timer[4]='0';
 	miss_cnt=0;
 	TI0 = 0;
 	send_char('r'); //sending "Reset" to ARM.
@@ -295,7 +322,7 @@ void screen_map_one()
 			}
 		}
 		key=0;
-		if(SW4 == 0)//if switch is pressed
+		/*if(SW4 == 0)//if switch is pressed
 		{
 			send_char((char)cursor);//send to ARM the hit location.
 			wait_for_input();//wait for ARM to respond.
@@ -316,7 +343,7 @@ void screen_map_one()
 				recieved_note=0;
 				//#devnote:get 2 more locations and print the fallen ship
 			}
-		}
+		}*/
 	}
 	
 
