@@ -28,7 +28,6 @@
 
 void main()
 {
-	//char key=0;
 	Init_Device();
 	Init_LCD();
 	Init_map();
@@ -63,6 +62,42 @@ void Main_loop()
 	}
 }
 
+
+void screen_data()
+{
+	get_data();
+	print_current_status();
+	key=GET_KEY();
+	if(key==5)
+	{
+		screen_num=2;
+	}
+	
+}
+
+void print_current_status()
+{
+	LCD_CLRS(); // clears the display
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_CMD(0x02);// move the cursor home
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_MSG("Time left: ");
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_MSG(*game_timer);
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_GOTO(0x40);
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_MSG("Misses left: ");
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_MSG(char(miss_cnt));
+	LCD_BF();// wait untill the LCD is no longer busy
+}
+
+void get_data()
+{
+	//send 'd', wait for input 4 times
+}
+
 //check if there is avaible data.
 void check_input_uart()
 {
@@ -85,6 +120,7 @@ void send_char(char c)
 	SBUF0=	c;
 	while(!TI0);
 	TI0= 0;
+	//#devnote: add :check if the arm got the tarsmission
 }
 //wait for "secs" seconds.
 //#devnote: need to be fixed. there is a new oscilator frequency.
@@ -142,6 +178,7 @@ void switch_difficulty()
 	LCD_BF();// wait untill the LCD is no longer busy
 	set_difficulty(key);
 	delay(2);
+	//#devnote: add :check if difficulty
 }
 
 void set_difficulty(char difficulty)
@@ -209,7 +246,6 @@ void screen_map_one()
 	while(1) // kind of a main loop
 	{
 		key = GET_KEY();
-		LCD_BF();		//wait until releasing
 		if(key!=0) 
 		{
 			switch(key)

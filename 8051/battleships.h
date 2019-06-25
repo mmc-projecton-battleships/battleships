@@ -23,13 +23,15 @@ void counting_screen();					//counting back from 3 to 1 and game starts!
 void Reset_isr(void);					//main function - initialization of a new game
 void Main_loop();						//Main loop of the whole program.
 void update_data();						//updateing current time and num of mistakes.
-void delay(int secs);
+void delay(int secs);					//#devnote: need to be fixed. there is a new oscilator frequency.
 void check_input_uart();				// check if there is input from the ARM
 void send_char(char c);					//send char 'c' to ARM
 void print_map(int screen);				//print map relevent to screen
 void screen_map_one();					//screen map upper half.
 void wait_for_input();					//wait for input in uart0.
-void screen_data();						//data screen -> show time and left mistakes.
+void screen_data();						//get data from arm an printing
+void print_current_status()				//print the time and left mistakes on the lcd.
+void get_data();						//update game_timer and miss_cnt
 void screen_map_two();			   		//screen map bottom half.
 void screen_end(char win);				//ending screen.
 void end();								//external interrupt 0  --> end of game.
