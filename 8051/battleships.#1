@@ -147,12 +147,14 @@ void send_char(char c)
 //#devnote: need to be fixed. there is a new oscilator frequency.
 void delay(int secs)
 {
-	int pu = secs/(6*10^(-6));
-	int t0 = 0xFFFF-pu;
-	TL0=(t0%(0xFF));
-	TH0=(t0/(0xFF));
-	TR0 = 1;	//START COUNTING
-	while(!TF0);	//DELAY UNTIL OF
+	for (int j=0;j<secs;j++)
+	{
+		for (int i=0;i<28;i++)
+		{
+			TR0 = 1;	//START COUNTING
+			while(!TF0);	//DELAY
+		}
+	}
 }
 
 void Init_LCD()
@@ -319,7 +321,8 @@ void screen_map_one()
 			}
 		}
 		key=0;
-		/*if(SW4 == 0)//if switch is pressed
+		//hit
+		if(SW4 == 0)
 		{
 			send_char((char)cursor);//send to ARM the hit location.
 			wait_for_input();//wait for ARM to respond.
@@ -345,6 +348,98 @@ void screen_map_one()
 	
 
 }
+
+void screen_map_two()
+{
+	char key=0; //used to read input from the user keyboard.
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_CLRS(); // clears the display
+	LCD_BF();// wait untill the LCD is no longer busy
+	//---------> move cursor to right place
+	if(cursor>15)
+		LCD_GOTO(cursor + 0x30);
+	else
+		LCD_GOTO(cursor);
+	LCD_BF();// wait untill the LCD is no longer busy
+	print_map(3);
+	while(1) // kind of a main loop
+	{
+		key = GET_KEY();
+		if(key!=0) 
+		{
+			switch(key)
+			{
+			case 1://move cursor up. may chagnge the screen.
+				if (cursor<=15)
+				{
+					screen_num=2;//change to screen_data.
+					return;
+				}
+				cursor-=16;//go to upper line
+				LCD_GOTO(cursor);
+				break;
+			case 4://move cursor left.
+				if (cursor==0 || cursor==16)//can't go behind the screeen.
+					break;
+				cursor--;
+				LCD_BF();
+				//------------>move left
+				if(cursor>15)
+					LCD_GOTO(cursor + 0x30);
+				else
+					LCD_GOTO(cursor);
+				break;
+			case 5://move cursor down. may change screen.
+				if (cursor>=16)
+				{
+					return;
+				}
+				cursor+=16;
+				LCD_BF();
+				LCD_GOTO(cursor + 0x30);
+				break;
+			case 6://move cursor right.
+				if (cursor==15 || cursor==31)//can't go behind the screeen.
+					break;
+				cursor++;
+				LCD_BF();
+				//------------>move right
+				if(cursor>15)
+					LCD_GOTO(cursor + 0x30);
+				else
+					LCD_GOTO(cursor);
+				break;
+			}
+		}
+		key=0;
+		//hit
+		if(SW4 == 0)
+		{
+			send_char((char)cursor);//send to ARM the hit location.
+			wait_for_input();//wait for ARM to respond.
+			if(recieved_note == 'h')//if hit
+			{
+				recieved_note=0;
+				map[cursor/16][cursor%16] = 'X';
+				//print 'X'
+			}
+			else if(recieved_note == 'm')//if miss
+			{
+				recieved_note=0;
+				map[cursor/16][cursor%16] = 'O';
+				//print 'O'
+			}
+			else if(recieved_note == 'p')
+			{
+				recieved_note=0;
+				//#devnote:get 2 more locations and print the fallen ship
+			}
+		}
+	}
+	
+
+}
+
 //fill map with blank boxes.
 void Init_map()
 {
@@ -393,18 +488,28 @@ void end() interrupt 0
 
 void screen_end(char win)
 {
+	char message;
 	if (win=='w')
 	{
-		//#devnote:ending winner screen.
-		//#devnote:request the player to hit "reset".
+		message = "WINNER!";
 	}
 	else if(win=='l')
 	{
-		//#devnote:ending winner screen.
-		//#devnote:request the player to hit "reset".
+		message = "LOOSER!";
 	}
 	else
 	{
-		//#devnote: not sure. we can call screen_end again or raise screen_error and ask for a 'reset'.
+		message = "ERROR!";
 	}
+	LCD_CLRS(); // clears the display
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_CMD(0x02);// move the cursor home
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_MSG(message);
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_GOTO(0x40);
+	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_MSG("please press reset button!.");
+	LCD_BF();// wait untill the LCD is no longer busy
+	while(1);
 }
