@@ -141,15 +141,17 @@ void send_char(char c)
 	SBUF0=	c;
 	while(!TI0);
 	TI0= 0;
-	//#devnote: add :check if the arm got the tarsmission
+	//#devnote: add :check if the arm got the tarsmission ?
 }
 //wait for "secs" seconds.
-//#devnote: need to be fixed. there is a new oscilator frequency.
+//#devnote: check with oscilator if the freq is legit
 void delay(int secs)
 {
-	for (int j=0;j<secs;j++)
+	int j=0;
+	int i=0;
+	for (;j<secs;j++)
 	{
-		for (int i=0;i<28;i++)
+		for (;i<28;i++)
 		{
 			TR0 = 1;	//START COUNTING
 			while(!TF0);	//DELAY
@@ -186,6 +188,7 @@ void start_screen()
 void switch_difficulty()
 {
 	char key;
+	LCD_CLRS(); // clears the display
 	LCD_CMD(0x02);// move the cursor home
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_MSG("Please choose");
@@ -199,14 +202,42 @@ void switch_difficulty()
 	KEY_RELEASE();		//wait until releasing
 	LCD_DAT(ASCII_CONV(key));
 	LCD_BF();// wait untill the LCD is no longer busy
-	set_difficulty(key);
+	set_difficulty(key+1);
 	delay(2);
 	//#devnote: add :check if difficulty
 }
 
 void set_difficulty(char difficulty)
 {
-	//#devnote: add :check if difficulty is legit. if not, ask the player to re-enter difficulty level
+	char key;
+	if (difficulty>3)
+	{
+		LCD_BF();
+		LCD_MSG("input field:");
+		LCD_BF();
+		LCD_GOTO(0x40);
+		LCD_BF();
+		LCD_MSG("1-3");
+		delay(2);
+		while(difficulty>3)
+		{
+			LCD_CLRS(); // clears the display
+			LCD_CMD(0x02);// move the cursor home
+			LCD_BF();// wait untill the LCD is no longer busy
+			LCD_MSG("Please choose");
+			LCD_BF();// wait untill the LCD is no longer busy
+			LCD_GOTO(0x40);
+			LCD_BF();// wait untill the LCD is no longer busy
+			LCD_MSG("difficulty:");
+			LCD_BF();// wait untill the LCD is no longer busy
+			PRESSED_KEY();	//wait until pressing
+			difficulty = GET_KEY();	//save the key pressed
+			KEY_RELEASE();		//wait until releasing
+			LCD_DAT(ASCII_CONV(key));
+			delay(2);
+		}
+		LCD_CLRS(); // clears the display
+	}
 	send_char(difficulty);//let the arm decide what difficulty parameters should be.
 }
 
@@ -330,23 +361,26 @@ void screen_map_one()
 			{
 				recieved_note=0;
 				map[cursor/16][cursor%16] = 'X';
-				//print 'X'
+				LCD_BF();
+				LCD_DAT('X');
+				LCD_BF();
 			}
 			else if(recieved_note == 'm')//if miss
 			{
 				recieved_note=0;
 				map[cursor/16][cursor%16] = 'O';
-				//print 'O'
+				LCD_BF();
+				LCD_DAT('O');
+				LCD_BF();
 			}
 			else if(recieved_note == 'p')
 			{
 				recieved_note=0;
-				//#devnote:get 2 more locations and print the fallen ship
+				update_fallen_ship();
+				return;
 			}
 		}
 	}
-	
-
 }
 
 void screen_map_two()
@@ -415,30 +449,52 @@ void screen_map_two()
 		//hit
 		if(SW4 == 0)
 		{
-			send_char((char)cursor);//send to ARM the hit location.
+			send_char((char)cursor+128);//send to ARM the hit location. +128 offset indicate 2' screen
 			wait_for_input();//wait for ARM to respond.
 			if(recieved_note == 'h')//if hit
 			{
 				recieved_note=0;
 				map[cursor/16][cursor%16] = 'X';
-				//print 'X'
+				LCD_BF();
+				LCD_DAT('X');
+				LCD_BF();
 			}
 			else if(recieved_note == 'm')//if miss
 			{
 				recieved_note=0;
 				map[cursor/16][cursor%16] = 'O';
-				//print 'O'
+				LCD_BF();
+				LCD_DAT('O');
+				LCD_BF();
 			}
 			else if(recieved_note == 'p')
 			{
 				recieved_note=0;
-				//#devnote:get 2 more locations and print the fallen ship
+				update_fallen_ship();
+				return;
 			}
 		}
 	}
-	
-
 }
+//get 3 pos of the falles ship from the uart.
+void update_fallen_ship()
+{
+	char pos[3];
+	wait_for_input();
+	pos[0]=recieved_note;
+	wait_for_input();
+	pos[1]=recieved_note;
+	wait_for_input();
+	pos[2]=recieved_note;
+	recieved_note=0;
+	map[(pos[0]/128)+(pos[0]%128)/16][(pos[0]%128)%16] = 95;
+	if(pos[1]!='e')
+		map[(pos[1]/128)+(pos[1]%128)/16][(pos[1]%128)%16] = 95;
+	if(pos[2]!='e')
+		map[(pos[2]/128)+(pos[2]%128)/16][(pos[2]%128)%16] = 95;
+}
+
+
 
 //fill map with blank boxes.
 void Init_map()
@@ -488,7 +544,7 @@ void end() interrupt 0
 
 void screen_end(char win)
 {
-	char message;
+	char* message;
 	if (win=='w')
 	{
 		message = "WINNER!";
@@ -507,9 +563,14 @@ void screen_end(char win)
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_MSG(message);
 	LCD_BF();// wait untill the LCD is no longer busy
-	LCD_GOTO(0x40);
+	delay(4);
+	LCD_CLRS();
 	LCD_BF();// wait untill the LCD is no longer busy
-	LCD_MSG("please press reset button!.");
+	LCD_MSG("please press");
+	LCD_BF();
+	LCD_GOTO(0x40);
+	LCD_BF();
+	LCD_MSG("reset button!.");
 	LCD_BF();// wait untill the LCD is no longer busy
 	while(1);
 }

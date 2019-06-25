@@ -8,8 +8,8 @@ char map[4][16]; 						// blank map of ships. updated by ARM.
 int screen_num=0;						// represent no. of screen. no=0 => start screen
 int cursor =0;							//position of the cursor in game time
 
-//sbit SW1 = P0^4;						//reset button
-//sbit SW4 = P0^7;						//hit button
+sbit SW1 = P0^4;						//reset button
+sbit SW4 = P0^7;						//hit button
 //--------------------------------------//
 //---------------Functions--------------//
 //--------------------------------------//
@@ -35,3 +35,4 @@ void get_data();						//update game_timer and miss_cnt
 void screen_map_two();			   		//screen map bottom half.
 void screen_end(char win);				//ending screen.
 void end();								//external interrupt 0  --> end of game.
+void update_fallen_ship();				//update in map the fallen ship positions
