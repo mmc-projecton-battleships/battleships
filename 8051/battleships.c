@@ -32,9 +32,6 @@ void main()
 	Init_LCD();
 	Init_map();
 	Main_loop();
-	
-	
-
 }
 void Main_loop()
 {
