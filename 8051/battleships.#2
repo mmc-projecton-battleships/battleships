@@ -472,11 +472,11 @@ void update_fallen_ship()
 	wait_for_input();
 	pos[2]=recieved_note;
 	recieved_note=0;
-	map[(pos[0]/128)+(pos[0]%128)/16][(pos[0]%128)%16] = 95;// 95 = /
+	map[(pos[0]/32)*2+(pos[0]%32)/16][(pos[0]%32)%16] = 95;// 95 = /
 	if(pos[1]!='e')
-		map[(pos[1]/128)+(pos[1]%128)/16][(pos[1]%128)%16] = 95;
+		map[(pos[1]/32)*2+(pos[1]%32)/16][(pos[1]%32)%16] = 95;
 	if(pos[2]!='e')
-		map[(pos[2]/128)+(pos[2]%128)/16][(pos[2]%128)%16] = 95;
+		map[(pos[2]/32)*2+(pos[2]%32)/16][(pos[2]%32)%16] = 95;
 }
 
 

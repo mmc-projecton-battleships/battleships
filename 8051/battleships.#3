@@ -434,12 +434,12 @@ void screen_map_two()
 		//hit
 		if(SW4 == 0)
 		{
-			send_char((char)cursor+128);//send to ARM the hit location. +128 offset indicate 2' screen
+			send_char((char)cursor+32);//send to ARM the hit location. +128 offset indicate 2' screen
 			wait_for_input();//wait for ARM to respond.
 			if(recieved_note == 'h')//if hit
 			{
 				recieved_note=0;
-				map[cursor/16][cursor%16] = 'X';
+				map[cursor/16+2][cursor%16] = 'X';
 				LCD_BF();
 				LCD_DAT('X');
 				LCD_BF();
@@ -447,7 +447,7 @@ void screen_map_two()
 			else if(recieved_note == 'm')//if miss
 			{
 				recieved_note=0;
-				map[cursor/16][cursor%16] = 'O';
+				map[cursor/16+2][cursor%16] = 'O';
 				LCD_BF();
 				LCD_DAT('O');
 				LCD_BF();
@@ -472,11 +472,11 @@ void update_fallen_ship()
 	wait_for_input();
 	pos[2]=recieved_note;
 	recieved_note=0;
-	map[(pos[0]/128)+(pos[0]%128)/16][(pos[0]%128)%16] = 95;// 95 = /
+	map[(pos[0]/32)*2+(pos[0]%32)/16][(pos[0]%32)%16] = 95;// 95 = /
 	if(pos[1]!='e')
-		map[(pos[1]/128)+(pos[1]%128)/16][(pos[1]%128)%16] = 95;
+		map[(pos[1]/32)*2+(pos[1]%32)/16][(pos[1]%32)%16] = 95;
 	if(pos[2]!='e')
-		map[(pos[2]/128)+(pos[2]%128)/16][(pos[2]%128)%16] = 95;
+		map[(pos[2]/32)*2+(pos[2]%32)/16][(pos[2]%32)%16] = 95;
 }
 
 
