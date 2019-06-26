@@ -1,0 +1,108 @@
+C51 COMPILER V9.59.0.0   USER_INTERFACE_DEF                                                06/26/2019 08:52:52 PAGE 1   
+
+
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE USER_INTERFACE_DEF
+OBJECT MODULE PLACED IN User_Interface_def.OBJ
+COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.exe User_Interface_def.h DB OE BR INCDIR(C:\SiLabs\MCU\Inc)
+
+line level    source
+
+   1          //-----------------------------------------------------------------------------//
+   2          //User_Interface_def.h
+   3          //----------------------------------------------------------------------------
+   4          //  Copyright (C) 2016 BRAUDE COLLEGE  
+   5          //  Electronics & Elictrical Engineering Department
+   6          //  All rights reserved.
+   7          //  Owner               :  Dr. Fadil Tareef
+   8          //  FILE NAME   :   
+   9          //  DATE         :  23 DEC 2016
+  10          //  TARGET MCU   :  C8051F020
+  11          //  DESCRIPTION  :  This file contains LCD and KEPAD Interface Definition,
+  12          //                                      and functions prototype.
+  13          //                                      P1 is used for the LCD control signals, P1.0 = E, P1.1 = RW, P1.2 = RS, output only
+  14          //                                      P2 is used for LCD data: P2.7 is read to get the status of the LCD (BF)
+  15          //                                      P2 must be configured as bidirectional (open-drain) 
+  16          //                                      and set to FF (or at least 80) before reading the status of P2.7
+  17          //                                      P3 is used for KEPAD interface.
+  18          //                                      P3.0-P3.3 connected to the COLUMNS of the KEPAD, input pins.
+  19          //                                      P3.4-P3.7 connected to the ROWS of the KEPAD, output pins.
+  20          //                                
+  21          //      NOTES: This file used in the LCD.c file.
+  22          //                 This file updated for Keil C compiler and C8051F020.
+  23          //-----------------------------------------------------------------------------
+  24          
+  25          #include <C8051F020.h>                  // Include register definition file.
+  26          //---------------------------------------------------------------------------
+  27          // Global Defines
+  28          //---------------------------------------------------------------------------
+  29          #define KEPAD_PORT              P3              //KEPAD 
+  30          #define ROWS_MASK               0xF0    //mask for pins P3.4-P3.7
+  31          #define COLUMNS_MASK    0x0F    //mask for pins P3.0-P3.3
+  32          #define LCD_DAT_PORT    P2              //LCD is in 8 bit mode
+  33                                                                          //PORT 2 is the DATA port
+  34          #define LCD_CTRL_PORT   P1              // 3 control pins on P1
+  35          #define E_MASK                  0x01    // for assessing LCD_CTRL_PORT
+  36          #define RW_MASK                 0x02
+  37          #define RS_MASK                 0x04
+  38          //sbit  RS=P1^2;                        //Register Set command line 
+  39          //sbit  R_W=P1^1;                       //Read/Write command line
+  40          //sbit  E=P1^0;                         //Enable command line
+  41          //sbit  BF=P2^7;                        //Busy Flag     
+  42          //Keypad Connections
+  43          sbit C1 = P3^0;
+  44          sbit C2 = P3^1;
+  45          sbit C3 = P3^2;
+  46          sbit C4 = P3^3;
+  47          sbit R1 = P3^4;
+  48          sbit R2 = P3^5;
+  49          sbit R3 = P3^6;
+  50          sbit R4 = P3^7;
+  51          //End Keypad Connections        
+  52          //---------------------------------------------------------------------------
+  53          // Global MACROS
+  54          //---------------------------------------------------------------------------
+  55          #define pulse_E();\
+C51 COMPILER V9.59.0.0   USER_INTERFACE_DEF                                                06/26/2019 08:52:52 PAGE 2   
+
+  56                          small_delay(5);\
+  57                          LCD_CTRL_PORT = LCD_CTRL_PORT | E_MASK;\
+  58                          small_delay(5);\
+  59                          LCD_CTRL_PORT = LCD_CTRL_PORT & ~E_MASK;
+  60                          
+  61          //extern char ADDR, LCDDATA, CMD, d, MSG[];
+  62          //**********************************************
+  63          //------------ Function prototypes -------------
+  64          //**********************************************
+  65          void    LCD_BF (void);          // wait until the LCD is no longer busy
+  66          void    LCD_INIT (void);        // initialize the LCD to 8 bit mode
+  67          void    LCD_CLRS (void);        // clear display
+  68          void    LCD_GOTO (char ADDR);   // move to address addr
+  69          //void  LCD_CURS (__bit on);// 1 displays cursor, 0 hides it
+  70          void    LCD_HOME (void);        // home cursor
+  71          void    LCD_DAT (char LCDDATA);         // write data to the LCD controller
+  72          void    LCD_CMD  (char CMD);    // write a command to the LCD controller
+  73          void    LCD_MSG  (char MSG[]);  // send string to LCD at current cursor location
+  74          void    KEPAD_INIT(void);
+  75          void    KEY_RELEASE(void);
+  76          void    PRESSED_KEY(void);
+  77          char    GET_KEY(void);
+  78          char    ASCII_CONV(char d);
+  79          void    small_delay (char d); // 8 bit, about 0.34us per count @22.1MHz
+  80          void    large_delay (char d); // 16 bit, about 82us per count @22.1MHz
+  81          void    huge_delay  (char d); // 24 bit, about 22ms per count @22.1MHz
+  82          //-----------------------------------------------------------------------------
+  83          
+
+
+MODULE INFORMATION:   STATIC OVERLAYABLE
+   CODE SIZE        =   ----    ----
+   CONSTANT SIZE    =   ----    ----
+   XDATA SIZE       =   ----    ----
+   PDATA SIZE       =   ----    ----
+   DATA SIZE        =   ----    ----
+   IDATA SIZE       =   ----    ----
+   BIT SIZE         =   ----    ----
+END OF MODULE INFORMATION.
+
+
+C51 COMPILATION COMPLETE.  0 WARNING(S),  0 ERROR(S)
