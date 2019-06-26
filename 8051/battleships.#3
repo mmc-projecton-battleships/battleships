@@ -28,6 +28,7 @@
 
 void main()
 {
+	send_char('r');//tell the ARM to Reset.
 	Init_Device();
 	Init_LCD();
 	Init_map();
@@ -53,6 +54,8 @@ void Main_loop()
 			case 3:
 				screen_map_two();
 				break;
+			case 4:
+				
 			default://bug - > print that there is a problem. ask the player to reset the game. "Error screen".
 				break;
 		}
@@ -65,9 +68,10 @@ void screen_data()
 	char key=0;
 	while(1)
 	{
-		//get_data();
+		get_data();
 		print_current_status();
 		key=GET_KEY();
+		large_delay(130);
 		if(key==5)
 		{
 			screen_num=2;
@@ -102,7 +106,7 @@ void print_current_status()
 void get_data()
 {
 	char s[3];
-	int i;
+	short i;
 	//send 'd', wait for input 4 times
 	send_char('d');
 	for(i=0;i<3;i++)
@@ -147,8 +151,8 @@ void send_char(char c)
 //#devnote: check with oscilator if the freq is legit
 void delay(int secs)
 {
-	int j=0;
-	int i=0;
+	short j=0;
+	short i=0;
 	for (;j<secs;j++)
 	{
 		for (;i<28;i++)
@@ -204,7 +208,6 @@ void switch_difficulty()
 	LCD_BF();// wait untill the LCD is no longer busy
 	set_difficulty(key+1);
 	delay(2);
-	//#devnote: add :check if difficulty
 }
 
 void set_difficulty(char difficulty)
@@ -267,24 +270,6 @@ void counting_screen()
 	LCD_BF();// wait untill the LCD is no longer busy
 	send_char('s');//indicate the ARM the game starts now.
 	screen_num=1;//change to screen_data.
-}
-
-void Reset_isr() interrupt 1
-{
-	game_timer[0]='0';
-	game_timer[1]='0';
-	game_timer[3]='0';
-	game_timer[4]='0';
-	miss_cnt=0;
-	TI0 = 0;
-	send_char('r'); //sending "Reset" to ARM.
-	Init_LCD();
-	KEPAD_INIT();	// initialize the keypad
-	screen_num=0;
-	recieved_note=0;
-	cursor =0;
-	Init_map();
-	Main_loop();//#devnote: when will the interrupt end ? there is a bug !.
 }
 
 void screen_map_one()
@@ -499,8 +484,8 @@ void update_fallen_ship()
 //fill map with blank boxes.
 void Init_map()
 {
-	int i=0;
-	int j=0;
+	short i=0;
+	short j=0;
 	for(j=0;j<4;j++)
 	{
 		for(i=0;i<16;i++)
@@ -515,7 +500,7 @@ void Init_map()
 //sceren 3 = bottom half.
 void print_map(int screen)
 {
-	int i;
+	short i;
 	if (screen==2 || screen==3)
 	{
 		
