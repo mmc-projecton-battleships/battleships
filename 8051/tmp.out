@@ -1,9 +1,12 @@
 
-BL51 BANKED LINKER/LOCATER V6.22.2.0 - SN: K1ULF-FGQ4XE
-COPYRIGHT ARM Germany GmbH 1987 - 2017
-"C:\Users\em300user\Desktop\battleships-master\8051\battleships.obj",
-"C:\Users\em300user\Desktop\battleships-master\8051\User_Interface_Functions.obj",
-"C:\Users\em300user\Desktop\battleships-master\8051\Init_Device.obj"  TO "C:\Users\em300user\Desktop\battleships-master\8051\battleships" RS(256) PL(68) PW(78) 
+BL51 BANKED LINKER/LOCATER V6.22 - SN: K1FPC-102CCZ
+COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
+"C:\Users\Matan\Documents\GitHub\battleships\8051\battleships.obj",
+"C:\Users\Matan\Documents\GitHub\battleships\8051\User_Interface_Functions.obj",
+"C:\Users\Matan\Documents\GitHub\battleships\8051\Init_Device.obj"  TO "C:\Users\Matan\Documents\GitHub\battleships\8051\battleships" RS(256) PL(68) PW(78) 
+
+*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
+    SEGMENT: ?PR?GET_DATA?BATTLESHIPS
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?CHECK_INPUT_UART?BATTLESHIPS
@@ -29,5 +32,5 @@ COPYRIGHT ARM Germany GmbH 1987 - 2017
     CALLER1: ?PR?END?BATTLESHIPS
     CALLER2: ?C_C51STARTUP
 
-Program Size: data=115.0 xdata=0 code=3797
-LINK/LOCATE RUN COMPLETE.  6 WARNING(S),  0 ERROR(S)
+Program Size: data=119.0 xdata=0 code=3493
+LINK/LOCATE RUN COMPLETE.  7 WARNING(S),  0 ERROR(S)

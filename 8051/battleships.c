@@ -25,10 +25,12 @@
 #include "User_Interface_def.h"
 #include "battleships.h"
 //----------------------------- related Functions --------------------------------
-
+char first = 't';
 void main()
 {
-	send_char('r');//tell the ARM to Reset.
+
+	if (first=='f') send_char('r');//tell the ARM to Reset.
+	first='f';
 	Init_Device();
 	Init_LCD();
 	Init_map();
@@ -42,19 +44,22 @@ void Main_loop()
 		{
 			case 0:
 				start_screen();
-				switch_difficulty();
-				counting_screen();
 				break;
 			case 1:
-				screen_data();
+				switch_difficulty();
 				break;
 			case 2:
-				screen_map_one();
+				counting_screen();
 				break;
 			case 3:
-				screen_map_two();
+				screen_data();				
 				break;
 			case 4:
+				screen_map_one();
+				break;
+			case 5:
+				screen_map_two();
+				break;
 				
 			default://bug - > print that there is a problem. ask the player to reset the game. "Error screen".
 				break;
@@ -74,7 +79,7 @@ void screen_data()
 		large_delay(130);
 		if(key==5)
 		{
-			screen_num=2;
+			screen_num=4;
 			return;
 		}
 	}	
@@ -82,7 +87,6 @@ void screen_data()
 
 void print_current_status()
 {
-	char miss;
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_CMD(0x02);// move the cursor home
@@ -95,11 +99,9 @@ void print_current_status()
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_MSG("Misses left: ");
 	LCD_BF();// wait untill the LCD is no longer busy
-	miss=miss_cnt/10;
-	LCD_DAT(miss+'0');
+	LCD_DAT((miss_cnt/10)+'0');
 	LCD_BF();
-	miss=miss_cnt%10;
-	LCD_DAT(miss+'0');
+	LCD_DAT((miss_cnt%10)+'0');
 	LCD_BF();// wait untill the LCD is no longer busy
 }
 
@@ -120,7 +122,7 @@ void get_data()
 	game_timer[2]=':';
 	game_timer[3]=(s[1]/10) + '0';
 	game_timer[4]=(s[1]%10) + '0';
-	miss_cnt = (s[2]/10)*10 + (s[2]%10);
+	miss_cnt = s[2];
 }
 
 //check if there is avaible data.
@@ -159,6 +161,7 @@ void delay(int secs)
 		{
 			TR0 = 1;	//START COUNTING
 			while(!TF0);	//DELAY
+			TF0=0;
 		}
 	}
 }
@@ -186,6 +189,7 @@ void start_screen()
 	delay(2);
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
+	screen_num=1;
 }
 
 
@@ -206,6 +210,7 @@ void switch_difficulty()
 	KEY_RELEASE();		//wait until releasing
 	LCD_DAT(ASCII_CONV(key));
 	LCD_BF();// wait untill the LCD is no longer busy
+	screen_num=2;
 	set_difficulty(key+1);
 	delay(2);
 }
@@ -215,31 +220,15 @@ void set_difficulty(char difficulty)
 	char key;
 	if (difficulty>3)
 	{
-		LCD_BF();
-		LCD_MSG("input field:");
-		LCD_BF();
-		LCD_GOTO(0x40);
-		LCD_BF();
-		LCD_MSG("1-3");
-		delay(2);
-		while(difficulty>3)
-		{
-			LCD_CLRS(); // clears the display
-			LCD_CMD(0x02);// move the cursor home
-			LCD_BF();// wait untill the LCD is no longer busy
-			LCD_MSG("Please choose");
-			LCD_BF();// wait untill the LCD is no longer busy
-			LCD_GOTO(0x40);
-			LCD_BF();// wait untill the LCD is no longer busy
-			LCD_MSG("difficulty:");
-			LCD_BF();// wait untill the LCD is no longer busy
-			PRESSED_KEY();	//wait until pressing
-			difficulty = GET_KEY();	//save the key pressed
-			KEY_RELEASE();		//wait until releasing
-			LCD_DAT(ASCII_CONV(key));
-			delay(2);
-		}
+		delay(1);
+		screen_num=1;
 		LCD_CLRS(); // clears the display
+		LCD_CMD(0x02);// move the cursor home
+		LCD_BF();// wait untill the LCD is no longer busy
+		LCD_MSG("range: 1-3");
+		LCD_BF();// wait untill the LCD is no longer busy
+		delay(1);
+		return;
 	}
 	send_char(difficulty);//let the arm decide what difficulty parameters should be.
 }
@@ -269,7 +258,7 @@ void counting_screen()
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
 	send_char('s');//indicate the ARM the game starts now.
-	screen_num=1;//change to screen_data.
+	screen_num=3;//change to screen_data.
 }
 
 void screen_map_one()
@@ -278,13 +267,15 @@ void screen_map_one()
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_GOTO(0x00);
+	LCD_BF();
+	print_map(screen_num);
 	//---------> move cursor to right place
 	if(cursor>15)
 		LCD_GOTO(cursor + 0x30);
 	else
 		LCD_GOTO(cursor);
 	LCD_BF();// wait untill the LCD is no longer busy
-	print_map(2);
 	while(1) // kind of a main loop
 	{
 		key = GET_KEY();
@@ -295,7 +286,7 @@ void screen_map_one()
 			case 1://move cursor up. may chagnge the screen.
 				if (cursor<=15)
 				{
-					screen_num=1;//change to screen_data.
+					screen_num=3;//change to screen_data.
 					return;
 				}
 				cursor-=16;//go to upper line
@@ -316,7 +307,7 @@ void screen_map_one()
 				if (cursor>=16)
 				{
 					cursor-=16;
-					screen_num=3;//go to bottom half of the map.
+					screen_num=5;//go to bottom half of the map.
 					return;
 				}
 				cursor+=16;
@@ -370,17 +361,19 @@ void screen_map_one()
 
 void screen_map_two()
 {
-	char key=0; //used to read input from the user keyboard.
+		char key=0; //used to read input from the user keyboard.
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
+	LCD_GOTO(0x00);
+	LCD_BF();
+	print_map(screen_num);
 	//---------> move cursor to right place
 	if(cursor>15)
 		LCD_GOTO(cursor + 0x30);
 	else
 		LCD_GOTO(cursor);
 	LCD_BF();// wait untill the LCD is no longer busy
-	print_map(3);
 	while(1) // kind of a main loop
 	{
 		key = GET_KEY();
@@ -391,7 +384,7 @@ void screen_map_two()
 			case 1://move cursor up. may chagnge the screen.
 				if (cursor<=15)
 				{
-					screen_num=2;//change to screen_data.
+					screen_num=4;//change to screen_data.
 					return;
 				}
 				cursor-=16;//go to upper line
@@ -472,11 +465,11 @@ void update_fallen_ship()
 	wait_for_input();
 	pos[2]=recieved_note;
 	recieved_note=0;
-	map[(pos[0]/32)*2+(pos[0]%32)/16][(pos[0]%32)%16] = 95;// 95 = /
+	map[pos[0]/16][pos[0]%16] = 95;// 95 = /
 	if(pos[1]!='e')
-		map[(pos[1]/32)*2+(pos[1]%32)/16][(pos[1]%32)%16] = 95;
+		map[pos[1]/16][pos[1]%16] = 95;
 	if(pos[2]!='e')
-		map[(pos[2]/32)*2+(pos[2]%32)/16][(pos[2]%32)%16] = 95;
+		map[pos[2]/16][pos[2]%16] = 95;
 }
 
 
@@ -490,7 +483,7 @@ void Init_map()
 	{
 		for(i=0;i<16;i++)
 		{
-			map[j][i]= 219;//219 represent unchecked box
+			map[j][i]= 45;//45 represent unchecked box = '-';
 		}
 	}	
 	
@@ -501,20 +494,20 @@ void Init_map()
 void print_map(int screen)
 {
 	short i;
-	if (screen==2 || screen==3)
+	if (screen==4 || screen==5)
 	{
 		
 			for (i=0;i<16;i++)
 			{
 				LCD_BF();
-				LCD_DAT(map[(0+2*(screen/3))][i]);
+				LCD_DAT(map[(0+2*(screen/5))][i]);
 				LCD_BF();
 			}
 			LCD_GOTO(0x40);
 			for (i=0;i<16;i++)
 			{
 				LCD_BF();
-				LCD_DAT(map[1+2*(screen/3)][i]);
+				LCD_DAT(map[1+2*(screen/5)][i]);
 				LCD_BF();
 			}
 	}
