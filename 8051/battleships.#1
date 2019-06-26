@@ -76,7 +76,7 @@ void screen_data()
 		//get_data();
 		print_current_status();
 		key=GET_KEY();
-		large_delay(130);
+		delay(130);
 		if(key==5)
 		{
 			screen_num=4;
