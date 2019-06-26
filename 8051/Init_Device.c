@@ -87,7 +87,7 @@ void Oscillator_Init()
 
 void Interrupts_Init()
 {
-    IE        = 0x87;
+    IE        = 0x85;
 }
 
 // Initialization function for device,
