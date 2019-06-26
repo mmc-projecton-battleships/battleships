@@ -65,7 +65,7 @@ void screen_data()
 	char key=0;
 	while(1)
 	{
-		//get_data();
+		get_data();
 		print_current_status();
 		key=GET_KEY();
 		if(key==5)
