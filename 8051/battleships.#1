@@ -29,7 +29,7 @@ char first = 't';
 void main()
 {
 
-	//if (first=='f') send_char('r');//tell the ARM to Reset.
+	if (first=='f') send_char('r');//tell the ARM to Reset.
 	first='f';
 	Init_Device();
 	Init_LCD();
@@ -73,10 +73,10 @@ void screen_data()
 	char key=0;
 	while(1)
 	{
-		//get_data();
+		get_data();
 		print_current_status();
 		key=GET_KEY();
-		delay(130);
+		large_delay(130);
 		if(key==5)
 		{
 			screen_num=4;

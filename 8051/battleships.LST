@@ -1,7 +1,7 @@
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/26/2019 22:45:47 PAGE 1   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/27/2019 15:14:16 PAGE 1   
 
 
-C51 COMPILER V9.55, COMPILATION OF MODULE BATTLESHIPS
+C51 COMPILER V9.59.0.0, COMPILATION OF MODULE BATTLESHIPS
 OBJECT MODULE PLACED IN battleships.OBJ
 COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.exe battleships.c DB OE BR INCDIR(C:\SiLabs\MCU\Inc)
 
@@ -38,7 +38,7 @@ line level    source
   29          void main()
   30          {
   31   1      
-  32   1              //if (first=='f') send_char('r');//tell the ARM to Reset.
+  32   1              if (first=='f') send_char('r');//tell the ARM to Reset.
   33   1              first='f';
   34   1              Init_Device();
   35   1              Init_LCD();
@@ -62,7 +62,7 @@ line level    source
   53   3                                      break;
   54   3                              case 3:
   55   3                                      screen_data();                          
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/26/2019 22:45:47 PAGE 2   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/27/2019 15:14:16 PAGE 2   
 
   56   3                                      break;
   57   3                              case 4:
@@ -84,7 +84,7 @@ line level    source
   73   1              char key=0;
   74   1              while(1)
   75   1              {
-  76   2                      //get_data();
+  76   2                      get_data();
   77   2                      print_current_status();
   78   2                      key=GET_KEY();
   79   2                      large_delay(130);
@@ -126,7 +126,7 @@ line level    source
  115   1              {
  116   2                      wait_for_input();
  117   2                      s[i]=recieved_note;
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/26/2019 22:45:47 PAGE 3   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/27/2019 15:14:16 PAGE 3   
 
  118   2              }
  119   1              recieved_note=0;
@@ -190,7 +190,7 @@ line level    source
  177   1              LCD_BF();// wait untill the LCD is no longer busy
  178   1              LCD_CMD(0x02);// move the cursor home
  179   1              LCD_BF();// wait untill the LCD is no longer busy
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/26/2019 22:45:47 PAGE 4   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/27/2019 15:14:16 PAGE 4   
 
  180   1              
  181   1      }
@@ -254,7 +254,7 @@ line level    source
  238   1              LCD_CLRS(); // clears the display
  239   1              LCD_BF();// wait untill the LCD is no longer busy
  240   1              LCD_MSG("3");
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/26/2019 22:45:47 PAGE 5   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/27/2019 15:14:16 PAGE 5   
 
  241   1              LCD_BF();// wait untill the LCD is no longer busy
  242   1              delay(1);
@@ -318,7 +318,7 @@ line level    source
  300   4                                      //------------>move left
  301   4                                      if(cursor>15)
  302   4                                              LCD_GOTO(cursor + 0x30);
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/26/2019 22:45:47 PAGE 6   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/27/2019 15:14:16 PAGE 6   
 
  303   4                                      else
  304   4                                              LCD_GOTO(cursor);
@@ -382,7 +382,7 @@ line level    source
  362          void screen_map_two()
  363          {
  364   1                      char key=0; //used to read input from the user keyboard.
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/26/2019 22:45:47 PAGE 7   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/27/2019 15:14:16 PAGE 7   
 
  365   1              LCD_BF();// wait untill the LCD is no longer busy
  366   1              LCD_CLRS(); // clears the display
@@ -446,7 +446,7 @@ line level    source
  424   4                              }
  425   3                      }
  426   2                      key=0;
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/26/2019 22:45:47 PAGE 8   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/27/2019 15:14:16 PAGE 8   
 
  427   2                      //hit
  428   2                      if(SW4 == 0)
@@ -510,7 +510,7 @@ line level    source
  486   3                              map[j][i]= 45;//45 represent unchecked box = '-';
  487   3                      }
  488   2              }       
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/26/2019 22:45:47 PAGE 9   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/27/2019 15:14:16 PAGE 9   
 
  489   1              
  490   1      }
@@ -574,7 +574,7 @@ line level    source
  548   1              LCD_BF();
  549   1              LCD_GOTO(0x40);
  550   1              LCD_BF();
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/26/2019 22:45:47 PAGE 10  
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/27/2019 15:14:16 PAGE 10  
 
  551   1              LCD_MSG("reset button!.");
  552   1              LCD_BF();// wait untill the LCD is no longer busy
@@ -583,7 +583,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   1968    ----
+   CODE SIZE        =   2005    ----
    CONSTANT SIZE    =    137    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
