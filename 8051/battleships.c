@@ -60,7 +60,9 @@ void Main_loop()
 			case 5:
 				screen_map_two();
 				break;
-				
+			case 6:
+				screen_end(w);
+				break;
 			default://bug - > print that there is a problem. ask the player to reset the game. "Error screen".
 				break;
 		}
@@ -74,7 +76,13 @@ void screen_data()
 	while(1)
 	{
 		get_data();
+		if(w!=0)
+		{
+		screen_num=6;
+		return;
+		}
 		print_current_status();
+
 		key=GET_KEY();
 		large_delay(130);
 		if(key==5)
@@ -110,10 +118,22 @@ void get_data()
 	char s[3];
 	short i;
 	//send 'd', wait for input 4 times
+	check_input_uart();
+	if(recieved_note=='w'||recieved_note=='l')
+	{
+		w=recieved_note;
+		screen_num=6;
+		return;
+	}
 	send_char('d');
 	for(i=0;i<3;i++)
 	{
 		wait_for_input();
+		if(recieved_note=='w'||recieved_note=='l')
+		{
+			w=recieved_note;
+			return;
+		}	
 		s[i]=recieved_note;
 	}
 	recieved_note=0;
@@ -217,7 +237,6 @@ void switch_difficulty()
 
 void set_difficulty(char difficulty)
 {
-	char key;
 	if (difficulty>3)
 	{
 		delay(1);
@@ -235,6 +254,8 @@ void set_difficulty(char difficulty)
 
 void counting_screen()
 {
+	wait_for_input();
+	recieved_note=0;
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_MSG("3");
@@ -328,10 +349,18 @@ void screen_map_one()
 			}
 		}
 		key=0;
+		check_input_uart();
+		if(recieved_note =='w'||recieved_note=='l')
+			{
+				w=recieved_note;
+				screen_num=6;
+				return;
+			}
 		//hit
 		if(SW4 == 0)
 		{
-			send_char((char)cursor);//send to ARM the hit location.
+			if(map[cursor/16][cursor%16] =='X'||map[cursor/16][cursor%16]=='O') return;
+			send_char((char)cursor+1);//send to ARM the hit location.
 			wait_for_input();//wait for ARM to respond.
 			if(recieved_note == 'h')//if hit
 			{
@@ -340,6 +369,7 @@ void screen_map_one()
 				LCD_BF();
 				LCD_DAT('X');
 				LCD_BF();
+				LCD_CMD(0x10);
 			}
 			else if(recieved_note == 'm')//if miss
 			{
@@ -348,6 +378,7 @@ void screen_map_one()
 				LCD_BF();
 				LCD_DAT('O');
 				LCD_BF();
+				LCD_CMD(0x10);
 			}
 			else if(recieved_note == 'p')
 			{
@@ -355,13 +386,20 @@ void screen_map_one()
 				update_fallen_ship();
 				return;
 			}
+			else if(recieved_note =='w'||recieved_note=='l')
+			{
+				w=recieved_note;
+				screen_num=6;
+				return;
+			}
+			while(SW4 == 0);//wait untill switch4 in released.
 		}
 	}
 }
 
 void screen_map_two()
 {
-		char key=0; //used to read input from the user keyboard.
+	char key=0; //used to read input from the user keyboard.
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_CLRS(); // clears the display
 	LCD_BF();// wait untill the LCD is no longer busy
@@ -385,6 +423,7 @@ void screen_map_two()
 				if (cursor<=15)
 				{
 					screen_num=4;//change to screen_data.
+					cursor+=16;
 					return;
 				}
 				cursor-=16;//go to upper line
@@ -424,10 +463,18 @@ void screen_map_two()
 			}
 		}
 		key=0;
+		check_input_uart();
+		if(recieved_note =='w'||recieved_note=='l')
+			{
+				w=recieved_note;
+				screen_num=6;
+				return;
+			}
 		//hit
 		if(SW4 == 0)
 		{
-			send_char((char)cursor+32);//send to ARM the hit location. +128 offset indicate 2' screen
+			if(map[(cursor/16)+2][cursor%16] =='X'||map[(cursor/16)+2][cursor%16]=='O') return;
+			send_char((char)cursor+33);//send to ARM the hit location. +128 offset indicate 2' screen
 			wait_for_input();//wait for ARM to respond.
 			if(recieved_note == 'h')//if hit
 			{
@@ -436,6 +483,7 @@ void screen_map_two()
 				LCD_BF();
 				LCD_DAT('X');
 				LCD_BF();
+				LCD_CMD(0x10);
 			}
 			else if(recieved_note == 'm')//if miss
 			{
@@ -444,6 +492,7 @@ void screen_map_two()
 				LCD_BF();
 				LCD_DAT('O');
 				LCD_BF();
+				LCD_CMD(0x10);
 			}
 			else if(recieved_note == 'p')
 			{
@@ -451,6 +500,13 @@ void screen_map_two()
 				update_fallen_ship();
 				return;
 			}
+			else if(recieved_note =='w'||recieved_note=='l')
+			{
+				w=recieved_note;
+				screen_num=6;
+				return;
+			}
+			while(SW4 == 0);
 		}
 	}
 }
@@ -513,12 +569,6 @@ void print_map(int screen)
 	}
 }
 
-
-void end() interrupt 0
-{
-	wait_for_input();
-	screen_end(recieved_note);
-}
 
 void screen_end(char win)
 {

@@ -1,3 +1,3 @@
-"C:\Users\matan\Documents\GitHub\battleships\8051\battleships.obj",
-"C:\Users\matan\Documents\GitHub\battleships\8051\User_Interface_Functions.obj",
-"C:\Users\matan\Documents\GitHub\battleships\8051\Init_Device.obj"  TO "C:\Users\matan\Documents\GitHub\battleships\8051\battleships" RS(256) PL(68) PW(78) 
+"C:\Users\Matan\Documents\GitHub\battleships\8051\battleships.obj",
+"C:\Users\Matan\Documents\GitHub\battleships\8051\User_Interface_Functions.obj",
+"C:\Users\Matan\Documents\GitHub\battleships\8051\Init_Device.obj"  TO "C:\Users\Matan\Documents\GitHub\battleships\8051\battleships" RS(256) PL(68) PW(78) 

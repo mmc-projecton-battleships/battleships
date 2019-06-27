@@ -1,7 +1,7 @@
-C51 COMPILER V9.59.0.0   INIT_DEVICE                                                       06/27/2019 15:14:16 PAGE 1   
+C51 COMPILER V9.55   INIT_DEVICE                                                           06/27/2019 23:28:46 PAGE 1   
 
 
-C51 COMPILER V9.59.0.0, COMPILATION OF MODULE INIT_DEVICE
+C51 COMPILER V9.55, COMPILATION OF MODULE INIT_DEVICE
 OBJECT MODULE PLACED IN Init_Device.OBJ
 COMPILER INVOKED BY: C:\Keil_v5\C51\BIN\C51.exe Init_Device.c DB OE BR INCDIR(C:\SiLabs\MCU\Inc)
 
@@ -43,7 +43,7 @@ line level    source
   34   1          // P0.0  -  TX0 (UART0), Push-Pull,  Digital
   35   1          // P0.1  -  RX0 (UART0), Open-Drain, Digital
   36   1          // P0.2  -  CP0 (Cmpr0), Open-Drain, Digital
-  37   1          // P0.3  -  INT0 (Tmr0), Open-Drain, Digital
+  37   1          // P0.3  -  Unassigned,  Open-Drain, Digital
   38   1          // P0.4  -  Unassigned,  Open-Drain, Digital
   39   1          // P0.5  -  Unassigned,  Open-Drain, Digital
   40   1          // P0.6  -  Unassigned,  Open-Drain, Digital
@@ -62,7 +62,7 @@ line level    source
   53   1          // P2.1  -  Unassigned,  Push-Pull,  Digital
   54   1          // P2.2  -  Unassigned,  Push-Pull,  Digital
   55   1          // P2.3  -  Unassigned,  Push-Pull,  Digital
-C51 COMPILER V9.59.0.0   INIT_DEVICE                                                       06/27/2019 15:14:16 PAGE 2   
+C51 COMPILER V9.55   INIT_DEVICE                                                           06/27/2019 23:28:46 PAGE 2   
 
   56   1          // P2.4  -  Unassigned,  Open-Drain, Digital
   57   1          // P2.5  -  Unassigned,  Open-Drain, Digital
@@ -83,39 +83,32 @@ line level    source
   72   1          P2MDOUT   = 0x0F;
   73   1          P3MDOUT   = 0xF0;
   74   1          XBR0      = 0x84;
-  75   1          XBR1      = 0x04;
-  76   1          XBR2      = 0x40;
-  77   1      }
-  78          
-  79          void Oscillator_Init()
-  80          {
-  81   1          int i = 0;
-  82   1          OSCXCN    = 0x67;
-  83   1          for (i = 0; i < 3000; i++);  // Wait 1ms for initialization
-  84   1          while ((OSCXCN & 0x80) == 0);
-  85   1          OSCICN    = 0x08;
-  86   1      }
-  87          
-  88          void Interrupts_Init()
-  89          {
-  90   1          IE        = 0x85;
-  91   1      }
-  92          
-  93          // Initialization function for device,
-  94          // Call Init_Device() from your main program
-  95          void Init_Device(void)
-  96          {
-  97   1          Reset_Sources_Init();
-  98   1          Timer_Init();
-  99   1          UART_Init();
- 100   1          Port_IO_Init();
- 101   1          Oscillator_Init();
- 102   1          Interrupts_Init();
- 103   1      }
+  75   1          XBR2      = 0x40;
+  76   1      }
+  77          
+  78          void Oscillator_Init()
+  79          {
+  80   1          int i = 0;
+  81   1          OSCXCN    = 0x67;
+  82   1          for (i = 0; i < 3000; i++);  // Wait 1ms for initialization
+  83   1          while ((OSCXCN & 0x80) == 0);
+  84   1          OSCICN    = 0x08;
+  85   1      }
+  86          
+  87          // Initialization function for device,
+  88          // Call Init_Device() from your main program
+  89          void Init_Device(void)
+  90          {
+  91   1          Reset_Sources_Init();
+  92   1          Timer_Init();
+  93   1          UART_Init();
+  94   1          Port_IO_Init();
+  95   1          Oscillator_Init();
+  96   1      }
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =    104    ----
+   CODE SIZE        =     93    ----
    CONSTANT SIZE    =   ----    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
