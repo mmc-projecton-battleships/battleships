@@ -43,24 +43,30 @@ void Main_loop()
 		switch(screen_num)
 		{
 			case 0:
+				//start
 				start_screen();
 				break;
 			case 1:
+				//chose difficulty level
 				switch_difficulty();
 				break;
 			case 2:
 				counting_screen();
 				break;
 			case 3:
+				//show time and missiles left
 				screen_data();				
 				break;
 			case 4:
+				//upper half of map
 				screen_map_one();
 				break;
 			case 5:
+				//lower half of map
 				screen_map_two();
 				break;
 			case 6:
+				//end
 				screen_end(w);
 				break;
 			default://bug - > print that there is a problem. ask the player to reset the game. "Error screen".
@@ -75,17 +81,17 @@ void screen_data()
 	char key=0;
 	while(1)
 	{
-		get_data();
-		if(w!=0)
+		get_data();//get time and missiles left from ARM
+		if(w!=0)//if we lost\won
 		{
-		screen_num=6;
+		screen_num=6;//go to end
 		return;
 		}
-		print_current_status();
+		print_current_status();//print time and missiles left
 
 		key=GET_KEY();
 		large_delay(130);
-		if(key==5)
+		if(key==5)//if user asks to get down to the upper half of the map
 		{
 			screen_num=4;
 			return;
@@ -119,23 +125,25 @@ void get_data()
 	short i;
 	//send 'd', wait for input 4 times
 	check_input_uart();
-	if(recieved_note=='w'||recieved_note=='l')
+	if(recieved_note=='w'||recieved_note=='l')//in case a"lose" or "win" message came
 	{
 		w=recieved_note;
 		screen_num=6;
 		return;
 	}
-	send_char('d');
-	for(i=0;i<3;i++)
+	send_char('d');//ask for data
+	for(i=0;i<3;i++)//get data
 	{
 		wait_for_input();
-		if(recieved_note=='w'||recieved_note=='l')
+		if(recieved_note=='w'||recieved_note=='l')//if lose or win message came
 		{
 			w=recieved_note;
+			screen_num=6;//change to ending screen
 			return;
 		}	
 		s[i]=recieved_note;
 	}
+	//set time and missiles left
 	recieved_note=0;
 	game_timer[0]=(s[0]/10) + '0';
 	game_timer[1]=(s[0]%10) + '0';
@@ -167,10 +175,8 @@ void send_char(char c)
 	SBUF0=	c;
 	while(!TI0);
 	TI0= 0;
-	//#devnote: add :check if the arm got the tarsmission ?
 }
 //wait for "secs" seconds.
-//#devnote: check with oscilator if the freq is legit
 void delay(int secs)
 {
 	short j=0;
@@ -188,6 +194,10 @@ void delay(int secs)
 
 void Init_LCD()
 {
+	red=0;
+	green=0;
+	yellow=0;
+	blue=0;
 	LCD_BF(); // wait untill the LCD is no longer busy
 	LCD_INIT();// initialize the LCD to 8 bit mode
 	LCD_BF();// wait untill the LCD is no longer busy
@@ -237,6 +247,7 @@ void switch_difficulty()
 
 void set_difficulty(char difficulty)
 {
+	//difficulty level range : 1-3 (on keyboard). 
 	if (difficulty>3)
 	{
 		delay(1);
@@ -281,7 +292,7 @@ void counting_screen()
 	send_char('s');//indicate the ARM the game starts now.
 	screen_num=3;//change to screen_data.
 }
-
+//upper half of the map
 void screen_map_one()
 {
 	char key=0; //used to read input from the user keyboard.
@@ -302,6 +313,10 @@ void screen_map_one()
 		key = GET_KEY();
 		if(key!=0) 
 		{
+			red=0;
+			green=0;
+			yellow=0;
+			blue=0;
 			switch(key)
 			{
 			case 1://move cursor up. may chagnge the screen.
@@ -349,6 +364,7 @@ void screen_map_one()
 			}
 		}
 		key=0;
+		//if a win or lose message came
 		check_input_uart();
 		if(recieved_note =='w'||recieved_note=='l')
 			{
@@ -360,10 +376,17 @@ void screen_map_one()
 		if(SW4 == 0)
 		{
 			if(map[cursor/16][cursor%16] =='X'||map[cursor/16][cursor%16]=='O') return;
+			//independently because long binary sentence arn't working well.
+			if(map[cursor/16][cursor%16]=='S')return;
+			red=0;
+			green=0;
+			yellow=0;
+			blue=0;
 			send_char((char)cursor+1);//send to ARM the hit location.
 			wait_for_input();//wait for ARM to respond.
 			if(recieved_note == 'h')//if hit
 			{
+				green=1;
 				recieved_note=0;
 				map[cursor/16][cursor%16] = 'X';
 				LCD_BF();
@@ -373,6 +396,7 @@ void screen_map_one()
 			}
 			else if(recieved_note == 'm')//if miss
 			{
+				red=1;
 				recieved_note=0;
 				map[cursor/16][cursor%16] = 'O';
 				LCD_BF();
@@ -380,13 +404,17 @@ void screen_map_one()
 				LCD_BF();
 				LCD_CMD(0x10);
 			}
-			else if(recieved_note == 'p')
+			else if(recieved_note == 'p')//if falles ship
 			{
+				red=1;
+				green=1;
+				yellow=1;
+				blue=1;
 				recieved_note=0;
 				update_fallen_ship();
 				return;
 			}
-			else if(recieved_note =='w'||recieved_note=='l')
+			else if(recieved_note =='w'||recieved_note=='l')//if win or lose message came
 			{
 				w=recieved_note;
 				screen_num=6;
@@ -396,7 +424,7 @@ void screen_map_one()
 		}
 	}
 }
-
+//lower half of the map
 void screen_map_two()
 {
 	char key=0; //used to read input from the user keyboard.
@@ -417,6 +445,10 @@ void screen_map_two()
 		key = GET_KEY();
 		if(key!=0) 
 		{
+			red=0;
+			green=0;
+			yellow=0;
+			blue=0;
 			switch(key)
 			{
 			case 1://move cursor up. may chagnge the screen.
@@ -463,7 +495,7 @@ void screen_map_two()
 			}
 		}
 		key=0;
-		check_input_uart();
+		check_input_uart();//if a win or lose message came
 		if(recieved_note =='w'||recieved_note=='l')
 			{
 				w=recieved_note;
@@ -474,10 +506,16 @@ void screen_map_two()
 		if(SW4 == 0)
 		{
 			if(map[(cursor/16)+2][cursor%16] =='X'||map[(cursor/16)+2][cursor%16]=='O') return;
-			send_char((char)cursor+33);//send to ARM the hit location. +128 offset indicate 2' screen
+			if(map[cursor/16][cursor%16]=='S')return;
+			red=0;
+			green=0;
+			yellow=0;
+			blue=0;
+			send_char((char)cursor+33);//send to ARM the hit location. +32 offset indicate 2' screen
 			wait_for_input();//wait for ARM to respond.
 			if(recieved_note == 'h')//if hit
 			{
+				green=1;
 				recieved_note=0;
 				map[cursor/16+2][cursor%16] = 'X';
 				LCD_BF();
@@ -487,6 +525,7 @@ void screen_map_two()
 			}
 			else if(recieved_note == 'm')//if miss
 			{
+				red=1;
 				recieved_note=0;
 				map[cursor/16+2][cursor%16] = 'O';
 				LCD_BF();
@@ -494,13 +533,17 @@ void screen_map_two()
 				LCD_BF();
 				LCD_CMD(0x10);
 			}
-			else if(recieved_note == 'p')
+			else if(recieved_note == 'p')//falles ship
 			{
+				red=1;
+				green=1;
+				yellow=1;
+				blue=1;
 				recieved_note=0;
 				update_fallen_ship();
 				return;
 			}
-			else if(recieved_note =='w'||recieved_note=='l')
+			else if(recieved_note =='w'||recieved_note=='l')//win\lose message came
 			{
 				w=recieved_note;
 				screen_num=6;
@@ -514,23 +557,24 @@ void screen_map_two()
 void update_fallen_ship()
 {
 	char pos[3];
-	wait_for_input();
-	pos[0]=recieved_note;
-	wait_for_input();
-	pos[1]=recieved_note;
-	wait_for_input();
-	pos[2]=recieved_note;
+	int i=0;
+	for(;i<3;i++)//get cordinates of the fallen ship
+	{
+		wait_for_input();
+		pos[i]=recieved_note;
+	}
+	//update on map
 	recieved_note=0;
-	map[pos[0]/16][pos[0]%16] = 95;// 95 = /
+	map[pos[0]/16][pos[0]%16] = 83;// 83 = S
 	if(pos[1]!='e')
-		map[pos[1]/16][pos[1]%16] = 95;
+		map[pos[1]/16][pos[1]%16] = 83;
 	if(pos[2]!='e')
-		map[pos[2]/16][pos[2]%16] = 95;
+		map[pos[2]/16][pos[2]%16] = 83;
 }
 
 
 
-//fill map with blank boxes.
+//fill map with blanks .
 void Init_map()
 {
 	short i=0;
@@ -539,7 +583,7 @@ void Init_map()
 	{
 		for(i=0;i<16;i++)
 		{
-			map[j][i]= 45;//45 represent unchecked box = '-';
+			map[j][i]= 45;//45 represent "unchecked"  = '-';
 		}
 	}	
 	
