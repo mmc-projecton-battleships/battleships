@@ -1,4 +1,4 @@
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 01:06:01 PAGE 1   
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 15:00:05 PAGE 1   
 
 
 C51 COMPILER V9.55, COMPILATION OF MODULE BATTLESHIPS
@@ -62,7 +62,7 @@ line level    source
   53   3                              case 2:
   54   3                                      counting_screen();
   55   3                                      break;
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 01:06:01 PAGE 2   
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 15:00:05 PAGE 2   
 
   56   3                              case 3:
   57   3                                      //show time and missiles left
@@ -126,7 +126,7 @@ line level    source
  115   1              LCD_BF();// wait untill the LCD is no longer busy
  116   1              LCD_DAT((miss_cnt/10)+'0');
  117   1              LCD_BF();
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 01:06:01 PAGE 3   
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 15:00:05 PAGE 3   
 
  118   1              LCD_DAT((miss_cnt%10)+'0');
  119   1              LCD_BF();// wait untill the LCD is no longer busy
@@ -190,7 +190,7 @@ line level    source
  177   1              TI0= 0;
  178   1      }
  179          //wait for "secs" seconds.
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 01:06:01 PAGE 4   
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 15:00:05 PAGE 4   
 
  180          void delay(int secs)
  181          {
@@ -254,7 +254,7 @@ line level    source
  239   1              key = GET_KEY();        //save the key pressed
  240   1              KEY_RELEASE();          //wait until releasing
  241   1              LCD_DAT(ASCII_CONV(key));
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 01:06:01 PAGE 5   
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 15:00:05 PAGE 5   
 
  242   1              LCD_BF();// wait untill the LCD is no longer busy
  243   1              screen_num=2;
@@ -318,7 +318,7 @@ line level    source
  301   1              LCD_BF();// wait untill the LCD is no longer busy
  302   1              LCD_GOTO(0x00);
  303   1              LCD_BF();
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 01:06:01 PAGE 6   
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 15:00:05 PAGE 6   
 
  304   1              print_map(screen_num);
  305   1              //---------> move cursor to right place
@@ -382,7 +382,7 @@ line level    source
  363   4                                      break;
  364   4                              }
  365   3                      }
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 01:06:01 PAGE 7   
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 15:00:05 PAGE 7   
 
  366   2                      key=0;
  367   2                      //if a win or lose message came
@@ -446,7 +446,7 @@ line level    source
  425   2              }
  426   1      }
  427          //lower half of the map
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 01:06:01 PAGE 8   
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 15:00:05 PAGE 8   
 
  428          void screen_map_two()
  429          {
@@ -510,7 +510,7 @@ line level    source
  487   4                                      cursor++;
  488   4                                      LCD_BF();
  489   4                                      //------------>move right
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 01:06:01 PAGE 9   
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 15:00:05 PAGE 9   
 
  490   4                                      if(cursor>15)
  491   4                                              LCD_GOTO(cursor + 0x30);
@@ -531,7 +531,7 @@ line level    source
  506   2                      if(SW4 == 0)
  507   2                      {
  508   3                              if(map[(cursor/16)+2][cursor%16] =='X'||map[(cursor/16)+2][cursor%16]=='O') return;
- 509   3                              if(map[cursor/16][cursor%16]=='S')return;
+ 509   3                              if(map[(cursor/16)+2][cursor%16]=='S')return;
  510   3                              red=0;
  511   3                              green=0;
  512   3                              yellow=0;
@@ -574,7 +574,7 @@ line level    source
  549   4                                      screen_num=6;
  550   4                                      return;
  551   4                              }
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 01:06:01 PAGE 10  
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 15:00:05 PAGE 10  
 
  552   3                              while(SW4 == 0);
  553   3                      }
@@ -638,7 +638,7 @@ line level    source
  611   3                                      LCD_BF();
  612   3                              }
  613   2              }
-C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 01:06:01 PAGE 11  
+C51 COMPILER V9.55   BATTLESHIPS                                                           06/29/2019 15:00:05 PAGE 11  
 
  614   1      }
  615          
@@ -678,7 +678,7 @@ line level    source
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   2298    ----
+   CODE SIZE        =   2279    ----
    CONSTANT SIZE    =    137    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----

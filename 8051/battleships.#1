@@ -506,7 +506,7 @@ void screen_map_two()
 		if(SW4 == 0)
 		{
 			if(map[(cursor/16)+2][cursor%16] =='X'||map[(cursor/16)+2][cursor%16]=='O') return;
-			if(map[cursor/16][cursor%16]=='S')return;
+			if(map[(cursor/16)+2][cursor%16]=='S')return;
 			red=0;
 			green=0;
 			yellow=0;
