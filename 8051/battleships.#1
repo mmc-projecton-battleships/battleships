@@ -583,7 +583,7 @@ void Init_map()
 	{
 		for(i=0;i<16;i++)
 		{
-			map[j][i]= 45;//45 represent "unchecked"  = '-';
+			map[j][i]= '-';//represent "unchecked"  = '-';
 		}
 	}	
 	

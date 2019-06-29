@@ -565,11 +565,11 @@ void update_fallen_ship()
 	}
 	//update on map
 	recieved_note=0;
-	map[pos[0]/16][pos[0]%16] = 83;// 83 = S
+	map[pos[0]/16][pos[0]%16] = 'S';//'S' = fallen ship
 	if(pos[1]!='e')
-		map[pos[1]/16][pos[1]%16] = 83;
+		map[pos[1]/16][pos[1]%16] = 'S';
 	if(pos[2]!='e')
-		map[pos[2]/16][pos[2]%16] = 83;
+		map[pos[2]/16][pos[2]%16] = 'S';
 }
 
 
@@ -583,7 +583,7 @@ void Init_map()
 	{
 		for(i=0;i<16;i++)
 		{
-			map[j][i]= 45;//45 represent "unchecked"  = '-';
+			map[j][i]= '-';//represent "unchecked"  = '-';
 		}
 	}	
 	
