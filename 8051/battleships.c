@@ -125,22 +125,12 @@ void get_data()
 	short i;
 	//send 'd', wait for input 4 times
 	check_input_uart();
-	if(recieved_note=='w'||recieved_note=='l')//in case a"lose" or "win" message came
-	{
-		w=recieved_note;
-		screen_num=6;
-		return;
-	}
+	check_end();
 	send_char('d');//ask for data
 	for(i=0;i<3;i++)//get data
 	{
 		wait_for_input();
-		if(recieved_note=='w'||recieved_note=='l')//if lose or win message came
-		{
-			w=recieved_note;
-			screen_num=6;//change to ending screen
-			return;
-		}	
+		check_end();
 		s[i]=recieved_note;
 	}
 	//set time and missiles left
@@ -366,12 +356,7 @@ void screen_map_one()
 		key=0;
 		//if a win or lose message came
 		check_input_uart();
-		if(recieved_note =='w'||recieved_note=='l')
-			{
-				w=recieved_note;
-				screen_num=6;
-				return;
-			}
+		check_end();
 		//hit
 		if(SW4 == 0)
 		{
@@ -414,12 +399,7 @@ void screen_map_one()
 				update_fallen_ship();
 				return;
 			}
-			else if(recieved_note =='w'||recieved_note=='l')//if win or lose message came
-			{
-				w=recieved_note;
-				screen_num=6;
-				return;
-			}
+			check_end();
 			while(SW4 == 0);//wait untill switch4 in released.
 		}
 	}
@@ -496,12 +476,7 @@ void screen_map_two()
 		}
 		key=0;
 		check_input_uart();//if a win or lose message came
-		if(recieved_note =='w'||recieved_note=='l')
-			{
-				w=recieved_note;
-				screen_num=6;
-				return;
-			}
+		check_end();
 		//hit
 		if(SW4 == 0)
 		{
@@ -543,12 +518,7 @@ void screen_map_two()
 				update_fallen_ship();
 				return;
 			}
-			else if(recieved_note =='w'||recieved_note=='l')//win\lose message came
-			{
-				w=recieved_note;
-				screen_num=6;
-				return;
-			}
+			check_end();
 			while(SW4 == 0);
 		}
 	}
@@ -561,6 +531,7 @@ void update_fallen_ship()
 	for(;i<3;i++)//get cordinates of the fallen ship
 	{
 		wait_for_input();
+		check_end();
 		pos[i]=recieved_note;
 	}
 	//update on map
@@ -573,6 +544,15 @@ void update_fallen_ship()
 }
 
 
+void check_end()
+{
+	if(recieved_note =='w'||recieved_note=='l')
+	{
+		w=recieved_note;
+		screen_num=6;
+		return;
+	}
+}
 
 //fill map with blanks .
 void Init_map()

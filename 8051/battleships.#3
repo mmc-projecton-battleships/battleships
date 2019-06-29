@@ -366,12 +366,7 @@ void screen_map_one()
 		key=0;
 		//if a win or lose message came
 		check_input_uart();
-		if(recieved_note =='w'||recieved_note=='l')
-			{
-				w=recieved_note;
-				screen_num=6;
-				return;
-			}
+		check_end();
 		//hit
 		if(SW4 == 0)
 		{
@@ -414,12 +409,7 @@ void screen_map_one()
 				update_fallen_ship();
 				return;
 			}
-			else if(recieved_note =='w'||recieved_note=='l')//if win or lose message came
-			{
-				w=recieved_note;
-				screen_num=6;
-				return;
-			}
+			check_end();
 			while(SW4 == 0);//wait untill switch4 in released.
 		}
 	}
@@ -496,12 +486,7 @@ void screen_map_two()
 		}
 		key=0;
 		check_input_uart();//if a win or lose message came
-		if(recieved_note =='w'||recieved_note=='l')
-			{
-				w=recieved_note;
-				screen_num=6;
-				return;
-			}
+		check_end();
 		//hit
 		if(SW4 == 0)
 		{
@@ -543,12 +528,7 @@ void screen_map_two()
 				update_fallen_ship();
 				return;
 			}
-			else if(recieved_note =='w'||recieved_note=='l')//win\lose message came
-			{
-				w=recieved_note;
-				screen_num=6;
-				return;
-			}
+			check_end();
 			while(SW4 == 0);
 		}
 	}
@@ -561,18 +541,28 @@ void update_fallen_ship()
 	for(;i<3;i++)//get cordinates of the fallen ship
 	{
 		wait_for_input();
+		check_end();
 		pos[i]=recieved_note;
 	}
 	//update on map
 	recieved_note=0;
-	map[pos[0]/16][pos[0]%16] = 83;// 83 = S
+	map[pos[0]/16][pos[0]%16] = 'S';//'S' = fallen ship
 	if(pos[1]!='e')
-		map[pos[1]/16][pos[1]%16] = 83;
+		map[pos[1]/16][pos[1]%16] = 'S';
 	if(pos[2]!='e')
-		map[pos[2]/16][pos[2]%16] = 83;
+		map[pos[2]/16][pos[2]%16] = 'S';
 }
 
 
+void check_end()
+{
+	if(recieved_note =='w'||recieved_note=='l')
+	{
+		w=recieved_note;
+		screen_num=6;
+		return;
+	}
+}
 
 //fill map with blanks .
 void Init_map()
@@ -583,7 +573,7 @@ void Init_map()
 	{
 		for(i=0;i<16;i++)
 		{
-			map[j][i]= 45;//45 represent "unchecked"  = '-';
+			map[j][i]= '-';//represent "unchecked"  = '-';
 		}
 	}	
 	

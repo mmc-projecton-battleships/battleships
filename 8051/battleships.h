@@ -39,3 +39,4 @@ void screen_map_two();			   		//screen map bottom half.
 void screen_end(char win);				//ending screen.
 void end();								//external interrupt 0  --> end of game.
 void update_fallen_ship();				//update in map the fallen ship positions
+void check_end();
