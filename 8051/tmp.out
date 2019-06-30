@@ -1,9 +1,9 @@
 
-BL51 BANKED LINKER/LOCATER V6.22 - SN: K1FPC-102CCZ
-COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
-"C:\Users\Matan\Documents\GitHub\battleships\8051\battleships.obj",
-"C:\Users\Matan\Documents\GitHub\battleships\8051\User_Interface_Functions.obj",
-"C:\Users\Matan\Documents\GitHub\battleships\8051\Init_Device.obj"  TO "C:\Users\Matan\Documents\GitHub\battleships\8051\battleships" RS(256) PL(68) PW(78) 
+BL51 BANKED LINKER/LOCATER V6.22.2.0 - SN: K1FPC-K02D4Z
+COPYRIGHT ARM Germany GmbH 1987 - 2017
+"C:\Users\matan\Documents\GitHub\battleships\8051\battleships.obj",
+"C:\Users\matan\Documents\GitHub\battleships\8051\User_Interface_Functions.obj",
+"C:\Users\matan\Documents\GitHub\battleships\8051\Init_Device.obj"  TO "C:\Users\matan\Documents\GitHub\battleships\8051\battleships" RS(256) PL(68) PW(78) 
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?KEPAD_INIT?USER_INTERFACE_FUNCTIONS
@@ -11,5 +11,5 @@ COPYRIGHT KEIL ELEKTRONIK GmbH 1987 - 2009
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_HUGE_DELAY?USER_INTERFACE_FUNCTIONS
 
-Program Size: data=106.0 xdata=0 code=3794
+Program Size: data=106.0 xdata=0 code=3939
 LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)

@@ -88,7 +88,6 @@ void screen_data()
 		return;
 		}
 		print_current_status();//print time and missiles left
-
 		key=GET_KEY();
 		large_delay(130);
 		if(key==5)//if user asks to get down to the upper half of the map
@@ -126,11 +125,15 @@ void get_data()
 	//send 'd', wait for input 4 times
 	check_input_uart();
 	check_end();
+		if(w!=0)
+			return;
 	send_char('d');//ask for data
 	for(i=0;i<3;i++)//get data
 	{
 		wait_for_input();
 		check_end();
+		if(w!=0)
+			return;
 		s[i]=recieved_note;
 	}
 	//set time and missiles left
@@ -320,7 +323,12 @@ void screen_map_one()
 				break;
 			case 4://move cursor left.
 				if (cursor==0 || cursor==16)//can't go behind the screeen.
+				{
+					cursor+=15;
+					LCD_BF();
+					LCD_GOTO(cursor+3*(cursor/16));
 					break;
+				}
 				cursor--;
 				LCD_BF();
 				//------------>move left
@@ -342,7 +350,12 @@ void screen_map_one()
 				break;
 			case 6://move cursor right.
 				if (cursor==15 || cursor==31)//can't go behind the screeen.
+				{
+					cursor-=15;
+					LCD_BF();
+					LCD_GOTO(cursor+3*(cursor/16));
 					break;
+				}
 				cursor++;
 				LCD_BF();
 				//------------>move right
@@ -357,6 +370,8 @@ void screen_map_one()
 		//if a win or lose message came
 		check_input_uart();
 		check_end();
+		if(w!=0)
+			return;
 		//hit
 		if(SW4 == 0)
 		{
@@ -399,7 +414,10 @@ void screen_map_one()
 				update_fallen_ship();
 				return;
 			}
+			check_input_uart();
 			check_end();
+			if(w!=0)
+				return;
 			while(SW4 == 0);//wait untill switch4 in released.
 		}
 	}
@@ -443,7 +461,12 @@ void screen_map_two()
 				break;
 			case 4://move cursor left.
 				if (cursor==0 || cursor==16)//can't go behind the screeen.
+				{
+					cursor+=15;
+					LCD_BF();
+					LCD_GOTO(cursor+3*(cursor/16));
 					break;
+				}
 				cursor--;
 				LCD_BF();
 				//------------>move left
@@ -463,7 +486,12 @@ void screen_map_two()
 				break;
 			case 6://move cursor right.
 				if (cursor==15 || cursor==31)//can't go behind the screeen.
+				{
+					cursor-=15;
+					LCD_BF();
+					LCD_GOTO(cursor+3*(cursor/16));
 					break;
+				}
 				cursor++;
 				LCD_BF();
 				//------------>move right
@@ -477,6 +505,8 @@ void screen_map_two()
 		key=0;
 		check_input_uart();//if a win or lose message came
 		check_end();
+		if(w!=0)
+			return;
 		//hit
 		if(SW4 == 0)
 		{
@@ -518,7 +548,10 @@ void screen_map_two()
 				update_fallen_ship();
 				return;
 			}
+			check_input_uart();
 			check_end();
+			if(w!=0)
+				return;
 			while(SW4 == 0);
 		}
 	}
@@ -532,6 +565,8 @@ void update_fallen_ship()
 	{
 		wait_for_input();
 		check_end();
+		if(w!=0)
+			return;
 		pos[i]=recieved_note;
 	}
 	//update on map
@@ -559,13 +594,15 @@ void Init_map()
 {
 	short i=0;
 	short j=0;
-	for(j=0;j<4;j++)
+	for(j=0;j<2;j++)
 	{
 		for(i=0;i<16;i++)
 		{
-			map[j][i]= '-';//represent "unchecked"  = '-';
+			map[j][i]= '-';//represent "unchecked"  = '-' in uppper half map
+			map[j+2][i]='+';//represent "unchecked"  = '+' in bottom half map
 		}
-	}	
+	}
+	
 	
 }
 //print the map by the right screen. 
