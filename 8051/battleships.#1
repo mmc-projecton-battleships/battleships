@@ -25,13 +25,10 @@
 #include "User_Interface_def.h"
 #include "battleships.h"
 //----------------------------- related Functions --------------------------------
-char first = 't';
 void main()
 {
-
-	if (first=='f') send_char('r');//tell the ARM to Reset.
-	first='f';
 	Init_Device();
+	send_char('r');//tell the ARM to Reset.
 	Init_LCD();
 	Init_map();
 	Main_loop();
@@ -110,7 +107,7 @@ void print_current_status()
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_GOTO(0x40);
 	LCD_BF();// wait untill the LCD is no longer busy
-	LCD_MSG("Misses left: ");
+	LCD_MSG("Missiles:  ");
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_DAT((miss_cnt/10)+'0');
 	LCD_BF();
@@ -303,6 +300,7 @@ void screen_map_one()
 	LCD_BF();// wait untill the LCD is no longer busy
 	while(1) // kind of a main loop
 	{
+		LCD_CMD(0x0E);
 		key = GET_KEY();
 		if(key!=0) 
 		{
@@ -440,6 +438,7 @@ void screen_map_two()
 	LCD_BF();// wait untill the LCD is no longer busy
 	while(1) // kind of a main loop
 	{
+		LCD_CMD(0x0E);
 		key = GET_KEY();
 		if(key!=0) 
 		{
@@ -634,13 +633,23 @@ void print_map(int screen)
 void screen_end(char win)
 {
 	char* message;
+	send_char('e');
+	red=0;
+	green=0;
+	yellow=0;
+	blue=0;
 	if (win=='w')
 	{
+		red=1;
+		green=1;
+		yellow=1;
+		blue=1;
 		message = "WINNER!";
 	}
 	else if(win=='l')
 	{
-		message = "LOOSER!";
+		message = "YOU LOSE!";
+		red=1;
 	}
 	else
 	{
@@ -655,11 +664,11 @@ void screen_end(char win)
 	delay(4);//wait 4 seconds.
 	LCD_CLRS();
 	LCD_BF();// wait untill the LCD is no longer busy
-	LCD_MSG("please press");
+	LCD_MSG("Please Press");
 	LCD_BF();
 	LCD_GOTO(0x40);
 	LCD_BF();
-	LCD_MSG("reset button!.");
+	LCD_MSG("Reset Button!.");
 	LCD_BF();// wait untill the LCD is no longer busy
 	while(1);
 }

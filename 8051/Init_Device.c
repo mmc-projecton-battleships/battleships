@@ -34,7 +34,7 @@ void Port_IO_Init()
     // P0.0  -  TX0 (UART0), Push-Pull,  Digital
     // P0.1  -  RX0 (UART0), Open-Drain, Digital
     // P0.2  -  CP0 (Cmpr0), Open-Drain, Digital
-    // P0.3  -  Unassigned,  Open-Drain, Digital
+    // P0.3  -  INT0 (Tmr0), Open-Drain, Digital
     // P0.4  -  Unassigned,  Open-Drain, Digital
     // P0.5  -  Unassigned,  Open-Drain, Digital
     // P0.6  -  Unassigned,  Open-Drain, Digital
@@ -72,6 +72,7 @@ void Port_IO_Init()
     P2MDOUT   = 0x0F;
     P3MDOUT   = 0xF0;
     XBR0      = 0x84;
+    XBR1      = 0x04;
     XBR2      = 0x40;
 }
 
@@ -84,6 +85,11 @@ void Oscillator_Init()
     OSCICN    = 0x08;
 }
 
+void Interrupts_Init()
+{
+    IE        = 0x81;
+}
+
 // Initialization function for device,
 // Call Init_Device() from your main program
 void Init_Device(void)
@@ -93,4 +99,5 @@ void Init_Device(void)
     UART_Init();
     Port_IO_Init();
     Oscillator_Init();
+    Interrupts_Init();
 }

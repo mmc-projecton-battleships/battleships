@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/30/2019 22:25:06 PAGE 1   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/01/2019 17:08:57 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE BATTLESHIPS
@@ -34,434 +34,434 @@ line level    source
   25          #include "User_Interface_def.h"
   26          #include "battleships.h"
   27          //----------------------------- related Functions --------------------------------
-  28          char first = 't';
-  29          void main()
-  30          {
-  31   1      
-  32   1              if (first=='f') send_char('r');//tell the ARM to Reset.
-  33   1              first='f';
-  34   1              Init_Device();
-  35   1              Init_LCD();
-  36   1              Init_map();
-  37   1              Main_loop();
-  38   1      }
-  39          void Main_loop()
-  40          {
-  41   1              while(1)
-  42   1              {
-  43   2                      switch(screen_num)
-  44   2                      {
-  45   3                              case 0:
-  46   3                                      //start
-  47   3                                      start_screen();
-  48   3                                      break;
-  49   3                              case 1:
-  50   3                                      //chose difficulty level
-  51   3                                      switch_difficulty();
+  28          void main()
+  29          {
+  30   1              Init_Device();
+  31   1              send_char('r');//tell the ARM to Reset.
+  32   1              Init_LCD();
+  33   1              Init_map();
+  34   1              Main_loop();
+  35   1      }
+  36          void Main_loop()
+  37          {
+  38   1              while(1)
+  39   1              {
+  40   2                      switch(screen_num)
+  41   2                      {
+  42   3                              case 0:
+  43   3                                      //start
+  44   3                                      start_screen();
+  45   3                                      break;
+  46   3                              case 1:
+  47   3                                      //chose difficulty level
+  48   3                                      switch_difficulty();
+  49   3                                      break;
+  50   3                              case 2:
+  51   3                                      counting_screen();
   52   3                                      break;
-  53   3                              case 2:
-  54   3                                      counting_screen();
-  55   3                                      break;
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/30/2019 22:25:06 PAGE 2   
+  53   3                              case 3:
+  54   3                                      //show time and missiles left
+  55   3                                      screen_data();                          
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/01/2019 17:08:57 PAGE 2   
 
-  56   3                              case 3:
-  57   3                                      //show time and missiles left
-  58   3                                      screen_data();                          
-  59   3                                      break;
-  60   3                              case 4:
-  61   3                                      //upper half of map
-  62   3                                      screen_map_one();
-  63   3                                      break;
-  64   3                              case 5:
-  65   3                                      //lower half of map
-  66   3                                      screen_map_two();
-  67   3                                      break;
-  68   3                              case 6:
-  69   3                                      //end
-  70   3                                      screen_end(w);
-  71   3                                      break;
-  72   3                              default://bug - > print that there is a problem. ask the player to reset the game. "Error screen".
-  73   3                                      break;
-  74   3                      }
-  75   2              }
-  76   1      }
-  77          
-  78          
-  79          void screen_data()
-  80          {
-  81   1              char key=0;
-  82   1              while(1)
-  83   1              {
-  84   2                      get_data();//get time and missiles left from ARM
-  85   2                      if(w!=0)//if we lost\won
-  86   2                      {
-  87   3                      screen_num=6;//go to end
-  88   3                      return;
-  89   3                      }
-  90   2                      print_current_status();//print time and missiles left
-  91   2                      key=GET_KEY();
-  92   2                      large_delay(130);
-  93   2                      if(key==5)//if user asks to get down to the upper half of the map
-  94   2                      {
-  95   3                              screen_num=4;
-  96   3                              return;
-  97   3                      }
-  98   2              }       
-  99   1      }
- 100          
- 101          void print_current_status()
- 102          {
- 103   1              LCD_CLRS(); // clears the display
- 104   1              LCD_BF();// wait untill the LCD is no longer busy
- 105   1              LCD_CMD(0x02);// move the cursor home
- 106   1              LCD_BF();// wait untill the LCD is no longer busy
- 107   1              LCD_MSG("Time left: ");
- 108   1              LCD_BF();// wait untill the LCD is no longer busy
- 109   1              LCD_MSG(game_timer);
- 110   1              LCD_BF();// wait untill the LCD is no longer busy
- 111   1              LCD_GOTO(0x40);
- 112   1              LCD_BF();// wait untill the LCD is no longer busy
- 113   1              LCD_MSG("Misses left: ");
- 114   1              LCD_BF();// wait untill the LCD is no longer busy
- 115   1              LCD_DAT((miss_cnt/10)+'0');
- 116   1              LCD_BF();
- 117   1              LCD_DAT((miss_cnt%10)+'0');
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/30/2019 22:25:06 PAGE 3   
+  56   3                                      break;
+  57   3                              case 4:
+  58   3                                      //upper half of map
+  59   3                                      screen_map_one();
+  60   3                                      break;
+  61   3                              case 5:
+  62   3                                      //lower half of map
+  63   3                                      screen_map_two();
+  64   3                                      break;
+  65   3                              case 6:
+  66   3                                      //end
+  67   3                                      screen_end(w);
+  68   3                                      break;
+  69   3                              default://bug - > print that there is a problem. ask the player to reset the game. "Error screen".
+  70   3                                      break;
+  71   3                      }
+  72   2              }
+  73   1      }
+  74          
+  75          
+  76          void screen_data()
+  77          {
+  78   1              char key=0;
+  79   1              while(1)
+  80   1              {
+  81   2                      get_data();//get time and missiles left from ARM
+  82   2                      if(w!=0)//if we lost\won
+  83   2                      {
+  84   3                      screen_num=6;//go to end
+  85   3                      return;
+  86   3                      }
+  87   2                      print_current_status();//print time and missiles left
+  88   2                      key=GET_KEY();
+  89   2                      large_delay(130);
+  90   2                      if(key==5)//if user asks to get down to the upper half of the map
+  91   2                      {
+  92   3                              screen_num=4;
+  93   3                              return;
+  94   3                      }
+  95   2              }       
+  96   1      }
+  97          
+  98          void print_current_status()
+  99          {
+ 100   1              LCD_CLRS(); // clears the display
+ 101   1              LCD_BF();// wait untill the LCD is no longer busy
+ 102   1              LCD_CMD(0x02);// move the cursor home
+ 103   1              LCD_BF();// wait untill the LCD is no longer busy
+ 104   1              LCD_MSG("Time left: ");
+ 105   1              LCD_BF();// wait untill the LCD is no longer busy
+ 106   1              LCD_MSG(game_timer);
+ 107   1              LCD_BF();// wait untill the LCD is no longer busy
+ 108   1              LCD_GOTO(0x40);
+ 109   1              LCD_BF();// wait untill the LCD is no longer busy
+ 110   1              LCD_MSG("Missiles:  ");
+ 111   1              LCD_BF();// wait untill the LCD is no longer busy
+ 112   1              LCD_DAT((miss_cnt/10)+'0');
+ 113   1              LCD_BF();
+ 114   1              LCD_DAT((miss_cnt%10)+'0');
+ 115   1              LCD_BF();// wait untill the LCD is no longer busy
+ 116   1      }
+ 117          
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/01/2019 17:08:57 PAGE 3   
 
- 118   1              LCD_BF();// wait untill the LCD is no longer busy
- 119   1      }
- 120          
- 121          void get_data()
- 122          {
- 123   1              char s[3];
- 124   1              short i;
- 125   1              //send 'd', wait for input 4 times
- 126   1              check_input_uart();
- 127   1              check_end();
- 128   1                      if(w!=0)
- 129   1                              return;
- 130   1              send_char('d');//ask for data
- 131   1              for(i=0;i<3;i++)//get data
- 132   1              {
- 133   2                      wait_for_input();
- 134   2                      check_end();
- 135   2                      if(w!=0)
- 136   2                              return;
- 137   2                      s[i]=recieved_note;
- 138   2              }
- 139   1              //set time and missiles left
- 140   1              recieved_note=0;
- 141   1              game_timer[0]=(s[0]/10) + '0';
- 142   1              game_timer[1]=(s[0]%10) + '0';
- 143   1              game_timer[2]=':';
- 144   1              game_timer[3]=(s[1]/10) + '0';
- 145   1              game_timer[4]=(s[1]%10) + '0';
- 146   1              miss_cnt = s[2];
- 147   1      }
- 148          
- 149          //check if there is avaible data.
- 150          void check_input_uart()
- 151          {
- 152   1              if (!RI0)
- 153   1                      return;
- 154   1              recieved_note = SBUF0;
- 155   1              RI0=0;
- 156   1      }
- 157          //wait for data.
- 158          void wait_for_input()
- 159          {
- 160   1              while(!RI0);
- 161   1              recieved_note = SBUF0;
- 162   1              RI0=0;
- 163   1      }
- 164          //send data to ARM.
- 165          void send_char(char c)
- 166          {
- 167   1              TI0 = 0;
- 168   1              SBUF0=  c;
- 169   1              while(!TI0);
- 170   1              TI0= 0;
- 171   1      }
- 172          //wait for "secs" seconds.
- 173          void delay(int secs)
- 174          {
- 175   1              short j=0;
- 176   1              short i=0;
- 177   1              for (;j<secs;j++)
- 178   1              {
- 179   2                      for (;i<28;i++)
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/30/2019 22:25:06 PAGE 4   
+ 118          void get_data()
+ 119          {
+ 120   1              char s[3];
+ 121   1              short i;
+ 122   1              //send 'd', wait for input 4 times
+ 123   1              check_input_uart();
+ 124   1              check_end();
+ 125   1                      if(w!=0)
+ 126   1                              return;
+ 127   1              send_char('d');//ask for data
+ 128   1              for(i=0;i<3;i++)//get data
+ 129   1              {
+ 130   2                      wait_for_input();
+ 131   2                      check_end();
+ 132   2                      if(w!=0)
+ 133   2                              return;
+ 134   2                      s[i]=recieved_note;
+ 135   2              }
+ 136   1              //set time and missiles left
+ 137   1              recieved_note=0;
+ 138   1              game_timer[0]=(s[0]/10) + '0';
+ 139   1              game_timer[1]=(s[0]%10) + '0';
+ 140   1              game_timer[2]=':';
+ 141   1              game_timer[3]=(s[1]/10) + '0';
+ 142   1              game_timer[4]=(s[1]%10) + '0';
+ 143   1              miss_cnt = s[2];
+ 144   1      }
+ 145          
+ 146          //check if there is avaible data.
+ 147          void check_input_uart()
+ 148          {
+ 149   1              if (!RI0)
+ 150   1                      return;
+ 151   1              recieved_note = SBUF0;
+ 152   1              RI0=0;
+ 153   1      }
+ 154          //wait for data.
+ 155          void wait_for_input()
+ 156          {
+ 157   1              while(!RI0);
+ 158   1              recieved_note = SBUF0;
+ 159   1              RI0=0;
+ 160   1      }
+ 161          //send data to ARM.
+ 162          void send_char(char c)
+ 163          {
+ 164   1              TI0 = 0;
+ 165   1              SBUF0=  c;
+ 166   1              while(!TI0);
+ 167   1              TI0= 0;
+ 168   1      }
+ 169          //wait for "secs" seconds.
+ 170          void delay(int secs)
+ 171          {
+ 172   1              short j=0;
+ 173   1              short i=0;
+ 174   1              for (;j<secs;j++)
+ 175   1              {
+ 176   2                      for (;i<28;i++)
+ 177   2                      {
+ 178   3                              TR0 = 1;        //START COUNTING
+ 179   3                              while(!TF0);    //DELAY
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/01/2019 17:08:57 PAGE 4   
 
- 180   2                      {
- 181   3                              TR0 = 1;        //START COUNTING
- 182   3                              while(!TF0);    //DELAY
- 183   3                              TF0=0;
- 184   3                      }
- 185   2              }
- 186   1      }
- 187          
- 188          void Init_LCD()
- 189          {
- 190   1              red=0;
- 191   1              green=0;
- 192   1              yellow=0;
- 193   1              blue=0;
- 194   1              LCD_BF(); // wait untill the LCD is no longer busy
- 195   1              LCD_INIT();// initialize the LCD to 8 bit mode
- 196   1              LCD_BF();// wait untill the LCD is no longer busy
- 197   1              LCD_CMD(0x06); // curser moves from left to right
- 198   1              LCD_BF();// wait untill the LCD is no longer busy
- 199   1              LCD_CLRS(); // clears the display
- 200   1              LCD_BF();// wait untill the LCD is no longer busy
- 201   1              LCD_CMD(0x02);// move the cursor home
- 202   1              LCD_BF();// wait untill the LCD is no longer busy
- 203   1              
- 204   1      }
- 205          
- 206          void start_screen()
- 207          {
- 208   1              LCD_CLRS(); // clears the display
- 209   1              LCD_BF();// wait untill the LCD is no longer busy
- 210   1              LCD_MSG("BattleShips!");
+ 180   3                              TF0=0;
+ 181   3                      }
+ 182   2              }
+ 183   1      }
+ 184          
+ 185          void Init_LCD()
+ 186          {
+ 187   1              red=0;
+ 188   1              green=0;
+ 189   1              yellow=0;
+ 190   1              blue=0;
+ 191   1              LCD_BF(); // wait untill the LCD is no longer busy
+ 192   1              LCD_INIT();// initialize the LCD to 8 bit mode
+ 193   1              LCD_BF();// wait untill the LCD is no longer busy
+ 194   1              LCD_CMD(0x06); // curser moves from left to right
+ 195   1              LCD_BF();// wait untill the LCD is no longer busy
+ 196   1              LCD_CLRS(); // clears the display
+ 197   1              LCD_BF();// wait untill the LCD is no longer busy
+ 198   1              LCD_CMD(0x02);// move the cursor home
+ 199   1              LCD_BF();// wait untill the LCD is no longer busy
+ 200   1              
+ 201   1      }
+ 202          
+ 203          void start_screen()
+ 204          {
+ 205   1              LCD_CLRS(); // clears the display
+ 206   1              LCD_BF();// wait untill the LCD is no longer busy
+ 207   1              LCD_MSG("BattleShips!");
+ 208   1              LCD_BF();// wait untill the LCD is no longer busy
+ 209   1              delay(2);
+ 210   1              LCD_CLRS(); // clears the display
  211   1              LCD_BF();// wait untill the LCD is no longer busy
- 212   1              delay(2);
- 213   1              LCD_CLRS(); // clears the display
- 214   1              LCD_BF();// wait untill the LCD is no longer busy
- 215   1              screen_num=1;
- 216   1      }
- 217          
- 218          
- 219          void switch_difficulty()
- 220          {
- 221   1              char key;
- 222   1              LCD_CLRS(); // clears the display
- 223   1              LCD_CMD(0x02);// move the cursor home
- 224   1              LCD_BF();// wait untill the LCD is no longer busy
- 225   1              LCD_MSG("Please choose");
- 226   1              LCD_BF();// wait untill the LCD is no longer busy
- 227   1              LCD_GOTO(0x40);
- 228   1              LCD_BF();// wait untill the LCD is no longer busy
- 229   1              LCD_MSG("difficulty:");
- 230   1              LCD_BF();// wait untill the LCD is no longer busy
- 231   1              PRESSED_KEY();  //wait until pressing
- 232   1              key = GET_KEY();        //save the key pressed
- 233   1              KEY_RELEASE();          //wait until releasing
- 234   1              LCD_DAT(ASCII_CONV(key));
- 235   1              LCD_BF();// wait untill the LCD is no longer busy
- 236   1              screen_num=2;
- 237   1              set_difficulty(key+1);
- 238   1              delay(2);
- 239   1      }
- 240          
- 241          void set_difficulty(char difficulty)
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/30/2019 22:25:06 PAGE 5   
+ 212   1              screen_num=1;
+ 213   1      }
+ 214          
+ 215          
+ 216          void switch_difficulty()
+ 217          {
+ 218   1              char key;
+ 219   1              LCD_CLRS(); // clears the display
+ 220   1              LCD_CMD(0x02);// move the cursor home
+ 221   1              LCD_BF();// wait untill the LCD is no longer busy
+ 222   1              LCD_MSG("Please choose");
+ 223   1              LCD_BF();// wait untill the LCD is no longer busy
+ 224   1              LCD_GOTO(0x40);
+ 225   1              LCD_BF();// wait untill the LCD is no longer busy
+ 226   1              LCD_MSG("difficulty:");
+ 227   1              LCD_BF();// wait untill the LCD is no longer busy
+ 228   1              PRESSED_KEY();  //wait until pressing
+ 229   1              key = GET_KEY();        //save the key pressed
+ 230   1              KEY_RELEASE();          //wait until releasing
+ 231   1              LCD_DAT(ASCII_CONV(key));
+ 232   1              LCD_BF();// wait untill the LCD is no longer busy
+ 233   1              screen_num=2;
+ 234   1              set_difficulty(key+1);
+ 235   1              delay(2);
+ 236   1      }
+ 237          
+ 238          void set_difficulty(char difficulty)
+ 239          {
+ 240   1              //difficulty level range : 1-3 (on keyboard). 
+ 241   1              if (difficulty>3)
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/01/2019 17:08:57 PAGE 5   
 
- 242          {
- 243   1              //difficulty level range : 1-3 (on keyboard). 
- 244   1              if (difficulty>3)
- 245   1              {
- 246   2                      delay(1);
- 247   2                      screen_num=1;
- 248   2                      LCD_CLRS(); // clears the display
- 249   2                      LCD_CMD(0x02);// move the cursor home
- 250   2                      LCD_BF();// wait untill the LCD is no longer busy
- 251   2                      LCD_MSG("range: 1-3");
- 252   2                      LCD_BF();// wait untill the LCD is no longer busy
- 253   2                      delay(1);
- 254   2                      return;
- 255   2              }
- 256   1              send_char(difficulty);//let the arm decide what difficulty parameters should be.
- 257   1      }
- 258          
- 259          void counting_screen()
- 260          {
- 261   1              wait_for_input();
- 262   1              recieved_note=0;
- 263   1              LCD_CLRS(); // clears the display
- 264   1              LCD_BF();// wait untill the LCD is no longer busy
- 265   1              LCD_MSG("3");
+ 242   1              {
+ 243   2                      delay(1);
+ 244   2                      screen_num=1;
+ 245   2                      LCD_CLRS(); // clears the display
+ 246   2                      LCD_CMD(0x02);// move the cursor home
+ 247   2                      LCD_BF();// wait untill the LCD is no longer busy
+ 248   2                      LCD_MSG("range: 1-3");
+ 249   2                      LCD_BF();// wait untill the LCD is no longer busy
+ 250   2                      delay(1);
+ 251   2                      return;
+ 252   2              }
+ 253   1              send_char(difficulty);//let the arm decide what difficulty parameters should be.
+ 254   1      }
+ 255          
+ 256          void counting_screen()
+ 257          {
+ 258   1              wait_for_input();
+ 259   1              recieved_note=0;
+ 260   1              LCD_CLRS(); // clears the display
+ 261   1              LCD_BF();// wait untill the LCD is no longer busy
+ 262   1              LCD_MSG("3");
+ 263   1              LCD_BF();// wait untill the LCD is no longer busy
+ 264   1              delay(1);
+ 265   1              LCD_CLRS(); // clears the display
  266   1              LCD_BF();// wait untill the LCD is no longer busy
- 267   1              delay(1);
- 268   1              LCD_CLRS(); // clears the display
- 269   1              LCD_BF();// wait untill the LCD is no longer busy
- 270   1              LCD_MSG("2");
+ 267   1              LCD_MSG("2");
+ 268   1              LCD_BF();// wait untill the LCD is no longer busy
+ 269   1              delay(1);
+ 270   1              LCD_CLRS(); // clears the display
  271   1              LCD_BF();// wait untill the LCD is no longer busy
- 272   1              delay(1);
- 273   1              LCD_CLRS(); // clears the display
- 274   1              LCD_BF();// wait untill the LCD is no longer busy
- 275   1              LCD_MSG("1");
+ 272   1              LCD_MSG("1");
+ 273   1              LCD_BF();// wait untill the LCD is no longer busy
+ 274   1              delay(1);
+ 275   1              LCD_CLRS(); // clears the display
  276   1              LCD_BF();// wait untill the LCD is no longer busy
- 277   1              delay(1);
- 278   1              LCD_CLRS(); // clears the display
- 279   1              LCD_BF();// wait untill the LCD is no longer busy
- 280   1              LCD_MSG("GO!");
+ 277   1              LCD_MSG("GO!");
+ 278   1              LCD_BF();// wait untill the LCD is no longer busy
+ 279   1              delay(1);
+ 280   1              LCD_CLRS(); // clears the display
  281   1              LCD_BF();// wait untill the LCD is no longer busy
- 282   1              delay(1);
- 283   1              LCD_CLRS(); // clears the display
- 284   1              LCD_BF();// wait untill the LCD is no longer busy
- 285   1              send_char('s');//indicate the ARM the game starts now.
- 286   1              screen_num=3;//change to screen_data.
- 287   1      }
- 288          //upper half of the map
- 289          void screen_map_one()
- 290          {
- 291   1              char key=0; //used to read input from the user keyboard.
- 292   1              LCD_BF();// wait untill the LCD is no longer busy
- 293   1              LCD_CLRS(); // clears the display
- 294   1              LCD_BF();// wait untill the LCD is no longer busy
- 295   1              LCD_GOTO(0x00);
- 296   1              LCD_BF();
- 297   1              print_map(screen_num);
- 298   1              //---------> move cursor to right place
- 299   1              if(cursor>15)
- 300   1                      LCD_GOTO(cursor + 0x30);
- 301   1              else
- 302   1                      LCD_GOTO(cursor);
- 303   1              LCD_BF();// wait untill the LCD is no longer busy
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/30/2019 22:25:06 PAGE 6   
+ 282   1              send_char('s');//indicate the ARM the game starts now.
+ 283   1              screen_num=3;//change to screen_data.
+ 284   1      }
+ 285          //upper half of the map
+ 286          void screen_map_one()
+ 287          {
+ 288   1              char key=0; //used to read input from the user keyboard.
+ 289   1              LCD_BF();// wait untill the LCD is no longer busy
+ 290   1              LCD_CLRS(); // clears the display
+ 291   1              LCD_BF();// wait untill the LCD is no longer busy
+ 292   1              LCD_GOTO(0x00);
+ 293   1              LCD_BF();
+ 294   1              print_map(screen_num);
+ 295   1              //---------> move cursor to right place
+ 296   1              if(cursor>15)
+ 297   1                      LCD_GOTO(cursor + 0x30);
+ 298   1              else
+ 299   1                      LCD_GOTO(cursor);
+ 300   1              LCD_BF();// wait untill the LCD is no longer busy
+ 301   1              while(1) // kind of a main loop
+ 302   1              {
+ 303   2                      LCD_CMD(0x0E);
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/01/2019 17:08:57 PAGE 6   
 
- 304   1              while(1) // kind of a main loop
- 305   1              {
- 306   2                      key = GET_KEY();
- 307   2                      if(key!=0) 
- 308   2                      {
- 309   3                              red=0;
- 310   3                              green=0;
- 311   3                              yellow=0;
- 312   3                              blue=0;
- 313   3                              switch(key)
- 314   3                              {
- 315   4                              case 1://move cursor up. may chagnge the screen.
- 316   4                                      if (cursor<=15)
- 317   4                                      {
- 318   5                                              screen_num=3;//change to screen_data.
- 319   5                                              return;
- 320   5                                      }
- 321   4                                      cursor-=16;//go to upper line
- 322   4                                      LCD_GOTO(cursor);
- 323   4                                      break;
- 324   4                              case 4://move cursor left.
- 325   4                                      if (cursor==0 || cursor==16)//can't go behind the screeen.
- 326   4                                      {
- 327   5                                              cursor+=15;
- 328   5                                              LCD_BF();
- 329   5                                              LCD_GOTO(cursor+3*(cursor/16));
- 330   5                                              break;
- 331   5                                      }
- 332   4                                      cursor--;
- 333   4                                      LCD_BF();
- 334   4                                      //------------>move left
- 335   4                                      if(cursor>15)
- 336   4                                              LCD_GOTO(cursor + 0x30);
- 337   4                                      else
- 338   4                                              LCD_GOTO(cursor);
- 339   4                                      break;
- 340   4                              case 5://move cursor down. may change screen.
- 341   4                                      if (cursor>=16)
- 342   4                                      {
- 343   5                                              cursor-=16;
- 344   5                                              screen_num=5;//go to bottom half of the map.
- 345   5                                              return;
- 346   5                                      }
- 347   4                                      cursor+=16;
- 348   4                                      LCD_BF();
- 349   4                                      LCD_GOTO(cursor + 0x30);
- 350   4                                      break;
- 351   4                              case 6://move cursor right.
- 352   4                                      if (cursor==15 || cursor==31)//can't go behind the screeen.
- 353   4                                      {
- 354   5                                              cursor-=15;
- 355   5                                              LCD_BF();
- 356   5                                              LCD_GOTO(cursor+3*(cursor/16));
- 357   5                                              break;
- 358   5                                      }
- 359   4                                      cursor++;
- 360   4                                      LCD_BF();
- 361   4                                      //------------>move right
- 362   4                                      if(cursor>15)
- 363   4                                              LCD_GOTO(cursor + 0x30);
- 364   4                                      else
- 365   4                                              LCD_GOTO(cursor);
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/30/2019 22:25:06 PAGE 7   
+ 304   2                      key = GET_KEY();
+ 305   2                      if(key!=0) 
+ 306   2                      {
+ 307   3                              red=0;
+ 308   3                              green=0;
+ 309   3                              yellow=0;
+ 310   3                              blue=0;
+ 311   3                              switch(key)
+ 312   3                              {
+ 313   4                              case 1://move cursor up. may chagnge the screen.
+ 314   4                                      if (cursor<=15)
+ 315   4                                      {
+ 316   5                                              screen_num=3;//change to screen_data.
+ 317   5                                              return;
+ 318   5                                      }
+ 319   4                                      cursor-=16;//go to upper line
+ 320   4                                      LCD_GOTO(cursor);
+ 321   4                                      break;
+ 322   4                              case 4://move cursor left.
+ 323   4                                      if (cursor==0 || cursor==16)//can't go behind the screeen.
+ 324   4                                      {
+ 325   5                                              cursor+=15;
+ 326   5                                              LCD_BF();
+ 327   5                                              LCD_GOTO(cursor+3*(cursor/16));
+ 328   5                                              break;
+ 329   5                                      }
+ 330   4                                      cursor--;
+ 331   4                                      LCD_BF();
+ 332   4                                      //------------>move left
+ 333   4                                      if(cursor>15)
+ 334   4                                              LCD_GOTO(cursor + 0x30);
+ 335   4                                      else
+ 336   4                                              LCD_GOTO(cursor);
+ 337   4                                      break;
+ 338   4                              case 5://move cursor down. may change screen.
+ 339   4                                      if (cursor>=16)
+ 340   4                                      {
+ 341   5                                              cursor-=16;
+ 342   5                                              screen_num=5;//go to bottom half of the map.
+ 343   5                                              return;
+ 344   5                                      }
+ 345   4                                      cursor+=16;
+ 346   4                                      LCD_BF();
+ 347   4                                      LCD_GOTO(cursor + 0x30);
+ 348   4                                      break;
+ 349   4                              case 6://move cursor right.
+ 350   4                                      if (cursor==15 || cursor==31)//can't go behind the screeen.
+ 351   4                                      {
+ 352   5                                              cursor-=15;
+ 353   5                                              LCD_BF();
+ 354   5                                              LCD_GOTO(cursor+3*(cursor/16));
+ 355   5                                              break;
+ 356   5                                      }
+ 357   4                                      cursor++;
+ 358   4                                      LCD_BF();
+ 359   4                                      //------------>move right
+ 360   4                                      if(cursor>15)
+ 361   4                                              LCD_GOTO(cursor + 0x30);
+ 362   4                                      else
+ 363   4                                              LCD_GOTO(cursor);
+ 364   4                                      break;
+ 365   4                              }
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/01/2019 17:08:57 PAGE 7   
 
- 366   4                                      break;
- 367   4                              }
- 368   3                      }
- 369   2                      key=0;
- 370   2                      //if a win or lose message came
- 371   2                      check_input_uart();
- 372   2                      check_end();
- 373   2                      if(w!=0)
- 374   2                              return;
- 375   2                      //hit
- 376   2                      if(SW4 == 0)
- 377   2                      {
- 378   3                              if(map[cursor/16][cursor%16] =='X'||map[cursor/16][cursor%16]=='O') return;
- 379   3                              //independently because long binary sentence arn't working well.
- 380   3                              if(map[cursor/16][cursor%16]=='S')return;
- 381   3                              red=0;
- 382   3                              green=0;
- 383   3                              yellow=0;
- 384   3                              blue=0;
- 385   3                              send_char((char)cursor+1);//send to ARM the hit location.
- 386   3                              wait_for_input();//wait for ARM to respond.
- 387   3                              if(recieved_note == 'h')//if hit
- 388   3                              {
- 389   4                                      green=1;
- 390   4                                      recieved_note=0;
- 391   4                                      map[cursor/16][cursor%16] = 'X';
+ 366   3                      }
+ 367   2                      key=0;
+ 368   2                      //if a win or lose message came
+ 369   2                      check_input_uart();
+ 370   2                      check_end();
+ 371   2                      if(w!=0)
+ 372   2                              return;
+ 373   2                      //hit
+ 374   2                      if(SW4 == 0)
+ 375   2                      {
+ 376   3                              if(map[cursor/16][cursor%16] =='X'||map[cursor/16][cursor%16]=='O') return;
+ 377   3                              //independently because long binary sentence arn't working well.
+ 378   3                              if(map[cursor/16][cursor%16]=='S')return;
+ 379   3                              red=0;
+ 380   3                              green=0;
+ 381   3                              yellow=0;
+ 382   3                              blue=0;
+ 383   3                              send_char((char)cursor+1);//send to ARM the hit location.
+ 384   3                              wait_for_input();//wait for ARM to respond.
+ 385   3                              if(recieved_note == 'h')//if hit
+ 386   3                              {
+ 387   4                                      green=1;
+ 388   4                                      recieved_note=0;
+ 389   4                                      map[cursor/16][cursor%16] = 'X';
+ 390   4                                      LCD_BF();
+ 391   4                                      LCD_DAT('X');
  392   4                                      LCD_BF();
- 393   4                                      LCD_DAT('X');
- 394   4                                      LCD_BF();
- 395   4                                      LCD_CMD(0x10);
- 396   4                              }
- 397   3                              else if(recieved_note == 'm')//if miss
- 398   3                              {
- 399   4                                      red=1;
- 400   4                                      recieved_note=0;
- 401   4                                      map[cursor/16][cursor%16] = 'O';
+ 393   4                                      LCD_CMD(0x10);
+ 394   4                              }
+ 395   3                              else if(recieved_note == 'm')//if miss
+ 396   3                              {
+ 397   4                                      red=1;
+ 398   4                                      recieved_note=0;
+ 399   4                                      map[cursor/16][cursor%16] = 'O';
+ 400   4                                      LCD_BF();
+ 401   4                                      LCD_DAT('O');
  402   4                                      LCD_BF();
- 403   4                                      LCD_DAT('O');
- 404   4                                      LCD_BF();
- 405   4                                      LCD_CMD(0x10);
- 406   4                              }
- 407   3                              else if(recieved_note == 'p')//if falles ship
- 408   3                              {
- 409   4                                      red=1;
- 410   4                                      green=1;
- 411   4                                      yellow=1;
- 412   4                                      blue=1;
- 413   4                                      recieved_note=0;
- 414   4                                      update_fallen_ship();
- 415   4                                      return;
- 416   4                              }
- 417   3                              check_end();
- 418   3                              if(w!=0)
- 419   3                                      return;
- 420   3                              while(SW4 == 0);//wait untill switch4 in released.
- 421   3                      }
- 422   2              }
- 423   1      }
- 424          //lower half of the map
- 425          void screen_map_two()
- 426          {
- 427   1              char key=0; //used to read input from the user keyboard.
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/30/2019 22:25:06 PAGE 8   
+ 403   4                                      LCD_CMD(0x10);
+ 404   4                              }
+ 405   3                              else if(recieved_note == 'p')//if falles ship
+ 406   3                              {
+ 407   4                                      red=1;
+ 408   4                                      green=1;
+ 409   4                                      yellow=1;
+ 410   4                                      blue=1;
+ 411   4                                      recieved_note=0;
+ 412   4                                      update_fallen_ship();
+ 413   4                                      return;
+ 414   4                              }
+ 415   3                              check_input_uart();
+ 416   3                              check_end();
+ 417   3                              if(w!=0)
+ 418   3                                      return;
+ 419   3                              while(SW4 == 0);//wait untill switch4 in released.
+ 420   3                      }
+ 421   2              }
+ 422   1      }
+ 423          //lower half of the map
+ 424          void screen_map_two()
+ 425          {
+ 426   1              char key=0; //used to read input from the user keyboard.
+ 427   1              LCD_BF();// wait untill the LCD is no longer busy
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/01/2019 17:08:57 PAGE 8   
 
- 428   1              LCD_BF();// wait untill the LCD is no longer busy
- 429   1              LCD_CLRS(); // clears the display
- 430   1              LCD_BF();// wait untill the LCD is no longer busy
- 431   1              LCD_GOTO(0x00);
- 432   1              LCD_BF();
- 433   1              print_map(screen_num);
- 434   1              //---------> move cursor to right place
- 435   1              if(cursor>15)
- 436   1                      LCD_GOTO(cursor + 0x30);
- 437   1              else
- 438   1                      LCD_GOTO(cursor);
- 439   1              LCD_BF();// wait untill the LCD is no longer busy
- 440   1              while(1) // kind of a main loop
- 441   1              {
+ 428   1              LCD_CLRS(); // clears the display
+ 429   1              LCD_BF();// wait untill the LCD is no longer busy
+ 430   1              LCD_GOTO(0x00);
+ 431   1              LCD_BF();
+ 432   1              print_map(screen_num);
+ 433   1              //---------> move cursor to right place
+ 434   1              if(cursor>15)
+ 435   1                      LCD_GOTO(cursor + 0x30);
+ 436   1              else
+ 437   1                      LCD_GOTO(cursor);
+ 438   1              LCD_BF();// wait untill the LCD is no longer busy
+ 439   1              while(1) // kind of a main loop
+ 440   1              {
+ 441   2                      LCD_CMD(0x0E);
  442   2                      key = GET_KEY();
  443   2                      if(key!=0) 
  444   2                      {
@@ -510,7 +510,7 @@ line level    source
  487   4                                      if (cursor==15 || cursor==31)//can't go behind the screeen.
  488   4                                      {
  489   5                                              cursor-=15;
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/30/2019 22:25:06 PAGE 9   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/01/2019 17:08:57 PAGE 9   
 
  490   5                                              LCD_BF();
  491   5                                              LCD_GOTO(cursor+3*(cursor/16));
@@ -572,132 +572,145 @@ line level    source
  547   4                                      update_fallen_ship();
  548   4                                      return;
  549   4                              }
- 550   3                              check_end();
- 551   3                              if(w!=0)
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/30/2019 22:25:06 PAGE 10  
+ 550   3                              check_input_uart();
+ 551   3                              check_end();
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/01/2019 17:08:57 PAGE 10  
 
- 552   3                                      return;
- 553   3                              while(SW4 == 0);
- 554   3                      }
- 555   2              }
- 556   1      }
- 557          //get 3 pos of the falles ship from the uart.
- 558          void update_fallen_ship()
- 559          {
- 560   1              char pos[3];
- 561   1              int i=0;
- 562   1              for(;i<3;i++)//get cordinates of the fallen ship
- 563   1              {
- 564   2                      wait_for_input();
- 565   2                      check_end();
- 566   2                      if(w!=0)
- 567   2                              return;
- 568   2                      pos[i]=recieved_note;
- 569   2              }
- 570   1              //update on map
- 571   1              recieved_note=0;
- 572   1              map[pos[0]/16][pos[0]%16] = 'S';//'S' = fallen ship
- 573   1              if(pos[1]!='e')
- 574   1                      map[pos[1]/16][pos[1]%16] = 'S';
- 575   1              if(pos[2]!='e')
- 576   1                      map[pos[2]/16][pos[2]%16] = 'S';
- 577   1      }
- 578          
+ 552   3                              if(w!=0)
+ 553   3                                      return;
+ 554   3                              while(SW4 == 0);
+ 555   3                      }
+ 556   2              }
+ 557   1      }
+ 558          //get 3 pos of the falles ship from the uart.
+ 559          void update_fallen_ship()
+ 560          {
+ 561   1              char pos[3];
+ 562   1              int i=0;
+ 563   1              for(;i<3;i++)//get cordinates of the fallen ship
+ 564   1              {
+ 565   2                      wait_for_input();
+ 566   2                      check_end();
+ 567   2                      if(w!=0)
+ 568   2                              return;
+ 569   2                      pos[i]=recieved_note;
+ 570   2              }
+ 571   1              //update on map
+ 572   1              recieved_note=0;
+ 573   1              map[pos[0]/16][pos[0]%16] = 'S';//'S' = fallen ship
+ 574   1              if(pos[1]!='e')
+ 575   1                      map[pos[1]/16][pos[1]%16] = 'S';
+ 576   1              if(pos[2]!='e')
+ 577   1                      map[pos[2]/16][pos[2]%16] = 'S';
+ 578   1      }
  579          
- 580          void check_end()
- 581          {
- 582   1              if(recieved_note =='w'||recieved_note=='l')
- 583   1              {
- 584   2                      w=recieved_note;
- 585   2                      screen_num=6;
- 586   2                      return;
- 587   2              }
- 588   1      }
- 589          
- 590          //fill map with blanks .
- 591          void Init_map()
- 592          {
- 593   1              short i=0;
- 594   1              short j=0;
- 595   1              for(j=0;j<2;j++)
- 596   1              {
- 597   2                      for(i=0;i<16;i++)
- 598   2                      {
- 599   3                              map[j][i]= '-';//represent "unchecked"  = '-' in uppper half map
- 600   3                              map[j+2][i]='+';//represent "unchecked"  = '+' in bottom half map
- 601   3                      }
- 602   2              }
- 603   1              
+ 580          
+ 581          void check_end()
+ 582          {
+ 583   1              if(recieved_note =='w'||recieved_note=='l')
+ 584   1              {
+ 585   2                      w=recieved_note;
+ 586   2                      screen_num=6;
+ 587   2                      return;
+ 588   2              }
+ 589   1      }
+ 590          
+ 591          //fill map with blanks .
+ 592          void Init_map()
+ 593          {
+ 594   1              short i=0;
+ 595   1              short j=0;
+ 596   1              for(j=0;j<2;j++)
+ 597   1              {
+ 598   2                      for(i=0;i<16;i++)
+ 599   2                      {
+ 600   3                              map[j][i]= '-';//represent "unchecked"  = '-' in uppper half map
+ 601   3                              map[j+2][i]='+';//represent "unchecked"  = '+' in bottom half map
+ 602   3                      }
+ 603   2              }
  604   1              
- 605   1      }
- 606          //print the map by the right screen. 
- 607          //screen 2 = upper half. 
- 608          //sceren 3 = bottom half.
- 609          void print_map(int screen)
- 610          {
- 611   1              short i;
- 612   1              if (screen==4 || screen==5)
- 613   1              {
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       06/30/2019 22:25:06 PAGE 11  
+ 605   1              
+ 606   1      }
+ 607          //print the map by the right screen. 
+ 608          //screen 2 = upper half. 
+ 609          //sceren 3 = bottom half.
+ 610          void print_map(int screen)
+ 611          {
+ 612   1              short i;
+ 613   1              if (screen==4 || screen==5)
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/01/2019 17:08:57 PAGE 11  
 
- 614   2                      
- 615   2                              for (i=0;i<16;i++)
- 616   2                              {
- 617   3                                      LCD_BF();
- 618   3                                      LCD_DAT(map[(0+2*(screen/5))][i]);
- 619   3                                      LCD_BF();
- 620   3                              }
- 621   2                              LCD_GOTO(0x40);
- 622   2                              for (i=0;i<16;i++)
- 623   2                              {
- 624   3                                      LCD_BF();
- 625   3                                      LCD_DAT(map[1+2*(screen/5)][i]);
- 626   3                                      LCD_BF();
- 627   3                              }
- 628   2              }
- 629   1      }
- 630          
+ 614   1              {
+ 615   2                      
+ 616   2                              for (i=0;i<16;i++)
+ 617   2                              {
+ 618   3                                      LCD_BF();
+ 619   3                                      LCD_DAT(map[(0+2*(screen/5))][i]);
+ 620   3                                      LCD_BF();
+ 621   3                              }
+ 622   2                              LCD_GOTO(0x40);
+ 623   2                              for (i=0;i<16;i++)
+ 624   2                              {
+ 625   3                                      LCD_BF();
+ 626   3                                      LCD_DAT(map[1+2*(screen/5)][i]);
+ 627   3                                      LCD_BF();
+ 628   3                              }
+ 629   2              }
+ 630   1      }
  631          
- 632          void screen_end(char win)
- 633          {
- 634   1              char* message;
- 635   1              if (win=='w')
- 636   1              {
- 637   2                      message = "WINNER!";
- 638   2              }
- 639   1              else if(win=='l')
- 640   1              {
- 641   2                      message = "LOOSER!";
- 642   2              }
- 643   1              else
- 644   1              {
- 645   2                      message = "ERROR!";
- 646   2              }
- 647   1              LCD_CLRS(); // clears the display
- 648   1              LCD_BF();// wait untill the LCD is no longer busy
- 649   1              LCD_CMD(0x02);// move the cursor home
- 650   1              LCD_BF();// wait untill the LCD is no longer busy
- 651   1              LCD_MSG(message);
- 652   1              LCD_BF();// wait untill the LCD is no longer busy
- 653   1              delay(4);//wait 4 seconds.
- 654   1              LCD_CLRS();
- 655   1              LCD_BF();// wait untill the LCD is no longer busy
- 656   1              LCD_MSG("please press");
- 657   1              LCD_BF();
- 658   1              LCD_GOTO(0x40);
- 659   1              LCD_BF();
- 660   1              LCD_MSG("reset button!.");
+ 632          
+ 633          void screen_end(char win)
+ 634          {
+ 635   1              char* message;
+ 636   1              send_char('e');
+ 637   1              red=0;
+ 638   1              green=0;
+ 639   1              yellow=0;
+ 640   1              blue=0;
+ 641   1              if (win=='w')
+ 642   1              {
+ 643   2                      red=1;
+ 644   2                      green=1;
+ 645   2                      yellow=1;
+ 646   2                      blue=1;
+ 647   2                      message = "WINNER!";
+ 648   2              }
+ 649   1              else if(win=='l')
+ 650   1              {
+ 651   2                      message = "YOU LOSE!";
+ 652   2                      red=1;
+ 653   2              }
+ 654   1              else
+ 655   1              {
+ 656   2                      message = "ERROR!";
+ 657   2              }
+ 658   1              LCD_CLRS(); // clears the display
+ 659   1              LCD_BF();// wait untill the LCD is no longer busy
+ 660   1              LCD_CMD(0x02);// move the cursor home
  661   1              LCD_BF();// wait untill the LCD is no longer busy
- 662   1              while(1);
- 663   1      }
+ 662   1              LCD_MSG(message);
+ 663   1              LCD_BF();// wait untill the LCD is no longer busy
+ 664   1              delay(4);//wait 4 seconds.
+ 665   1              LCD_CLRS();
+ 666   1              LCD_BF();// wait untill the LCD is no longer busy
+ 667   1              LCD_MSG("Please Press");
+ 668   1              LCD_BF();
+ 669   1              LCD_GOTO(0x40);
+ 670   1              LCD_BF();
+ 671   1              LCD_MSG("Reset Button!.");
+ 672   1              LCD_BF();// wait untill the LCD is no longer busy
+ 673   1              while(1);
+ 674   1      }
+
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/01/2019 17:08:57 PAGE 12  
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
-   CODE SIZE        =   2421    ----
+   CODE SIZE        =   2451    ----
    CONSTANT SIZE    =    137    ----
    XDATA SIZE       =   ----    ----
    PDATA SIZE       =   ----    ----
-   DATA SIZE        =     78      22
+   DATA SIZE        =     77      22
    IDATA SIZE       =   ----    ----
    BIT SIZE         =   ----    ----
 END OF MODULE INFORMATION.
