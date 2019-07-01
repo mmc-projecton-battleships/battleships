@@ -375,7 +375,7 @@ void screen_map_one()
 		{
 			if(map[cursor/16][cursor%16] =='X'||map[cursor/16][cursor%16]=='O') return;
 			//independently because long binary sentence arn't working well.
-			if(map[cursor/16][cursor%16]=='S')return;
+			if(map[cursor/16][cursor%16]=='*')return;
 			red=0;
 			green=0;
 			yellow=0;
@@ -510,7 +510,7 @@ void screen_map_two()
 		if(SW4 == 0)
 		{
 			if(map[(cursor/16)+2][cursor%16] =='X'||map[(cursor/16)+2][cursor%16]=='O') return;
-			if(map[(cursor/16)+2][cursor%16]=='S')return;
+			if(map[(cursor/16)+2][cursor%16]=='*')return;
 			red=0;
 			green=0;
 			yellow=0;
@@ -570,11 +570,11 @@ void update_fallen_ship()
 	}
 	//update on map
 	recieved_note=0;
-	map[pos[0]/16][pos[0]%16] = 'S';//'S' = fallen ship
+	map[pos[0]/16][pos[0]%16] = '*';//'*' = fallen ship
 	if(pos[1]!='e')
-		map[pos[1]/16][pos[1]%16] = 'S';
+		map[pos[1]/16][pos[1]%16] = '*';
 	if(pos[2]!='e')
-		map[pos[2]/16][pos[2]%16] = 'S';
+		map[pos[2]/16][pos[2]%16] = '*';
 }
 
 

@@ -107,7 +107,7 @@ void print_current_status()
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_GOTO(0x40);
 	LCD_BF();// wait untill the LCD is no longer busy
-	LCD_MSG("Misses left: ");
+	LCD_MSG("Missiles:  ");
 	LCD_BF();// wait untill the LCD is no longer busy
 	LCD_DAT((miss_cnt/10)+'0');
 	LCD_BF();
