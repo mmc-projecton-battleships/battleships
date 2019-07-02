@@ -41,7 +41,7 @@ void Main_loop()
 		{
 			case 0:
 				//start
-				start_screen();
+				screen_end('w');
 				break;
 			case 1:
 				//chose difficulty level
