@@ -1,4 +1,4 @@
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/02/2019 21:49:47 PAGE 1   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/03/2019 10:53:58 PAGE 1   
 
 
 C51 COMPILER V9.59.0.0, COMPILATION OF MODULE BATTLESHIPS
@@ -62,7 +62,7 @@ line level    source
   53   3                              case 3:
   54   3                                      //show time and missiles left
   55   3                                      screen_data();                          
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/02/2019 21:49:47 PAGE 2   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/03/2019 10:53:58 PAGE 2   
 
   56   3                                      break;
   57   3                              case 4:
@@ -126,7 +126,7 @@ line level    source
  115   1              LCD_BF();// wait untill the LCD is no longer busy
  116   1      }
  117          
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/02/2019 21:49:47 PAGE 3   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/03/2019 10:53:58 PAGE 3   
 
  118          void get_data()
  119          {
@@ -190,7 +190,7 @@ line level    source
  177   2                      {
  178   3                              TR0 = 1;        //START COUNTING
  179   3                              while(!TF0);    //DELAY
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/02/2019 21:49:47 PAGE 4   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/03/2019 10:53:58 PAGE 4   
 
  180   3                              TF0=0;
  181   3                      }
@@ -254,7 +254,7 @@ line level    source
  239          {
  240   1              //difficulty level range : 1-3 (on keyboard). 
  241   1              if (difficulty>3)
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/02/2019 21:49:47 PAGE 5   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/03/2019 10:53:58 PAGE 5   
 
  242   1              {
  243   2                      delay(1);
@@ -318,7 +318,7 @@ line level    source
  301   1              while(1) // kind of a main loop
  302   1              {
  303   2                      LCD_CMD(0x0E);
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/02/2019 21:49:47 PAGE 6   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/03/2019 10:53:58 PAGE 6   
 
  304   2                      key = GET_KEY();
  305   2                      if(key!=0) 
@@ -382,7 +382,7 @@ line level    source
  363   4                                              LCD_GOTO(cursor);
  364   4                                      break;
  365   4                              }
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/02/2019 21:49:47 PAGE 7   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/03/2019 10:53:58 PAGE 7   
 
  366   3                      }
  367   2                      key=0;
@@ -446,7 +446,7 @@ line level    source
  425          {
  426   1              char key=0; //used to read input from the user keyboard.
  427   1              LCD_BF();// wait untill the LCD is no longer busy
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/02/2019 21:49:47 PAGE 8   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/03/2019 10:53:58 PAGE 8   
 
  428   1              LCD_CLRS(); // clears the display
  429   1              LCD_BF();// wait untill the LCD is no longer busy
@@ -510,7 +510,7 @@ line level    source
  487   4                                      if (cursor==15 || cursor==31)//can't go behind the screeen.
  488   4                                      {
  489   5                                              cursor-=15;
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/02/2019 21:49:47 PAGE 9   
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/03/2019 10:53:58 PAGE 9   
 
  490   5                                              LCD_BF();
  491   5                                              LCD_GOTO(cursor+3*(cursor/16));
@@ -574,7 +574,7 @@ line level    source
  549   4                              }
  550   3                              check_input_uart();
  551   3                              check_end();
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/02/2019 21:49:47 PAGE 10  
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/03/2019 10:53:58 PAGE 10  
 
  552   3                              if(w!=0)
  553   3                                      return;
@@ -638,7 +638,7 @@ line level    source
  611          {
  612   1              short i;
  613   1              if (screen==4 || screen==5)
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/02/2019 21:49:47 PAGE 11  
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/03/2019 10:53:58 PAGE 11  
 
  614   1              {
  615   2                      
@@ -702,7 +702,7 @@ line level    source
  673   1              while(1);
  674   1      }
 
-C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/02/2019 21:49:47 PAGE 12  
+C51 COMPILER V9.59.0.0   BATTLESHIPS                                                       07/03/2019 10:53:58 PAGE 12  
 
 
 MODULE INFORMATION:   STATIC OVERLAYABLE
