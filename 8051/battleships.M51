@@ -1,4 +1,4 @@
-BL51 BANKED LINKER/LOCATER V6.22.2.0          07/02/2019  20:53:59  PAGE 1
+BL51 BANKED LINKER/LOCATER V6.22.2.0          07/02/2019  21:49:48  PAGE 1
 
 
 BL51 BANKED LINKER/LOCATER V6.22.2.0, INVOKED BY:
@@ -67,75 +67,75 @@ LINK MAP OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\battlesh
 >> CE_FUNCTIONS
             CODE    0BD1H     0055H     UNIT         ?PR?SWITCH_DIFFICULTY?BAT
 >> TLESHIPS
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 2
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 2
 
 
-            CODE    0C26H     004EH     UNIT         ?PR?MAIN_LOOP?BATTLESHIPS
+            CODE    0C26H     004CH     UNIT         ?PR?MAIN_LOOP?BATTLESHIPS
 >> 
-            CODE    0C74H     003FH     UNIT         ?PR?_SET_DIFFICULTY?BATTL
+            CODE    0C72H     003FH     UNIT         ?PR?_SET_DIFFICULTY?BATTL
 >> ESHIPS
-            CODE    0CB3H     0037H     UNIT         ?PR?_DELAY?BATTLESHIPS
-            CODE    0CEAH     0036H     UNIT         ?PR?SCREEN_DATA?BATTLESHI
+            CODE    0CB1H     0037H     UNIT         ?PR?_DELAY?BATTLESHIPS
+            CODE    0CE8H     0036H     UNIT         ?PR?SCREEN_DATA?BATTLESHI
 >> PS
-            CODE    0D20H     0031H     UNIT         ?PR?INIT_MAP?BATTLESHIPS
-            CODE    0D51H     002BH     UNIT         ?PR?_LCD_MSG?USER_INTERFA
+            CODE    0D1EH     0031H     UNIT         ?PR?INIT_MAP?BATTLESHIPS
+            CODE    0D4FH     002BH     UNIT         ?PR?_LCD_MSG?USER_INTERFA
 >> CE_FUNCTIONS
-            CODE    0D7CH     0027H     UNIT         ?PR?INIT_LCD?BATTLESHIPS
-            CODE    0DA3H     0026H     UNIT         ?PR?START_SCREEN?BATTLESH
+            CODE    0D7AH     0027H     UNIT         ?PR?INIT_LCD?BATTLESHIPS
+            CODE    0DA1H     0026H     UNIT         ?PR?START_SCREEN?BATTLESH
 >> IPS
-            CODE    0DC9H     0025H     UNIT         ?PR?PRESSED_KEY?USER_INTE
+            CODE    0DC7H     0025H     UNIT         ?PR?PRESSED_KEY?USER_INTE
 >> RFACE_FUNCTIONS
-            CODE    0DEEH     001FH     UNIT         ?PR?_LCD_DAT?USER_INTERFA
+            CODE    0DECH     001FH     UNIT         ?PR?_LCD_DAT?USER_INTERFA
 >> CE_FUNCTIONS
-            CODE    0E0DH     001FH     UNIT         ?PR?_LCD_CMD?USER_INTERFA
+            CODE    0E0BH     001FH     UNIT         ?PR?_LCD_CMD?USER_INTERFA
 >> CE_FUNCTIONS
-            CODE    0E2CH     001DH     UNIT         ?PR?LCD_BF?USER_INTERFACE
+            CODE    0E2AH     001DH     UNIT         ?PR?LCD_BF?USER_INTERFACE
 >> _FUNCTIONS
-            CODE    0E49H     001DH     UNIT         ?PR?_ASCII_CONV?USER_INTE
+            CODE    0E47H     001DH     UNIT         ?PR?_ASCII_CONV?USER_INTE
 >> RFACE_FUNCTIONS
-            CODE    0E66H     001BH     UNIT         ?PR?OSCILLATOR_INIT?INIT_
+            CODE    0E64H     001BH     UNIT         ?PR?OSCILLATOR_INIT?INIT_
 >> DEVICE
-            CODE    0E81H     0018H     UNIT         ?PR?CHECK_END?BATTLESHIPS
+            CODE    0E7FH     0018H     UNIT         ?PR?CHECK_END?BATTLESHIPS
 >> 
-            CODE    0E99H     0016H     UNIT         ?PR?PORT_IO_INIT?INIT_DEV
+            CODE    0E97H     0016H     UNIT         ?PR?PORT_IO_INIT?INIT_DEV
 >> ICE
-            CODE    0EAFH     0013H     UNIT         ?C_INITSEG
-            CODE    0EC2H     0013H     UNIT         ?PR?TIMER_INIT?INIT_DEVIC
+            CODE    0EADH     0013H     UNIT         ?C_INITSEG
+            CODE    0EC0H     0013H     UNIT         ?PR?TIMER_INIT?INIT_DEVIC
 >> E
-            CODE    0ED5H     0012H     UNIT         ?PR?KEY_RELEASE?USER_INTE
+            CODE    0ED3H     0012H     UNIT         ?PR?KEY_RELEASE?USER_INTE
 >> RFACE_FUNCTIONS
-            CODE    0EE7H     0012H     UNIT         ?PR?INIT_DEVICE?INIT_DEVI
+            CODE    0EE5H     0012H     UNIT         ?PR?INIT_DEVICE?INIT_DEVI
 >> CE
-            CODE    0EF9H     0011H     UNIT         ?PR?MAIN?BATTLESHIPS
-            CODE    0F0AH     0011H     UNIT         ?CO?USER_INTERFACE_FUNCTI
+            CODE    0EF7H     0011H     UNIT         ?PR?MAIN?BATTLESHIPS
+            CODE    0F08H     0011H     UNIT         ?CO?USER_INTERFACE_FUNCTI
 >> ONS
-            CODE    0F1BH     0010H     UNIT         ?PR?_LARGE_DELAY?USER_INT
+            CODE    0F19H     0010H     UNIT         ?PR?_LARGE_DELAY?USER_INT
 >> ERFACE_FUNCTIONS
-            CODE    0F2BH     0010H     UNIT         ?PR?_HUGE_DELAY?USER_INTE
+            CODE    0F29H     0010H     UNIT         ?PR?_HUGE_DELAY?USER_INTE
 >> RFACE_FUNCTIONS
-            CODE    0F3BH     000CH     UNIT         ?PR?_SMALL_DELAY?USER_INT
+            CODE    0F39H     000CH     UNIT         ?PR?_SMALL_DELAY?USER_INT
 >> ERFACE_FUNCTIONS
-            CODE    0F47H     000AH     UNIT         ?PR?_SEND_CHAR?BATTLESHIP
+            CODE    0F45H     000AH     UNIT         ?PR?_SEND_CHAR?BATTLESHIP
 >> S
-            CODE    0F51H     000AH     UNIT         ?PR?LCD_CLRS?USER_INTERFA
+            CODE    0F4FH     000AH     UNIT         ?PR?LCD_CLRS?USER_INTERFA
 >> CE_FUNCTIONS
-            CODE    0F5BH     0009H     UNIT         ?PR?CHECK_INPUT_UART?BATT
+            CODE    0F59H     0009H     UNIT         ?PR?CHECK_INPUT_UART?BATT
 >> LESHIPS
-            CODE    0F64H     0009H     UNIT         ?PR?WAIT_FOR_INPUT?BATTLE
+            CODE    0F62H     0009H     UNIT         ?PR?WAIT_FOR_INPUT?BATTLE
 >> SHIPS
-            CODE    0F6DH     0007H     UNIT         ?PR?_LCD_GOTO?USER_INTERF
+            CODE    0F6BH     0007H     UNIT         ?PR?_LCD_GOTO?USER_INTERF
 >> ACE_FUNCTIONS
-            CODE    0F74H     0007H     UNIT         ?PR?RESET_SOURCES_INIT?IN
+            CODE    0F72H     0007H     UNIT         ?PR?RESET_SOURCES_INIT?IN
 >> IT_DEVICE
-            CODE    0F7BH     0007H     UNIT         ?PR?UART_INIT?INIT_DEVICE
+            CODE    0F79H     0007H     UNIT         ?PR?UART_INIT?INIT_DEVICE
 >> 
-            CODE    0F82H     0004H     UNIT         ?PR?KEPAD_INIT?USER_INTER
+            CODE    0F80H     0004H     UNIT         ?PR?KEPAD_INIT?USER_INTER
 >> FACE_FUNCTIONS
-            CODE    0F86H     0004H     UNIT         ?PR?INTERRUPTS_INIT?INIT_
+            CODE    0F84H     0004H     UNIT         ?PR?INTERRUPTS_INIT?INIT_
 >> DEVICE
 
 
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 3
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 3
 
 
 
@@ -191,25 +191,23 @@ SEGMENT                                            DATA_GROUP
   +--> ?PR?_LCD_CMD?USER_INTERFACE_FUNCTIONS
 
 ?PR?MAIN_LOOP?BATTLESHIPS                        -----    -----
-  +--> ?PR?_SCREEN_END?BATTLESHIPS
+  +--> ?PR?START_SCREEN?BATTLESHIPS
   +--> ?PR?SWITCH_DIFFICULTY?BATTLESHIPS
   +--> ?PR?COUNTING_SCREEN?BATTLESHIPS
   +--> ?PR?SCREEN_DATA?BATTLESHIPS
   +--> ?PR?SCREEN_MAP_ONE?BATTLESHIPS
   +--> ?PR?SCREEN_MAP_TWO?BATTLESHIPS
+  +--> ?PR?_SCREEN_END?BATTLESHIPS
 
-?PR?_SCREEN_END?BATTLESHIPS                      0055H    0003H
-  +--> ?PR?_SEND_CHAR?BATTLESHIPS
-  +--> ?CO?BATTLESHIPS
+?PR?START_SCREEN?BATTLESHIPS                     -----    -----
   +--> ?PR?LCD_CLRS?USER_INTERFACE_FUNCTIONS
   +--> ?PR?LCD_BF?USER_INTERFACE_FUNCTIONS
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 4
+  +--> ?CO?BATTLESHIPS
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 4
 
 
-  +--> ?PR?_LCD_CMD?USER_INTERFACE_FUNCTIONS
   +--> ?PR?_LCD_MSG?USER_INTERFACE_FUNCTIONS
   +--> ?PR?_DELAY?BATTLESHIPS
-  +--> ?PR?_LCD_GOTO?USER_INTERFACE_FUNCTIONS
 
 ?PR?_LCD_MSG?USER_INTERFACE_FUNCTIONS            0058H    0005H
   +--> ?PR?_LCD_DAT?USER_INTERFACE_FUNCTIONS
@@ -217,9 +215,6 @@ SEGMENT                                            DATA_GROUP
 ?PR?_LCD_DAT?USER_INTERFACE_FUNCTIONS            005DH    0001H
   +--> ?PR?LCD_BF?USER_INTERFACE_FUNCTIONS
   +--> ?PR?_SMALL_DELAY?USER_INTERFACE_FUNCT...
-
-?PR?_LCD_GOTO?USER_INTERFACE_FUNCTIONS           -----    -----
-  +--> ?PR?_LCD_CMD?USER_INTERFACE_FUNCTIONS
 
 ?PR?SWITCH_DIFFICULTY?BATTLESHIPS                0055H    0001H
   +--> ?PR?LCD_CLRS?USER_INTERFACE_FUNCTIONS
@@ -235,6 +230,9 @@ SEGMENT                                            DATA_GROUP
   +--> ?PR?_LCD_DAT?USER_INTERFACE_FUNCTIONS
   +--> ?PR?_SET_DIFFICULTY?BATTLESHIPS
   +--> ?PR?_DELAY?BATTLESHIPS
+
+?PR?_LCD_GOTO?USER_INTERFACE_FUNCTIONS           -----    -----
+  +--> ?PR?_LCD_CMD?USER_INTERFACE_FUNCTIONS
 
 ?PR?PRESSED_KEY?USER_INTERFACE_FUNCTIONS         -----    -----
   +--> ?PR?_SMALL_DELAY?USER_INTERFACE_FUNCT...
@@ -271,11 +269,11 @@ SEGMENT                                            DATA_GROUP
 
 ?PR?GET_DATA?BATTLESHIPS                         0056H    0005H
   +--> ?PR?CHECK_INPUT_UART?BATTLESHIPS
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 5
-
-
   +--> ?PR?CHECK_END?BATTLESHIPS
   +--> ?PR?_SEND_CHAR?BATTLESHIPS
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 5
+
+
   +--> ?PR?WAIT_FOR_INPUT?BATTLESHIPS
 
 ?PR?CHECK_END?BATTLESHIPS                        -----    -----
@@ -326,10 +324,23 @@ SEGMENT                                            DATA_GROUP
   +--> ?PR?_LCD_DAT?USER_INTERFACE_FUNCTIONS
   +--> ?PR?UPDATE_FALLEN_SHIP?BATTLESHIPS
 
+?PR?_SCREEN_END?BATTLESHIPS                      0055H    0003H
+  +--> ?PR?_SEND_CHAR?BATTLESHIPS
+  +--> ?CO?BATTLESHIPS
+  +--> ?PR?LCD_CLRS?USER_INTERFACE_FUNCTIONS
+  +--> ?PR?LCD_BF?USER_INTERFACE_FUNCTIONS
+  +--> ?PR?_LCD_CMD?USER_INTERFACE_FUNCTIONS
+  +--> ?PR?_LCD_MSG?USER_INTERFACE_FUNCTIONS
+  +--> ?PR?_DELAY?BATTLESHIPS
+  +--> ?PR?_LCD_GOTO?USER_INTERFACE_FUNCTIONS
+
 
 
 SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
 >> leships (BATTLESHIPS)
+
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 6
+
 
   VALUE           TYPE          NAME
   ----------------------------------
@@ -337,20 +348,17 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   -------         MODULE        BATTLESHIPS
   C:0000H         SYMBOL        _ICE_DUMMY_
   D:0080H         PUBLIC        P0
-  C:0CEAH         PUBLIC        screen_data
+  C:0CE8H         PUBLIC        screen_data
   D:0090H         PUBLIC        P1
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 6
-
-
   D:00B0H         PUBLIC        P3
   D:00E8H         PUBLIC        ADC0CN
   D:00A8H         PUBLIC        IE
-  C:0CB7H         PUBLIC        _delay
+  C:0CB5H         PUBLIC        _delay
   B:0090H.5       PUBLIC        green
-  C:0DA3H         PUBLIC        start_screen
+  C:0DA1H         PUBLIC        start_screen
   D:00D8H         PUBLIC        PCA0CN
   D:00B8H         PUBLIC        IP
-  C:0E84H         PUBLIC        check_end
+  C:0E82H         PUBLIC        check_end
   C:0A17H         PUBLIC        _screen_end
   B:0090H.6       PUBLIC        yellow
   D:0008H         PUBLIC        game_timer
@@ -358,20 +366,20 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   D:000DH         PUBLIC        cursor
   C:0C26H         PUBLIC        Main_loop
   D:00C0H         PUBLIC        SMB0CN
-  C:0EF9H         PUBLIC        main
+  C:0EF7H         PUBLIC        main
   B:0090H.4       PUBLIC        blue
-  C:0F47H         PUBLIC        _send_char
+  C:0F45H         PUBLIC        _send_char
   D:00F8H         PUBLIC        SPI0CN
   C:0BD1H         PUBLIC        switch_difficulty
-  C:0F5BH         PUBLIC        check_input_uart
+  C:0F59H         PUBLIC        check_input_uart
   D:0088H         PUBLIC        TCON
-  C:0D20H         PUBLIC        Init_map
+  C:0D1EH         PUBLIC        Init_map
   D:000FH         PUBLIC        screen_num
   B:0090H.7       PUBLIC        red
   C:0905H         PUBLIC        get_data
   D:0011H         PUBLIC        map
   C:0244H         PUBLIC        screen_map_one
-  C:0D7CH         PUBLIC        Init_LCD
+  C:0D7AH         PUBLIC        Init_LCD
   B:0088H.5       PUBLIC        TF0
   B:0098H.0       PUBLIC        RI0
   B:0098H.1       PUBLIC        TI0
@@ -385,20 +393,23 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   D:0051H         PUBLIC        recieved_note
   D:0052H         PUBLIC        miss_cnt
   D:00C8H         PUBLIC        T2CON
-  C:0C74H         PUBLIC        _set_difficulty
+  C:0C72H         PUBLIC        _set_difficulty
   C:0757H         PUBLIC        update_fallen_ship
-  C:0F64H         PUBLIC        wait_for_input
+  C:0F62H         PUBLIC        wait_for_input
   D:0054H         PUBLIC        w
   D:00D0H         PUBLIC        PSW
   -------         PROC          MAIN
-  C:0EF9H         LINE#         28
-  C:0EF9H         LINE#         29
-  C:0EF9H         LINE#         30
-  C:0EFCH         LINE#         31
-  C:0F01H         LINE#         32
-  C:0F04H         LINE#         33
-  C:0F07H         LINE#         34
+  C:0EF7H         LINE#         28
+  C:0EF7H         LINE#         29
+  C:0EF7H         LINE#         30
+  C:0EFAH         LINE#         31
+  C:0EFFH         LINE#         32
+  C:0F02H         LINE#         33
+  C:0F05H         LINE#         34
   -------         ENDPROC       MAIN
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 7
+
+
   -------         PROC          MAIN_LOOP
   C:0C26H         LINE#         36
   C:0C26H         LINE#         37
@@ -407,53 +418,50 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:0C26H         LINE#         40
   C:0C4DH         LINE#         41
   C:0C4DH         LINE#         42
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 7
-
-
   C:0C4DH         LINE#         44
-  C:0C52H         LINE#         45
-  C:0C54H         LINE#         46
-  C:0C54H         LINE#         48
-  C:0C57H         LINE#         49
-  C:0C59H         LINE#         50
-  C:0C59H         LINE#         51
-  C:0C5CH         LINE#         52
-  C:0C5EH         LINE#         53
-  C:0C5EH         LINE#         55
-  C:0C61H         LINE#         56
-  C:0C63H         LINE#         57
-  C:0C63H         LINE#         59
-  C:0C66H         LINE#         60
-  C:0C68H         LINE#         61
-  C:0C68H         LINE#         63
-  C:0C6BH         LINE#         64
-  C:0C6DH         LINE#         65
-  C:0C6DH         LINE#         67
-  C:0C72H         LINE#         68
+  C:0C50H         LINE#         45
+  C:0C52H         LINE#         46
+  C:0C52H         LINE#         48
+  C:0C55H         LINE#         49
+  C:0C57H         LINE#         50
+  C:0C57H         LINE#         51
+  C:0C5AH         LINE#         52
+  C:0C5CH         LINE#         53
+  C:0C5CH         LINE#         55
+  C:0C5FH         LINE#         56
+  C:0C61H         LINE#         57
+  C:0C61H         LINE#         59
+  C:0C64H         LINE#         60
+  C:0C66H         LINE#         61
+  C:0C66H         LINE#         63
+  C:0C69H         LINE#         64
+  C:0C6BH         LINE#         65
+  C:0C6BH         LINE#         67
+  C:0C70H         LINE#         68
   -------         ENDPROC       MAIN_LOOP
   -------         PROC          SCREEN_DATA
   -------         DO            
   D:0055H         SYMBOL        key
   -------         ENDDO         
-  C:0CEAH         LINE#         76
-  C:0CEAH         LINE#         77
-  C:0CEAH         LINE#         78
-  C:0CEDH         LINE#         79
-  C:0CEDH         LINE#         80
-  C:0CEDH         LINE#         81
-  C:0CF0H         LINE#         82
-  C:0CF9H         LINE#         83
-  C:0CF9H         LINE#         84
-  C:0D00H         LINE#         86
-  C:0D00H         LINE#         87
-  C:0D03H         LINE#         88
-  C:0D08H         LINE#         89
-  C:0D0DH         LINE#         90
-  C:0D1AH         LINE#         91
-  C:0D1AH         LINE#         92
-  C:0D1FH         LINE#         94
-  C:0D1FH         LINE#         95
-  C:0D1FH         LINE#         96
+  C:0CE8H         LINE#         76
+  C:0CE8H         LINE#         77
+  C:0CE8H         LINE#         78
+  C:0CEBH         LINE#         79
+  C:0CEBH         LINE#         80
+  C:0CEBH         LINE#         81
+  C:0CEEH         LINE#         82
+  C:0CF7H         LINE#         83
+  C:0CF7H         LINE#         84
+  C:0CFEH         LINE#         86
+  C:0CFEH         LINE#         87
+  C:0D01H         LINE#         88
+  C:0D06H         LINE#         89
+  C:0D0BH         LINE#         90
+  C:0D18H         LINE#         91
+  C:0D18H         LINE#         92
+  C:0D1DH         LINE#         94
+  C:0D1DH         LINE#         95
+  C:0D1DH         LINE#         96
   -------         ENDPROC       SCREEN_DATA
   -------         PROC          PRINT_CURRENT_STATUS
   C:0B0AH         LINE#         98
@@ -467,6 +475,9 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:0B24H         LINE#         106
   C:0B2DH         LINE#         107
   C:0B30H         LINE#         108
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 8
+
+
   C:0B35H         LINE#         109
   C:0B38H         LINE#         110
   C:0B41H         LINE#         111
@@ -475,9 +486,6 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:0B59H         LINE#         114
   C:0B6BH         LINE#         115
   -------         ENDPROC       PRINT_CURRENT_STATUS
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 8
-
-
   -------         PROC          GET_DATA
   -------         DO            
   D:0056H         SYMBOL        s
@@ -506,88 +514,88 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:098DH         LINE#         144
   -------         ENDPROC       GET_DATA
   -------         PROC          CHECK_INPUT_UART
-  C:0F5BH         LINE#         147
-  C:0F5BH         LINE#         148
-  C:0F5BH         LINE#         149
-  C:0F5EH         LINE#         151
-  C:0F61H         LINE#         152
-  C:0F63H         LINE#         153
+  C:0F59H         LINE#         147
+  C:0F59H         LINE#         148
+  C:0F59H         LINE#         149
+  C:0F5CH         LINE#         151
+  C:0F5FH         LINE#         152
+  C:0F61H         LINE#         153
   -------         ENDPROC       CHECK_INPUT_UART
   -------         PROC          WAIT_FOR_INPUT
-  C:0F64H         LINE#         155
-  C:0F64H         LINE#         156
-  C:0F64H         LINE#         157
-  C:0F67H         LINE#         158
-  C:0F6AH         LINE#         159
-  C:0F6CH         LINE#         160
+  C:0F62H         LINE#         155
+  C:0F62H         LINE#         156
+  C:0F62H         LINE#         157
+  C:0F65H         LINE#         158
+  C:0F68H         LINE#         159
+  C:0F6AH         LINE#         160
   -------         ENDPROC       WAIT_FOR_INPUT
   -------         PROC          _SEND_CHAR
   D:0007H         SYMBOL        c
-  C:0F47H         LINE#         162
-  C:0F47H         LINE#         163
-  C:0F47H         LINE#         164
-  C:0F49H         LINE#         165
-  C:0F4BH         LINE#         166
-  C:0F4EH         LINE#         167
-  C:0F50H         LINE#         168
+  C:0F45H         LINE#         162
+  C:0F45H         LINE#         163
+  C:0F45H         LINE#         164
+  C:0F47H         LINE#         165
+  C:0F49H         LINE#         166
+  C:0F4CH         LINE#         167
+  C:0F4EH         LINE#         168
   -------         ENDPROC       _SEND_CHAR
-  C:0CB3H         SYMBOL        L?0183
+  C:0CB1H         SYMBOL        L?0183
   -------         PROC          L?0182
   -------         ENDPROC       L?0182
-  C:0CB3H         SYMBOL        L?0183
+  C:0CB1H         SYMBOL        L?0183
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 9
+
+
   -------         PROC          _DELAY
   D:0006H         SYMBOL        secs
   -------         DO            
   D:0004H         SYMBOL        j
   D:0002H         SYMBOL        i
   -------         ENDDO         
-  C:0CB7H         LINE#         170
-  C:0CB7H         LINE#         171
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 9
-
-
-  C:0CB7H         LINE#         172
-  C:0CBAH         LINE#         173
-  C:0CBCH         LINE#         174
-  C:0CC9H         LINE#         175
-  C:0CC9H         LINE#         176
-  C:0CD4H         LINE#         177
-  C:0CD4H         LINE#         178
-  C:0CD6H         LINE#         179
-  C:0CD9H         LINE#         180
-  C:0CDBH         LINE#         181
-  C:0CE2H         LINE#         182
-  C:0CE9H         LINE#         183
+  C:0CB5H         LINE#         170
+  C:0CB5H         LINE#         171
+  C:0CB5H         LINE#         172
+  C:0CB8H         LINE#         173
+  C:0CBAH         LINE#         174
+  C:0CC7H         LINE#         175
+  C:0CC7H         LINE#         176
+  C:0CD2H         LINE#         177
+  C:0CD2H         LINE#         178
+  C:0CD4H         LINE#         179
+  C:0CD7H         LINE#         180
+  C:0CD9H         LINE#         181
+  C:0CE0H         LINE#         182
+  C:0CE7H         LINE#         183
   -------         ENDPROC       _DELAY
   -------         PROC          INIT_LCD
-  C:0D7CH         LINE#         185
-  C:0D7CH         LINE#         186
-  C:0D7CH         LINE#         187
-  C:0D7EH         LINE#         188
-  C:0D80H         LINE#         189
-  C:0D82H         LINE#         190
-  C:0D84H         LINE#         191
-  C:0D87H         LINE#         192
-  C:0D8AH         LINE#         193
-  C:0D8DH         LINE#         194
-  C:0D92H         LINE#         195
-  C:0D95H         LINE#         196
-  C:0D98H         LINE#         197
-  C:0D9BH         LINE#         198
-  C:0DA0H         LINE#         199
+  C:0D7AH         LINE#         185
+  C:0D7AH         LINE#         186
+  C:0D7AH         LINE#         187
+  C:0D7CH         LINE#         188
+  C:0D7EH         LINE#         189
+  C:0D80H         LINE#         190
+  C:0D82H         LINE#         191
+  C:0D85H         LINE#         192
+  C:0D88H         LINE#         193
+  C:0D8BH         LINE#         194
+  C:0D90H         LINE#         195
+  C:0D93H         LINE#         196
+  C:0D96H         LINE#         197
+  C:0D99H         LINE#         198
+  C:0D9EH         LINE#         199
   -------         ENDPROC       INIT_LCD
   -------         PROC          START_SCREEN
-  C:0DA3H         LINE#         203
-  C:0DA3H         LINE#         204
-  C:0DA3H         LINE#         205
-  C:0DA6H         LINE#         206
-  C:0DA9H         LINE#         207
-  C:0DB2H         LINE#         208
-  C:0DB5H         LINE#         209
-  C:0DBCH         LINE#         210
-  C:0DBFH         LINE#         211
-  C:0DC2H         LINE#         212
-  C:0DC8H         LINE#         213
+  C:0DA1H         LINE#         203
+  C:0DA1H         LINE#         204
+  C:0DA1H         LINE#         205
+  C:0DA4H         LINE#         206
+  C:0DA7H         LINE#         207
+  C:0DB0H         LINE#         208
+  C:0DB3H         LINE#         209
+  C:0DBAH         LINE#         210
+  C:0DBDH         LINE#         211
+  C:0DC0H         LINE#         212
+  C:0DC6H         LINE#         213
   -------         ENDPROC       START_SCREEN
   -------         PROC          SWITCH_DIFFICULTY
   -------         DO            
@@ -603,6 +611,9 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:0BE8H         LINE#         224
   C:0BEDH         LINE#         225
   C:0BF0H         LINE#         226
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 10
+
+
   C:0BF9H         LINE#         227
   C:0BFCH         LINE#         228
   C:0BFFH         LINE#         229
@@ -611,28 +622,25 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:0C0FH         LINE#         232
   C:0C12H         LINE#         233
   C:0C18H         LINE#         234
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 10
-
-
   C:0C1FH         LINE#         235
   -------         ENDPROC       SWITCH_DIFFICULTY
   -------         PROC          _SET_DIFFICULTY
   D:0056H         SYMBOL        difficulty
-  C:0C74H         LINE#         238
-  C:0C76H         LINE#         239
-  C:0C76H         LINE#         241
-  C:0C86H         LINE#         242
-  C:0C86H         LINE#         243
-  C:0C89H         LINE#         244
-  C:0C8FH         LINE#         245
-  C:0C92H         LINE#         246
-  C:0C97H         LINE#         247
-  C:0C9AH         LINE#         248
-  C:0CA3H         LINE#         249
-  C:0CA6H         LINE#         250
-  C:0CADH         LINE#         252
-  C:0CADH         LINE#         253
-  C:0CB2H         LINE#         254
+  C:0C72H         LINE#         238
+  C:0C74H         LINE#         239
+  C:0C74H         LINE#         241
+  C:0C84H         LINE#         242
+  C:0C84H         LINE#         243
+  C:0C87H         LINE#         244
+  C:0C8DH         LINE#         245
+  C:0C90H         LINE#         246
+  C:0C95H         LINE#         247
+  C:0C98H         LINE#         248
+  C:0CA1H         LINE#         249
+  C:0CA4H         LINE#         250
+  C:0CABH         LINE#         252
+  C:0CABH         LINE#         253
+  C:0CB0H         LINE#         254
   -------         ENDPROC       _SET_DIFFICULTY
   -------         PROC          COUNTING_SCREEN
   C:0A9EH         LINE#         256
@@ -671,6 +679,9 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   -------         ENDDO         
   C:0244H         LINE#         286
   C:0244H         LINE#         287
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 11
+
+
   C:0244H         LINE#         288
   C:0247H         LINE#         289
   C:024AH         LINE#         290
@@ -679,9 +690,6 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:0255H         LINE#         293
   C:0258H         LINE#         294
   C:025FH         LINE#         296
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 11
-
-
   C:026CH         LINE#         297
   C:0273H         LINE#         299
   C:0278H         LINE#         300
@@ -739,6 +747,9 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:0367H         LINE#         356
   C:0367H         LINE#         357
   C:036FH         LINE#         358
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 12
+
+
   C:0372H         LINE#         360
   C:037FH         LINE#         361
   C:0386H         LINE#         363
@@ -747,9 +758,6 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:038BH         LINE#         366
   C:038BH         LINE#         367
   C:038EH         LINE#         369
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 12
-
-
   C:038EH         LINE#         370
   C:0391H         LINE#         371
   C:039DH         LINE#         374
@@ -807,6 +815,9 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:0003H         LINE#         425
   C:0003H         LINE#         426
   C:0006H         LINE#         427
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 13
+
+
   C:0009H         LINE#         428
   C:000CH         LINE#         429
   C:000FH         LINE#         430
@@ -815,9 +826,6 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:001EH         LINE#         434
   C:002BH         LINE#         435
   C:0032H         LINE#         437
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 13
-
-
   C:0037H         LINE#         438
   C:003AH         LINE#         439
   C:003AH         LINE#         440
@@ -875,6 +883,9 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:012BH         LINE#         497
   C:0138H         LINE#         498
   C:013FH         LINE#         500
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 14
+
+
   C:0144H         LINE#         501
   C:0144H         LINE#         502
   C:0144H         LINE#         503
@@ -883,9 +894,6 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:014AH         LINE#         506
   C:014DH         LINE#         507
   C:0159H         LINE#         510
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 14
-
-
   C:015FH         LINE#         511
   C:015FH         LINE#         512
   C:018FH         LINE#         513
@@ -943,6 +951,9 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:075CH         LINE#         563
   C:075CH         LINE#         564
   C:075CH         LINE#         565
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 15
+
+
   C:075FH         LINE#         566
   C:0762H         LINE#         567
   C:076EH         LINE#         569
@@ -951,9 +962,6 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:078BH         LINE#         573
   C:07A8H         LINE#         574
   C:07AEH         LINE#         575
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 15
-
-
   C:07CBH         LINE#         576
   C:07D1H         LINE#         577
   C:07EEH         LINE#         578
@@ -961,33 +969,33 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   -------         PROC          L?0184
   -------         ENDPROC       L?0184
   -------         PROC          CHECK_END
-  C:0E84H         LINE#         581
-  C:0E84H         LINE#         582
-  C:0E84H         LINE#         583
-  C:0E8FH         LINE#         584
-  C:0E8FH         LINE#         585
-  C:0E92H         LINE#         586
-  C:0E98H         LINE#         588
-  C:0E98H         LINE#         589
+  C:0E82H         LINE#         581
+  C:0E82H         LINE#         582
+  C:0E82H         LINE#         583
+  C:0E8DH         LINE#         584
+  C:0E8DH         LINE#         585
+  C:0E90H         LINE#         586
+  C:0E96H         LINE#         588
+  C:0E96H         LINE#         589
   -------         ENDPROC       CHECK_END
   -------         PROC          INIT_MAP
   -------         DO            
   D:0006H         SYMBOL        i
   D:0004H         SYMBOL        j
   -------         ENDDO         
-  C:0D20H         LINE#         592
-  C:0D20H         LINE#         593
-  C:0D20H         LINE#         594
-  C:0D21H         LINE#         595
-  C:0D23H         LINE#         596
-  C:0D23H         LINE#         597
-  C:0D23H         LINE#         598
-  C:0D26H         LINE#         599
-  C:0D26H         LINE#         600
-  C:0D30H         LINE#         601
-  C:0D3AH         LINE#         602
-  C:0D45H         LINE#         603
-  C:0D50H         LINE#         606
+  C:0D1EH         LINE#         592
+  C:0D1EH         LINE#         593
+  C:0D1EH         LINE#         594
+  C:0D1FH         LINE#         595
+  C:0D21H         LINE#         596
+  C:0D21H         LINE#         597
+  C:0D21H         LINE#         598
+  C:0D24H         LINE#         599
+  C:0D24H         LINE#         600
+  C:0D2EH         LINE#         601
+  C:0D38H         LINE#         602
+  C:0D43H         LINE#         603
+  C:0D4EH         LINE#         606
   -------         ENDPROC       INIT_MAP
   -------         PROC          _PRINT_MAP
   D:0056H         SYMBOL        screen
@@ -1011,6 +1019,9 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:08D4H         LINE#         626
   C:08EEH         LINE#         627
   C:08F1H         LINE#         628
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 16
+
+
   C:0904H         LINE#         629
   C:0904H         LINE#         630
   -------         ENDPROC       _PRINT_MAP
@@ -1019,9 +1030,6 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   -------         DO            
   D:0055H         SYMBOL        message
   -------         ENDDO         
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 16
-
-
   C:0A17H         LINE#         633
   C:0A19H         LINE#         634
   C:0A19H         LINE#         636
@@ -1066,46 +1074,46 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
 
   -------         MODULE        USER_INTERFACE_FUNCTIONS
   C:0000H         SYMBOL        _ICE_DUMMY_
-  C:0F1BH         PUBLIC        _large_delay
+  C:0F19H         PUBLIC        _large_delay
   D:0090H         PUBLIC        P1
   D:00A0H         PUBLIC        P2
-  C:0E49H         PUBLIC        _ASCII_CONV
+  C:0E47H         PUBLIC        _ASCII_CONV
   B:00B0H.4       PUBLIC        R1
   D:00B0H         PUBLIC        P3
   B:00B0H.5       PUBLIC        R2
   B:00B0H.6       PUBLIC        R3
   B:00B0H.7       PUBLIC        R4
-  C:0E0DH         PUBLIC        _LCD_CMD
+  C:0E0BH         PUBLIC        _LCD_CMD
   D:00E8H         PUBLIC        ADC0CN
-  C:0DEEH         PUBLIC        _LCD_DAT
+  C:0DECH         PUBLIC        _LCD_DAT
   D:00A8H         PUBLIC        IE
-  C:0F40H         PUBLIC        _small_delay
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 17
+
+
+  C:0F3EH         PUBLIC        _small_delay
   D:00D8H         PUBLIC        PCA0CN
   D:00B8H         PUBLIC        IP
-  C:0D51H         PUBLIC        _LCD_MSG
-  C:0F2BH         PUBLIC        _huge_delay
+  C:0D4FH         PUBLIC        _LCD_MSG
+  C:0F29H         PUBLIC        _huge_delay
   D:00C0H         PUBLIC        SMB0CN
   C:0654H         PUBLIC        GET_KEY
   D:00F8H         PUBLIC        SPI0CN
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 17
-
-
   D:0088H         PUBLIC        TCON
-  C:0E2CH         PUBLIC        LCD_BF
-  C:0F0AH         SYMBOL        _?ix1000
-  C:0ED5H         PUBLIC        KEY_RELEASE
-  C:0DC9H         PUBLIC        PRESSED_KEY
+  C:0E2AH         PUBLIC        LCD_BF
+  C:0F08H         SYMBOL        _?ix1000
+  C:0ED3H         PUBLIC        KEY_RELEASE
+  C:0DC7H         PUBLIC        PRESSED_KEY
   D:0098H         PUBLIC        SCON0
   D:00C8H         PUBLIC        T2CON
-  C:0F51H         PUBLIC        LCD_CLRS
+  C:0F4FH         PUBLIC        LCD_CLRS
   C:0B6EH         PUBLIC        LCD_INIT
-  C:0F6DH         PUBLIC        _LCD_GOTO
+  C:0F6BH         PUBLIC        _LCD_GOTO
   B:00B0H.0       PUBLIC        C1
   B:00B0H.1       PUBLIC        C2
   B:00B0H.2       PUBLIC        C3
   B:00B0H.3       PUBLIC        C4
   D:00D0H         PUBLIC        PSW
-  C:0F82H         PUBLIC        KEPAD_INIT
+  C:0F80H         PUBLIC        KEPAD_INIT
   -------         PROC          LCD_INIT
   C:0B6EH         LINE#         32
   C:0B6EH         LINE#         33
@@ -1130,109 +1138,109 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:0BCCH         LINE#         52
   -------         ENDPROC       LCD_INIT
   -------         PROC          LCD_BF
-  C:0E2CH         LINE#         59
-  C:0E2CH         LINE#         60
-  C:0E2CH         LINE#         61
-  C:0E2FH         LINE#         62
-  C:0E32H         LINE#         63
-  C:0E35H         LINE#         64
-  C:0E3AH         LINE#         65
-  C:0E3DH         LINE#         67
-  C:0E3DH         LINE#         68
-  C:0E42H         LINE#         69
-  C:0E48H         LINE#         70
+  C:0E2AH         LINE#         59
+  C:0E2AH         LINE#         60
+  C:0E2AH         LINE#         61
+  C:0E2DH         LINE#         62
+  C:0E30H         LINE#         63
+  C:0E33H         LINE#         64
+  C:0E38H         LINE#         65
+  C:0E3BH         LINE#         67
+  C:0E3BH         LINE#         68
+  C:0E40H         LINE#         69
+  C:0E46H         LINE#         70
   -------         ENDPROC       LCD_BF
   -------         PROC          _LCD_DAT
   D:005DH         SYMBOL        LCDDATA
-  C:0DEEH         LINE#         76
-  C:0DF0H         LINE#         77
-  C:0DF0H         LINE#         78
-  C:0DF3H         LINE#         79
-  C:0DF6H         LINE#         80
-  C:0DF9H         LINE#         81
-  C:0DFCH         LINE#         82
-  C:0E01H         LINE#         83
-  C:0E0CH         LINE#         84
+  C:0DECH         LINE#         76
+  C:0DEEH         LINE#         77
+  C:0DEEH         LINE#         78
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 18
+
+
+  C:0DF1H         LINE#         79
+  C:0DF4H         LINE#         80
+  C:0DF7H         LINE#         81
+  C:0DFAH         LINE#         82
+  C:0DFFH         LINE#         83
+  C:0E0AH         LINE#         84
   -------         ENDPROC       _LCD_DAT
   -------         PROC          _LCD_MSG
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 18
-
-
   D:0058H         SYMBOL        MSG
   -------         DO            
   D:005BH         SYMBOL        i
   -------         ENDDO         
-  C:0D51H         LINE#         90
-  C:0D57H         LINE#         91
-  C:0D57H         LINE#         93
-  C:0D5CH         LINE#         94
-  C:0D6EH         LINE#         95
-  C:0D6EH         LINE#         96
-  C:0D71H         LINE#         97
-  C:0D79H         LINE#         98
-  C:0D7BH         LINE#         99
+  C:0D4FH         LINE#         90
+  C:0D55H         LINE#         91
+  C:0D55H         LINE#         93
+  C:0D5AH         LINE#         94
+  C:0D6CH         LINE#         95
+  C:0D6CH         LINE#         96
+  C:0D6FH         LINE#         97
+  C:0D77H         LINE#         98
+  C:0D79H         LINE#         99
   -------         ENDPROC       _LCD_MSG
   -------         PROC          _LCD_CMD
   D:005AH         SYMBOL        CMD
-  C:0E0DH         LINE#         105
-  C:0E0FH         LINE#         106
-  C:0E0FH         LINE#         107
-  C:0E12H         LINE#         108
-  C:0E15H         LINE#         109
-  C:0E18H         LINE#         110
-  C:0E1BH         LINE#         111
-  C:0E20H         LINE#         112
-  C:0E2BH         LINE#         113
+  C:0E0BH         LINE#         105
+  C:0E0DH         LINE#         106
+  C:0E0DH         LINE#         107
+  C:0E10H         LINE#         108
+  C:0E13H         LINE#         109
+  C:0E16H         LINE#         110
+  C:0E19H         LINE#         111
+  C:0E1EH         LINE#         112
+  C:0E29H         LINE#         113
   -------         ENDPROC       _LCD_CMD
   -------         PROC          LCD_CLRS
-  C:0F51H         LINE#         118
-  C:0F51H         LINE#         119
-  C:0F51H         LINE#         120
-  C:0F56H         LINE#         121
+  C:0F4FH         LINE#         118
+  C:0F4FH         LINE#         119
+  C:0F4FH         LINE#         120
+  C:0F54H         LINE#         121
   -------         ENDPROC       LCD_CLRS
   -------         PROC          _LCD_GOTO
   D:0007H         SYMBOL        ADDR
-  C:0F6DH         LINE#         127
-  C:0F6DH         LINE#         128
-  C:0F6DH         LINE#         129
+  C:0F6BH         LINE#         127
+  C:0F6BH         LINE#         128
+  C:0F6BH         LINE#         129
   -------         ENDPROC       _LCD_GOTO
   -------         PROC          KEPAD_INIT
-  C:0F82H         LINE#         149
-  C:0F82H         LINE#         150
-  C:0F82H         LINE#         151
-  C:0F85H         LINE#         152
+  C:0F80H         LINE#         149
+  C:0F80H         LINE#         150
+  C:0F80H         LINE#         151
+  C:0F83H         LINE#         152
   -------         ENDPROC       KEPAD_INIT
   -------         PROC          KEY_RELEASE
   -------         DO            
   D:0007H         SYMBOL        col
   -------         ENDDO         
-  C:0ED5H         LINE#         158
-  C:0ED5H         LINE#         159
-  C:0ED5H         LINE#         161
-  C:0EDDH         LINE#         163
-  C:0EDDH         LINE#         164
-  C:0EE2H         LINE#         165
-  C:0EE6H         LINE#         166
+  C:0ED3H         LINE#         158
+  C:0ED3H         LINE#         159
+  C:0ED3H         LINE#         161
+  C:0EDBH         LINE#         163
+  C:0EDBH         LINE#         164
+  C:0EE0H         LINE#         165
+  C:0EE4H         LINE#         166
   -------         ENDPROC       KEY_RELEASE
   -------         PROC          PRESSED_KEY
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 19
+
+
   -------         DO            
   D:0007H         SYMBOL        col
   -------         ENDDO         
-  C:0DC9H         LINE#         172
-  C:0DC9H         LINE#         173
-  C:0DC9H         LINE#         176
-  C:0DD1H         LINE#         178
-  C:0DD1H         LINE#         180
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 19
-
-
-  C:0DD1H         LINE#         181
-  C:0DD6H         LINE#         182
-  C:0DDBH         LINE#         183
-  C:0DDFH         LINE#         184
-  C:0DE4H         LINE#         185
-  C:0DE9H         LINE#         186
-  C:0DEDH         LINE#         187
+  C:0DC7H         LINE#         172
+  C:0DC7H         LINE#         173
+  C:0DC7H         LINE#         176
+  C:0DCFH         LINE#         178
+  C:0DCFH         LINE#         180
+  C:0DCFH         LINE#         181
+  C:0DD4H         LINE#         182
+  C:0DD9H         LINE#         183
+  C:0DDDH         LINE#         184
+  C:0DE2H         LINE#         185
+  C:0DE7H         LINE#         186
+  C:0DEBH         LINE#         187
   -------         ENDPROC       PRESSED_KEY
   -------         PROC          GET_KEY
   -------         DO            
@@ -1283,6 +1291,9 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:06BBH         LINE#         241
   C:06C0H         LINE#         242
   C:06C3H         LINE#         243
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 20
+
+
   C:06C6H         LINE#         244
   C:06C6H         LINE#         245
   C:06C9H         LINE#         246
@@ -1291,9 +1302,6 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   C:06D1H         LINE#         249
   C:06D4H         LINE#         250
   C:06D4H         LINE#         253
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 20
-
-
   C:06DCH         LINE#         254
   C:06DFH         LINE#         255
   C:06DFH         LINE#         256
@@ -1351,41 +1359,41 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   -------         DO            
   D:0057H         SYMBOL        ASCII_Table
   -------         ENDDO         
-  C:0E49H         LINE#         311
-  C:0E4BH         LINE#         312
-  C:0E4BH         LINE#         313
-  C:0E5EH         LINE#         314
-  C:0E65H         LINE#         315
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 21
+
+
+  C:0E47H         LINE#         311
+  C:0E49H         LINE#         312
+  C:0E49H         LINE#         313
+  C:0E5CH         LINE#         314
+  C:0E63H         LINE#         315
   -------         ENDPROC       _ASCII_CONV
-  C:0F3BH         SYMBOL        L?0086
+  C:0F39H         SYMBOL        L?0086
   -------         PROC          L?0085
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 21
-
-
   -------         ENDPROC       L?0085
-  C:0F3BH         SYMBOL        L?0086
+  C:0F39H         SYMBOL        L?0086
   -------         PROC          _SMALL_DELAY
   D:0007H         SYMBOL        d
-  C:0F40H         LINE#         321
-  C:0F40H         LINE#         322
-  C:0F40H         LINE#         324
-  C:0F46H         LINE#         325
+  C:0F3EH         LINE#         321
+  C:0F3EH         LINE#         322
+  C:0F3EH         LINE#         324
+  C:0F44H         LINE#         325
   -------         ENDPROC       _SMALL_DELAY
   -------         PROC          _LARGE_DELAY
   D:0005H         SYMBOL        d
-  C:0F1BH         LINE#         327
-  C:0F1DH         LINE#         328
-  C:0F1DH         LINE#         329
-  C:0F23H         LINE#         330
-  C:0F2AH         LINE#         331
+  C:0F19H         LINE#         327
+  C:0F1BH         LINE#         328
+  C:0F1BH         LINE#         329
+  C:0F21H         LINE#         330
+  C:0F28H         LINE#         331
   -------         ENDPROC       _LARGE_DELAY
   -------         PROC          _HUGE_DELAY
   D:0004H         SYMBOL        d
-  C:0F2BH         LINE#         333
-  C:0F2DH         LINE#         334
-  C:0F2DH         LINE#         335
-  C:0F33H         LINE#         336
-  C:0F3AH         LINE#         337
+  C:0F29H         LINE#         333
+  C:0F2BH         LINE#         334
+  C:0F2BH         LINE#         335
+  C:0F31H         LINE#         336
+  C:0F38H         LINE#         337
   -------         ENDPROC       _HUGE_DELAY
   -------         ENDMOD        USER_INTERFACE_FUNCTIONS
 
@@ -1397,96 +1405,99 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   D:00A8H         PUBLIC        IE
   D:00A6H         PUBLIC        P2MDOUT
   D:00A7H         PUBLIC        P3MDOUT
-  C:0E99H         PUBLIC        Port_IO_Init
-  C:0E66H         PUBLIC        Oscillator_Init
+  C:0E97H         PUBLIC        Port_IO_Init
+  C:0E64H         PUBLIC        Oscillator_Init
   D:00E1H         PUBLIC        XBR0
   D:00E2H         PUBLIC        XBR1
   D:00E3H         PUBLIC        XBR2
   D:00CBH         PUBLIC        RCAP2H
   D:00CAH         PUBLIC        RCAP2L
   D:0087H         PUBLIC        PCON
-  C:0F7BH         PUBLIC        UART_Init
+  C:0F79H         PUBLIC        UART_Init
   D:0089H         PUBLIC        TMOD
   D:0088H         PUBLIC        TCON
-  C:0F86H         PUBLIC        Interrupts_Init
+  C:0F84H         PUBLIC        Interrupts_Init
   D:00B2H         PUBLIC        OSCICN
-  C:0F74H         PUBLIC        Reset_Sources_Init
-  C:0EE7H         PUBLIC        Init_Device
+  C:0F72H         PUBLIC        Reset_Sources_Init
+  C:0EE5H         PUBLIC        Init_Device
   D:00B1H         PUBLIC        OSCXCN
   D:0098H         PUBLIC        SCON0
   D:00C8H         PUBLIC        T2CON
   D:008EH         PUBLIC        CKCON
-  C:0EC2H         PUBLIC        Timer_Init
+  C:0EC0H         PUBLIC        Timer_Init
   -------         PROC          RESET_SOURCES_INIT
-  C:0F74H         LINE#         10
-  C:0F74H         LINE#         11
-  C:0F74H         LINE#         12
-  C:0F77H         LINE#         13
-  C:0F7AH         LINE#         14
+  C:0F72H         LINE#         10
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 22
+
+
+  C:0F72H         LINE#         11
+  C:0F72H         LINE#         12
+  C:0F75H         LINE#         13
+  C:0F78H         LINE#         14
   -------         ENDPROC       RESET_SOURCES_INIT
   -------         PROC          TIMER_INIT
-  C:0EC2H         LINE#         16
-  C:0EC2H         LINE#         17
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 22
-
-
-  C:0EC2H         LINE#         18
-  C:0EC5H         LINE#         19
-  C:0EC8H         LINE#         20
-  C:0ECBH         LINE#         21
-  C:0ECEH         LINE#         22
-  C:0ED1H         LINE#         23
-  C:0ED4H         LINE#         24
+  C:0EC0H         LINE#         16
+  C:0EC0H         LINE#         17
+  C:0EC0H         LINE#         18
+  C:0EC3H         LINE#         19
+  C:0EC6H         LINE#         20
+  C:0EC9H         LINE#         21
+  C:0ECCH         LINE#         22
+  C:0ECFH         LINE#         23
+  C:0ED2H         LINE#         24
   -------         ENDPROC       TIMER_INIT
   -------         PROC          UART_INIT
-  C:0F7BH         LINE#         26
-  C:0F7BH         LINE#         27
-  C:0F7BH         LINE#         28
-  C:0F7EH         LINE#         29
-  C:0F81H         LINE#         30
+  C:0F79H         LINE#         26
+  C:0F79H         LINE#         27
+  C:0F79H         LINE#         28
+  C:0F7CH         LINE#         29
+  C:0F7FH         LINE#         30
   -------         ENDPROC       UART_INIT
   -------         PROC          PORT_IO_INIT
-  C:0E99H         LINE#         32
-  C:0E99H         LINE#         33
-  C:0E99H         LINE#         70
-  C:0E9CH         LINE#         71
-  C:0E9FH         LINE#         72
-  C:0EA2H         LINE#         73
-  C:0EA5H         LINE#         74
-  C:0EA8H         LINE#         75
-  C:0EABH         LINE#         76
-  C:0EAEH         LINE#         77
+  C:0E97H         LINE#         32
+  C:0E97H         LINE#         33
+  C:0E97H         LINE#         70
+  C:0E9AH         LINE#         71
+  C:0E9DH         LINE#         72
+  C:0EA0H         LINE#         73
+  C:0EA3H         LINE#         74
+  C:0EA6H         LINE#         75
+  C:0EA9H         LINE#         76
+  C:0EACH         LINE#         77
   -------         ENDPROC       PORT_IO_INIT
   -------         PROC          OSCILLATOR_INIT
   -------         DO            
   D:0006H         SYMBOL        i
   -------         ENDDO         
-  C:0E66H         LINE#         79
-  C:0E66H         LINE#         80
-  C:0E66H         LINE#         81
-  C:0E69H         LINE#         82
-  C:0E6CH         LINE#         83
-  C:0E77H         LINE#         84
-  C:0E7DH         LINE#         85
-  C:0E80H         LINE#         86
+  C:0E64H         LINE#         79
+  C:0E64H         LINE#         80
+  C:0E64H         LINE#         81
+  C:0E67H         LINE#         82
+  C:0E6AH         LINE#         83
+  C:0E75H         LINE#         84
+  C:0E7BH         LINE#         85
+  C:0E7EH         LINE#         86
   -------         ENDPROC       OSCILLATOR_INIT
   -------         PROC          INTERRUPTS_INIT
-  C:0F86H         LINE#         88
-  C:0F86H         LINE#         89
-  C:0F86H         LINE#         90
-  C:0F89H         LINE#         91
+  C:0F84H         LINE#         88
+  C:0F84H         LINE#         89
+  C:0F84H         LINE#         90
+  C:0F87H         LINE#         91
   -------         ENDPROC       INTERRUPTS_INIT
   -------         PROC          INIT_DEVICE
-  C:0EE7H         LINE#         95
-  C:0EE7H         LINE#         96
-  C:0EE7H         LINE#         97
-  C:0EEAH         LINE#         98
-  C:0EEDH         LINE#         99
-  C:0EF0H         LINE#         100
-  C:0EF3H         LINE#         101
-  C:0EF6H         LINE#         102
+  C:0EE5H         LINE#         95
+  C:0EE5H         LINE#         96
+  C:0EE5H         LINE#         97
+  C:0EE8H         LINE#         98
+  C:0EEBH         LINE#         99
+  C:0EEEH         LINE#         100
+  C:0EF1H         LINE#         101
+  C:0EF4H         LINE#         102
   -------         ENDPROC       INIT_DEVICE
   -------         ENDMOD        INIT_DEVICE
+BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  21:49:48  PAGE 23
+
+
 
   -------         MODULE        ?C?COPY
   C:0554H         PUBLIC        ?C?COPY
@@ -1495,9 +1506,6 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   -------         MODULE        ?C?SCDIV
   C:057AH         PUBLIC        ?C?SCDIV
   -------         ENDMOD        ?C?SCDIV
-BL51 BANKED LINKER/LOCATER V6.22.2.0        07/02/2019  20:53:59  PAGE 23
-
-
 
   -------         MODULE        ?C?CLDOPTR
   C:059CH         PUBLIC        ?C?CLDOPTR
@@ -1512,13 +1520,10 @@ SYMBOL TABLE OF MODULE:  C:\Users\matan\Documents\GitHub\battleships\8051\batt
   -------         ENDMOD        ?C?UIDIV
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?START_SCREEN?BATTLESHIPS
-
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?KEPAD_INIT?USER_INTERFACE_FUNCTIONS
 
 *** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
     SEGMENT: ?PR?_HUGE_DELAY?USER_INTERFACE_FUNCTIONS
 
-Program Size: data=105.0 xdata=0 code=3978
-LINK/LOCATE RUN COMPLETE.  3 WARNING(S),  0 ERROR(S)
+Program Size: data=105.0 xdata=0 code=3976
+LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)
