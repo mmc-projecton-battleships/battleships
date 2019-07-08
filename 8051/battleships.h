@@ -3,16 +3,16 @@
 
 char game_timer[5]; 	  				//time left
 int miss_cnt=0;							//mistakes left
-char recieved_note=0; 					// revieced note from UART.
-char map[4][16]; 						// blank map of ships. updated by ARM.
-int screen_num=0;						// represent no. of screen. no=0 => start screen
+char recieved_note=0; 					//revieced note from UART.
+char map[4][16]; 						//blank map of ships. updated by ARM.
+int screen_num=0;						//represent no. of screen. no=0 => start screen. see function "main_loop" for other screen's num.
 int cursor =0;							//position of the cursor in game time
-char w = 0;
+char w = 0;								//win\lose indication. 'l' = lose, 'w' = won.
 sbit SW4 = P0^7;						//hit button
-sbit red = P1^7;
-sbit yellow = P1^6;
-sbit green = P1^5;
-sbit blue = P1^4;
+sbit red = P1^7;						//red led
+sbit yellow = P1^6;						//yellow led
+sbit green = P1^5;						//green led
+sbit blue = P1^4;						//blue led
 //--------------------------------------//
 //---------------Functions--------------//
 //--------------------------------------//
@@ -26,7 +26,7 @@ void counting_screen();					//counting back from 3 to 1 and game starts!
 void Reset_isr(void);					//main function - initialization of a new game
 void Main_loop();						//Main loop of the whole program.
 void update_data();						//updateing current time and num of mistakes.
-void delay(int secs);					//#devnote: need to be fixed. there is a new oscilator frequency.
+void delay(int secs);					//gives us a delay of 1 sec
 void check_input_uart();				// check if there is input from the ARM
 void send_char(char c);					//send char 'c' to ARM
 void print_map(int screen);				//print map relevent to screen
@@ -39,4 +39,5 @@ void screen_map_two();			   		//screen map bottom half.
 void screen_end(char win);				//ending screen.
 void end();								//external interrupt 0  --> end of game.
 void update_fallen_ship();				//update in map the fallen ship positions
-void check_end();
+void check_end();						//update the win\lose char indication
+void bug();								//tell's the user there is a bug and that he should reset the game

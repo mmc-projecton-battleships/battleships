@@ -1,15 +1,6 @@
 
-BL51 BANKED LINKER/LOCATER V6.22.2.0 - SN: K1FPC-K02D4Z
-COPYRIGHT ARM Germany GmbH 1987 - 2017
-"C:\Users\matan\Documents\GitHub\battleships\8051\battleships.obj",
-"C:\Users\matan\Documents\GitHub\battleships\8051\User_Interface_Functions.obj",
-"C:\Users\matan\Documents\GitHub\battleships\8051\Init_Device.obj"  TO "C:\Users\matan\Documents\GitHub\battleships\8051\battleships" RS(256) PL(68) PW(78) 
+C51 COMPILER V9.55 - SN: K1FPC-102CCZ
+COPYRIGHT Copyright (C) 2012 - 2016 ARM Ltd and ARM Germany GmbH. All rights reserved.
+*** ERROR C214 IN LINE 267 OF battleships.c: illegal pointer conversion
 
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?KEPAD_INIT?USER_INTERFACE_FUNCTIONS
-
-*** WARNING L16: UNCALLED SEGMENT, IGNORED FOR OVERLAY PROCESS
-    SEGMENT: ?PR?_HUGE_DELAY?USER_INTERFACE_FUNCTIONS
-
-Program Size: data=105.0 xdata=0 code=3976
-LINK/LOCATE RUN COMPLETE.  2 WARNING(S),  0 ERROR(S)
+C51 COMPILATION COMPLETE.  0 WARNING(S),  1 ERROR(S)
