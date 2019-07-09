@@ -4,8 +4,9 @@
 char game_timer[5]; 	  				//time left
 int miss_cnt=0;							//mistakes left
 char recieved_note=0; 					//revieced note from UART.
-char map[4][16]; 						//blank map of ships. updated by ARM.
-int screen_num=0;						//represent no. of screen. no=0 => start screen. see function "main_loop" for other screen's num.
+char map[4][16]; 						//blank map of ships. updated by ARM after user try to hit a ship.
+int screen_num=0;						//represent no. of screen. 
+										//no=0 => start screen. see function "main_loop" for other screen's num.
 int cursor =0;							//position of the cursor in game time
 char w = 0;								//win\lose indication. 'l' = lose, 'w' = won.
 sbit SW4 = P0^7;						//hit button
@@ -23,9 +24,7 @@ void start_screen();					//presenting primary game screen
 void switch_difficulty();				//asking the player for difficulty level and set it.
 void set_difficulty(char difficulty);	//set global vars according to the difficulty
 void counting_screen();					//counting back from 3 to 1 and game starts!
-void Reset_isr(void);					//main function - initialization of a new game
 void Main_loop();						//Main loop of the whole program.
-void update_data();						//updateing current time and num of mistakes.
 void delay(int secs);					//gives us a delay of 1 sec
 void check_input_uart();				// check if there is input from the ARM
 void send_char(char c);					//send char 'c' to ARM
@@ -41,3 +40,6 @@ void end();								//external interrupt 0  --> end of game.
 void update_fallen_ship();				//update in map the fallen ship positions
 void check_end();						//update the win\lose char indication
 void bug();								//tell's the user there is a bug and that he should reset the game
+
+
+
