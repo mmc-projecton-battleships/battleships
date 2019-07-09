@@ -5,7 +5,8 @@ char game_timer[5]; 	  				//time left
 int miss_cnt=0;							//mistakes left
 char recieved_note=0; 					//revieced note from UART.
 char map[4][16]; 						//blank map of ships. updated by ARM after user try to hit a ship.
-int screen_num=0;						//represent no. of screen. no=0 => start screen. see function "main_loop" for other screen's num.
+int screen_num=0;						//represent no. of screen. 
+										//no=0 => start screen. see function "main_loop" for other screen's num.
 int cursor =0;							//position of the cursor in game time
 char w = 0;								//win\lose indication. 'l' = lose, 'w' = won.
 sbit SW4 = P0^7;						//hit button

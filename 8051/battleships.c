@@ -698,7 +698,7 @@ void screen_end(char win)
 	LCD_BF();
 	LCD_MSG("Reset Button!.");
 	LCD_BF();// wait untill the LCD is no longer busy
-	while(1);
+	while(1);//wait untill reset
 }
 
 
@@ -719,5 +719,5 @@ void bug()
 	LCD_BF();
 	LCD_MSG("Reset Button!.");
 	LCD_BF();// wait untill the LCD is no longer busy
-	while(1);
+	while(1);//wait untill reset
 }

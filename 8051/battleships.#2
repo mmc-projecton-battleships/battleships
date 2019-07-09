@@ -24,7 +24,6 @@ void start_screen();					//presenting primary game screen
 void switch_difficulty();				//asking the player for difficulty level and set it.
 void set_difficulty(char difficulty);	//set global vars according to the difficulty
 void counting_screen();					//counting back from 3 to 1 and game starts!
-void Reset_isr(void);					//main function - initialization of a new game
 void Main_loop();						//Main loop of the whole program.
 void update_data();						//updateing current time and num of mistakes.
 void delay(int secs);					//gives us a delay of 1 sec
@@ -42,3 +41,6 @@ void end();								//external interrupt 0  --> end of game.
 void update_fallen_ship();				//update in map the fallen ship positions
 void check_end();						//update the win\lose char indication
 void bug();								//tell's the user there is a bug and that he should reset the game
+
+
+
